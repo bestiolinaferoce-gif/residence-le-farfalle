@@ -4,6 +4,13 @@
 
 ---
 
+## Capienza
+
+- **Ogni camera**: 2 posti
+- **Totale Residence**: 8 posti (4 camere × 2 pax)
+
+---
+
 ## Struttura dati
 
 Le camere sono definite in `src/data/rooms/rooms.ts`:
@@ -54,25 +61,17 @@ Le etichette multilingua sono in `amenityLabels` nello stesso file.
 
 | File | Ruolo |
 |------|-------|
-| `src/components/rooms/RoomsSection.tsx` | Sezione con filtri e griglia |
-| `src/components/rooms/RoomCard.tsx` | Card singola camera |
+| `src/components/rooms/RoomsHero.tsx` | Hero animato con gradiente caldo (stile Territorio) |
+| `src/components/rooms/RoomsSection.tsx` | Filtri + griglia camere (no titolo ripetuto) |
+| `src/components/rooms/RoomCard.tsx` | Card premium con badge, hover swap, CTA |
 | `src/components/sections/RoomsPreview.tsx` | Anteprima in homepage |
-
----
-
-## Filtri
-
-- **Capienza**: Tutte | 2 posti | 3-4 posti
-- **Camere**: Tutte | 1 camera
-
-I filtri si applicano in tempo reale sulla griglia.
 
 ---
 
 ## Cosa testare
 
 - [ ] `/it/camere` carica correttamente
-- [ ] Filtri capienza e camere funzionano
+- [ ] Info "4 camere · 8 posti totali" visibile
 - [ ] Hover sulla card cambia immagine (se presenti ≥2 immagini)
 - [ ] Link "Vedi dettagli" porta a `/prenota?camera=X`
 - [ ] Link WhatsApp "Richiedi preventivo" apre chat (se numero valido)

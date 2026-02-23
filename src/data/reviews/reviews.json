@@ -1,0 +1,22 @@
+[
+  {
+    "id": "booking-francesca-1",
+    "source": "Booking",
+    "authorName": "Francesca",
+    "authorCountry": "Italia",
+    "rating": 5,
+    "date": "2024-06-15",
+    "text": "Giovanni gentilissimo e pronto ad esaudire le nostre richieste. Camera pulita, tutto perfettamente funzionante.",
+    "lang": "it"
+  },
+  {
+    "id": "booking-elisabetta-2",
+    "source": "Booking",
+    "authorName": "Elisabetta",
+    "authorCountry": "Italia",
+    "rating": 5,
+    "date": "2024-07-20",
+    "text": "La struttura ottima e pulita. Host cordiale e disponibile. Tutto perfetto!!! Consiglio",
+    "lang": "it"
+  }
+]

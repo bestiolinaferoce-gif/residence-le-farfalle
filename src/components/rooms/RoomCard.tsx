@@ -16,7 +16,6 @@ import {
   MessageCircle,
 } from "lucide-react";
 import { Room, amenityLabels } from "@/src/data/rooms/rooms";
-import Card from "@/src/components/ui/Card";
 import { siteConfig } from "@/src/config/site";
 import { cn } from "@/src/lib/utils";
 
@@ -51,14 +50,17 @@ export default function RoomCard({ room, locale, index }: RoomCardProps) {
       transition={{ duration: 0.5, delay: index * 0.08 }}
       className="h-full"
     >
-      <Card
-        hover
-        padding="none"
-        className="h-full overflow-hidden group flex flex-col"
+      <div
+        className={cn(
+          "h-full overflow-hidden rounded-2xl flex flex-col",
+          "bg-white shadow-soft border border-neutral-200/80",
+          "hover:shadow-hard hover:border-primary-200/50 hover:-translate-y-1",
+          "transition-all duration-300 group"
+        )}
       >
         {/* Hero image con hover swap */}
         <div
-          className="relative h-56 sm:h-64 w-full overflow-hidden bg-neutral-100"
+          className="relative h-56 sm:h-64 w-full overflow-hidden bg-gradient-to-br from-primary-100 to-amber-100"
           onMouseEnter={() =>
             room.images.length > 1 && setImgIndex((i) => (i + 1) % room.images.length)
           }
@@ -72,14 +74,19 @@ export default function RoomCard({ room, locale, index }: RoomCardProps) {
             className="object-cover transition-transform duration-500 group-hover:scale-105"
             loading="lazy"
           />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent" />
           {/* Badge capienza */}
-          <div className="absolute top-4 right-4 flex items-center gap-2 bg-white/95 backdrop-blur-sm rounded-full px-3 py-1.5 shadow-soft">
-            <Users className="h-4 w-4 text-primary-600" aria-hidden />
-            <span className="text-sm font-semibold text-neutral-900">
-              {room.capacity} {room.capacity === 1 ? "posto" : "posti"}
+          <div className="absolute top-4 right-4 flex flex-col gap-2 items-end">
+            <span className="bg-secondary-500 text-white text-xs font-semibold rounded-full px-3 py-1 shadow-md">
+              Nel centro paese
             </span>
+            <div className="flex items-center gap-2 bg-white/95 backdrop-blur-sm rounded-full px-3 py-1.5 shadow-md">
+              <Users className="h-4 w-4 text-primary-600" aria-hidden />
+              <span className="text-sm font-semibold text-neutral-900">
+                {room.capacity} {room.capacity === 1 ? "posto" : "posti"}
+              </span>
+            </div>
           </div>
-          {/* Indicatore multi-immagine */}
           {room.images.length > 1 && (
             <div className="absolute bottom-4 left-4 flex gap-1.5">
               {room.images.map((_, i) => (
@@ -97,22 +104,25 @@ export default function RoomCard({ room, locale, index }: RoomCardProps) {
         </div>
 
         {/* Contenuto */}
-        <div className="p-5 sm:p-6 flex flex-col flex-1">
+        <div className="p-5 sm:p-6 flex flex-col flex-1 bg-white">
           <h3 className="font-display text-xl sm:text-2xl font-bold text-neutral-900 mb-2">
             {roomName}
           </h3>
-          <p className="text-neutral-600 text-sm mb-4">
+          <p className="text-neutral-600 text-sm mb-2">
             {room.size} m² · Bagno privato
           </p>
+          <span className="inline-block mb-4 text-xs font-semibold text-secondary-600 bg-secondary-100 rounded-lg px-2.5 py-1">
+            Tutto incluso
+          </span>
 
-          {/* Badges amenities (max 5) */}
+          {/* 3 icone servizi */}
           <div className="flex flex-wrap gap-2 mb-4">
-            {room.amenities.slice(0, 5).map((key) => (
+            {room.amenities.slice(0, 3).map((key) => (
               <span
                 key={key}
-                className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-neutral-100 rounded-lg text-xs font-medium text-neutral-700"
+                className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-primary-50 text-primary-800 rounded-lg text-xs font-medium border border-primary-100"
               >
-                <span className="text-primary-500">
+                <span className="text-primary-600">
                   {amenityIcons[key] ?? <Maximize2 className="h-4 w-4 shrink-0" />}
                 </span>
                 {amenityLabels[key]?.[currentLocale] ?? key}
@@ -131,8 +141,8 @@ export default function RoomCard({ room, locale, index }: RoomCardProps) {
             </div>
             <div className="flex flex-col sm:flex-row gap-2">
               <Link
-                href={`/${locale}/prenota?camera=${room.id}`}
-                className="inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-primary-500 text-white text-sm font-medium rounded-lg hover:bg-primary-600 transition-colors focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
+                href={`/${locale}/camere/${room.id}`}
+                className="inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-primary-500 text-white text-sm font-semibold rounded-xl hover:bg-primary-600 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 shadow-sm"
               >
                 Vedi dettagli
                 <ArrowRight className="h-4 w-4" aria-hidden />
@@ -142,7 +152,7 @@ export default function RoomCard({ room, locale, index }: RoomCardProps) {
                   href={whatsappUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center gap-2 px-4 py-2.5 border border-primary-500 text-primary-600 text-sm font-medium rounded-lg hover:bg-primary-50 transition-colors focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
+                  className="inline-flex items-center justify-center gap-2 px-4 py-2.5 border-2 border-primary-500 text-primary-600 text-sm font-semibold rounded-xl hover:bg-primary-50 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
                 >
                   <MessageCircle className="h-4 w-4" aria-hidden />
                   Richiedi preventivo
@@ -151,7 +161,7 @@ export default function RoomCard({ room, locale, index }: RoomCardProps) {
             </div>
           </div>
         </div>
-      </Card>
+      </div>
     </motion.article>
   );
 }

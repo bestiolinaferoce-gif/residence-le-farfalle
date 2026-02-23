@@ -1,13 +1,15 @@
 /**
  * Data source camere - Residence Le Farfalle
- * Struttura pulita per sezione Camere
+ * Tutte le camere hanno capienza 2 pax. Capienza totale: 8 pax.
  */
+
+export const TOTAL_CAPACITY = 8;
 
 export interface Room {
   id: number;
   name: { it: string; en: string; de: string };
   capacity: number;
-  beds: number; // numero camere da letto (1 = monolocale)
+  beds: number;
   size: number;
   amenities: string[];
   images: string[];
@@ -28,12 +30,12 @@ export const rooms: Room[] = [
   {
     id: 2,
     name: { it: "Camera 2", en: "Room 2", de: "Zimmer 2" },
-    capacity: 3,
+    capacity: 2,
     beds: 1,
     size: 25,
     amenities: ["private-bathroom", "tv", "ac", "wifi", "blackout"],
     images: ["camera-2-letto.webp", "camera-2-interno.webp", "camera-2-bagno.webp"],
-    priceFrom: 80,
+    priceFrom: 75,
   },
   {
     id: 3,
@@ -43,17 +45,17 @@ export const rooms: Room[] = [
     size: 22,
     amenities: ["private-bathroom", "tv", "ac", "wifi", "blackout"],
     images: ["camera-3-letto.webp", "camera-3-interno.webp"],
-    priceFrom: 75,
+    priceFrom: 72,
   },
   {
     id: 4,
     name: { it: "Camera 4", en: "Room 4", de: "Zimmer 4" },
-    capacity: 4,
+    capacity: 2,
     beds: 1,
     size: 30,
     amenities: ["private-bathroom", "tv", "ac", "wifi", "blackout"],
     images: ["camera-4-interno.webp", "camera-5-interno.webp"],
-    priceFrom: 95,
+    priceFrom: 80,
   },
 ];
 

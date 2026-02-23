@@ -1,0 +1,16 @@
+{
+  "common": {
+    "welcome": "Benvenuti",
+    "bookNow": "Prenota ora",
+    "learnMore": "Scopri di più",
+    "contact": "Contatti"
+  },
+  "navigation": {
+    "home": "Home",
+    "rooms": "Camere",
+    "services": "Servizi",
+    "territory": "Territorio",
+    "book": "Prenota",
+    "contact": "Contatti"
+  }
+}

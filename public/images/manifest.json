@@ -1,0 +1,145 @@
+[
+  {
+    "original": "Bagno standard camera matrimoniale 2 Le farfalle.jpg",
+    "webp": "/images/rooms/camera-2-bagno.webp",
+    "thumbnail": "/images/rooms/camera-2-bagno-thumb.webp",
+    "medium": "/images/rooms/camera-2-bagno-medium.webp",
+    "width": 1536,
+    "height": 1024,
+    "size": 118082,
+    "alt": "Camera Matrimoniale 2 - Bagno",
+    "category": "rooms"
+  },
+  {
+    "original": "Breakfast Residence Le Farfalle.jpg",
+    "webp": "/images/services/colazione-breakfast.webp",
+    "thumbnail": "/images/services/colazione-breakfast-thumb.webp",
+    "medium": "/images/services/colazione-breakfast-medium.webp",
+    "width": 1536,
+    "height": 1024,
+    "size": 174426,
+    "alt": "Colazione servita al residence",
+    "category": "services"
+  },
+  {
+    "original": "Camera Matrimoniale 2 Le Farfalle.jpg",
+    "webp": "/images/rooms/camera-2-letto.webp",
+    "thumbnail": "/images/rooms/camera-2-letto-thumb.webp",
+    "medium": "/images/rooms/camera-2-letto-medium.webp",
+    "width": 1536,
+    "height": 1024,
+    "size": 116138,
+    "alt": "Camera Matrimoniale 2 - Letto",
+    "category": "rooms"
+  },
+  {
+    "original": "Camera Matrimoniale 2 Residence Le Farfalle 1.jpg",
+    "webp": "/images/rooms/camera-2-interno.webp",
+    "thumbnail": "/images/rooms/camera-2-interno-thumb.webp",
+    "medium": "/images/rooms/camera-2-interno-medium.webp",
+    "width": 1536,
+    "height": 1024,
+    "size": 119874,
+    "alt": "Camera Matrimoniale 2 - Interno",
+    "category": "rooms"
+  },
+  {
+    "original": "Camera Matrimoniale 2 Residence Le Farfalle 3.jpg",
+    "webp": "/images/rooms/camera-2-dettaglio.webp",
+    "thumbnail": "/images/rooms/camera-2-dettaglio-thumb.webp",
+    "medium": "/images/rooms/camera-2-dettaglio-medium.webp",
+    "width": 1536,
+    "height": 1024,
+    "size": 109708,
+    "alt": "Camera Matrimoniale 2 - Dettaglio",
+    "category": "rooms"
+  },
+  {
+    "original": "Camera Matrimoniale 2 dettagli Le farfalle .jpg",
+    "webp": "/images/rooms/camera-2-arredi.webp",
+    "thumbnail": "/images/rooms/camera-2-arredi-thumb.webp",
+    "medium": "/images/rooms/camera-2-arredi-medium.webp",
+    "width": 1536,
+    "height": 1024,
+    "size": 112616,
+    "alt": "Camera Matrimoniale 2 - Arredi",
+    "category": "rooms"
+  },
+  {
+    "original": "Camera Matrimoniale 5 Residence Le Farfalle.jpg",
+    "webp": "/images/rooms/camera-5-interno.webp",
+    "thumbnail": "/images/rooms/camera-5-interno-thumb.webp",
+    "medium": "/images/rooms/camera-5-interno-medium.webp",
+    "width": 1536,
+    "height": 1024,
+    "size": 177294,
+    "alt": "Camera Matrimoniale 5 - Interno",
+    "category": "rooms"
+  },
+  {
+    "original": "Camera matrimoniale 3 Le farfalle .jpg",
+    "webp": "/images/rooms/camera-3-letto.webp",
+    "thumbnail": "/images/rooms/camera-3-letto-thumb.webp",
+    "medium": "/images/rooms/camera-3-letto-medium.webp",
+    "width": 1536,
+    "height": 1024,
+    "size": 170158,
+    "alt": "Camera Matrimoniale 3 - Letto",
+    "category": "rooms"
+  },
+  {
+    "original": "Camera matrimoniale 3 Residence Le Farfalle.jpg",
+    "webp": "/images/rooms/camera-3-interno.webp",
+    "thumbnail": "/images/rooms/camera-3-interno-thumb.webp",
+    "medium": "/images/rooms/camera-3-interno-medium.webp",
+    "width": 1536,
+    "height": 1024,
+    "size": 117320,
+    "alt": "Camera Matrimoniale 3 - Interno",
+    "category": "rooms"
+  },
+  {
+    "original": "Camera matrimoniale 4 Residence le farfalle.jpg",
+    "webp": "/images/rooms/camera-4-interno.webp",
+    "thumbnail": "/images/rooms/camera-4-interno-thumb.webp",
+    "medium": "/images/rooms/camera-4-interno-medium.webp",
+    "width": 1536,
+    "height": 1024,
+    "size": 134202,
+    "alt": "Camera Matrimoniale 4 - Interno",
+    "category": "rooms"
+  },
+  {
+    "original": "Camera matrimoniale Le Farfalle .jpg",
+    "webp": "/images/rooms/camera-generale.webp",
+    "thumbnail": "/images/rooms/camera-generale-thumb.webp",
+    "medium": "/images/rooms/camera-generale-medium.webp",
+    "width": 1536,
+    "height": 1024,
+    "size": 84610,
+    "alt": "Camera Matrimoniale - Vista generale",
+    "category": "rooms"
+  },
+  {
+    "original": "Colazione Residence Le Farfalle.jpg",
+    "webp": "/images/services/colazione-interno.webp",
+    "thumbnail": "/images/services/colazione-interno-thumb.webp",
+    "medium": "/images/services/colazione-interno-medium.webp",
+    "width": 1536,
+    "height": 1024,
+    "size": 183944,
+    "alt": "Area colazione del residence",
+    "category": "services"
+  },
+  {
+    "original": "Dettagli interni Residence Le Farfalle .jpg",
+    "webp": "/images/rooms/dettagli-interni.webp",
+    "thumbnail": "/images/rooms/dettagli-interni-thumb.webp",
+    "medium": "/images/rooms/dettagli-interni-medium.webp",
+    "width": 1536,
+    "height": 1024,
+    "size": 123456,
+    "alt": "Dettagli interni del residence",
+    "category": "rooms"
+  }
+]

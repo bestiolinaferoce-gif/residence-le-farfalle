@@ -1,0 +1,16 @@
+{
+  "common": {
+    "welcome": "Welcome",
+    "bookNow": "Book now",
+    "learnMore": "Learn more",
+    "contact": "Contact"
+  },
+  "navigation": {
+    "home": "Home",
+    "rooms": "Rooms",
+    "services": "Services",
+    "territory": "Territory",
+    "book": "Book",
+    "contact": "Contact"
+  }
+}

@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { Users, Maximize2, ArrowRight } from "lucide-react";
-import { rooms } from "@/src/data/rooms/rooms";
+import { rooms, TOTAL_CAPACITY } from "@/src/data/rooms/rooms";
 import Card from "@/src/components/ui/Card";
 import Container from "@/src/components/ui/Container";
 import Button from "@/src/components/ui/Button";
@@ -34,7 +34,7 @@ const RoomsPreview: React.FC<RoomsPreviewProps> = ({ locale = "it" }) => {
             Le Nostre Camere
           </h2>
           <p className="text-lg text-neutral-600 max-w-2xl mx-auto">
-            Camere confortevoli e moderne, perfette per il tuo soggiorno in Calabria
+            4 camere da 2 posti ({TOTAL_CAPACITY} posti totali). Perfette per il tuo soggiorno in Calabria
           </p>
         </motion.div>
 
@@ -61,7 +61,7 @@ const RoomsPreview: React.FC<RoomsPreviewProps> = ({ locale = "it" }) => {
                     <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm rounded-full px-3 py-1 flex items-center gap-2">
                       <Users className="h-4 w-4 text-primary-500" aria-hidden />
                       <span className="text-sm font-semibold text-neutral-900">
-                        {room.capacity}
+                        {room.capacity} posti
                       </span>
                     </div>
                   </div>
