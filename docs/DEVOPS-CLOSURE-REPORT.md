@@ -51,7 +51,9 @@
 
 ## FASE 4 — Commit
 
-Eseguiti commit ordinati su `feature/rooms-modern`.
+Commit eseguito su `feature/rooms-modern`:
+- `3ce9d94` feat: home restyling mediterranean + animated butterflies
+  - Include: Home, Territorio, Servizi & Partner, Camere con dettaglio, Newsletter, FloatingButterflies
 
 ---
 
