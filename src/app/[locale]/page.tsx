@@ -1,6 +1,6 @@
 import React from "react";
 import type { Metadata } from "next";
-import HomeHero from "@/src/components/sections/HomeHero";
+import Hero from "@/src/components/sections/Hero";
 import PercheLeFarfalle from "@/src/components/sections/PercheLeFarfalle";
 import HomeRoomsPreview from "@/src/components/sections/HomeRoomsPreview";
 import Services from "@/src/components/sections/Services";
@@ -12,7 +12,6 @@ import ReviewsSection from "@/src/components/reviews/ReviewsSection";
 import Location from "@/src/components/sections/Location";
 import HomeFooter from "@/src/components/sections/HomeFooter";
 import Container from "@/src/components/ui/Container";
-import Button from "@/src/components/ui/Button";
 import Link from "next/link";
 import { locales } from "@/src/lib/i18n";
 import { siteConfig } from "@/src/config/site";
@@ -34,19 +33,19 @@ export async function generateMetadata({
   return {
     title: "Residence Le Farfalle - Isola di Capo Rizzuto, Calabria",
     description:
-      "4 camere confortevoli a due passi dal mare cristallino di Isola di Capo Rizzuto. Colazione inclusa, WiFi superfast, aria condizionata. La tua vacanza perfetta in Calabria inizia qui.",
+      "4 camere con bagno privato nel cuore di Isola di Capo Rizzuto, a pochi minuti dalle spiagge dell'Area Marina Protetta. Colazione inclusa, WiFi superfast, aria condizionata.",
     keywords: [
       "residence Isola di Capo Rizzuto",
       "camere Crotone",
       "bed and breakfast Calabria",
       "vacanze Isola di Capo Rizzuto",
       "alloggio Calabria ionica",
-      "residence mare Calabria",
+      "residence Area Marina Protetta Capo Rizzuto",
     ],
     openGraph: {
       title: "Residence Le Farfalle - Isola di Capo Rizzuto",
       description:
-        "Camere confortevoli a due passi dal mare cristallino. Colazione inclusa, WiFi superfast, aria condizionata.",
+        "Camere confortevoli nel cuore di Isola di Capo Rizzuto. Spiagge raggiungibili in pochi minuti. Colazione inclusa, WiFi superfast, aria condizionata.",
       images: [
         {
           url: `${siteConfig.url}/images/rooms/camera-generale.webp`,
@@ -69,7 +68,7 @@ export default async function HomePage({ params }: HomePageProps) {
 
   return (
     <>
-      <HomeHero locale={currentLocale} />
+      <Hero locale={currentLocale} />
       <PercheLeFarfalle />
       <HomeRoomsPreview locale={currentLocale} />
       <Services />
@@ -80,30 +79,29 @@ export default async function HomePage({ params }: HomePageProps) {
       <Location locale={currentLocale} />
 
       {/* CTA Finale */}
-      <section className="py-24 bg-gradient-to-br from-secondary-500 to-secondary-700">
+      <section className="py-24 bg-stone-900">
         <Container>
           <div className="text-center text-white">
-            <h2 className="font-display text-3xl md:text-4xl font-bold mb-4">
-              Pronto per la tua vacanza in Calabria?
+            <p className="text-amber-400 text-sm font-semibold tracking-[0.15em] uppercase mb-4">
+              Prenota il tuo soggiorno
+            </p>
+            <h2 className="font-display text-3xl md:text-4xl font-bold mb-5 text-white">
+              Pronto per scoprire la Calabria?
             </h2>
-            <p className="text-xl mb-8 text-white/90 max-w-2xl mx-auto">
-              Prenota ora la tua camera e goditi il mare cristallino, le spiagge dorate
-              e la magia della Calabria ionica
+            <p className="text-lg mb-10 text-stone-400 max-w-2xl mx-auto leading-relaxed">
+              Camere accoglienti nel cuore di Isola di Capo Rizzuto.
+              Le spiagge dell&apos;Area Marina Protetta ti aspettano a pochi minuti da noi.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link href={`/${currentLocale}/prenota`}>
-                <Button variant="secondary" size="lg">
+                <span className="inline-flex items-center justify-center px-9 py-4 rounded-xl bg-amber-500 hover:bg-amber-400 text-stone-900 font-semibold text-base tracking-wide transition-all duration-200 hover:shadow-lg hover:-translate-y-0.5 cursor-pointer select-none">
                   Richiedi Preventivo
-                </Button>
+                </span>
               </Link>
               <Link href={`/${currentLocale}/contatti`}>
-                <Button
-                  variant="outline"
-                  size="lg"
-                  className="bg-white/10 border-white/40 text-white hover:bg-white/20"
-                >
+                <span className="inline-flex items-center justify-center px-9 py-4 rounded-xl border border-white/25 bg-white/5 hover:bg-white/10 text-white font-semibold text-base tracking-wide transition-all duration-200 hover:-translate-y-0.5 cursor-pointer select-none">
                   Contattaci
-                </Button>
+                </span>
               </Link>
             </div>
           </div>

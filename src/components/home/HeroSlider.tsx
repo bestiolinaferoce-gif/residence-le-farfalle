@@ -144,8 +144,8 @@ const HeroSlider: React.FC<HeroSliderProps> = ({ locale = "it" }) => {
               transition={{ duration: 0.8, delay: 0.4 }}
               className="text-xl md:text-2xl mb-8 text-neutral-100 max-w-2xl mx-auto leading-relaxed"
             >
-              Camere confortevoli a due passi dal mare cristallino di Isola di Capo Rizzuto.
-              Colazione inclusa, WiFi superfast, aria condizionata. La tua vacanza perfetta in Calabria inizia qui.
+              Camere confortevoli nel cuore di Isola di Capo Rizzuto, a pochi minuti dalle spiagge
+              dell&apos;Area Marina Protetta. Colazione inclusa, WiFi superfast, aria condizionata.
             </motion.p>
             <motion.div
               initial={{ opacity: 0, y: 20 }}

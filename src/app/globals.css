@@ -25,7 +25,7 @@ html {
 
 /* Focus styles accessibili */
 *:focus-visible {
-  outline: 2px solid #ffa500;
+  outline: 2px solid #f59e0b;
   outline-offset: 2px;
 }
 
@@ -82,20 +82,55 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: var(--font-playfair), serif;
+  font-family: var(--font-clash-display), var(--font-plus-jakarta), serif;
 }
 
-/* Territorio Hero - gradient animato */
-@keyframes gradientShift {
-  0%,
-  100% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
+/* Mesh gradient background — legacy, mantenuto per compatibilità */
+.mesh-gradient {
+  background:
+    radial-gradient(ellipse at 20% 50%, rgba(245, 158, 11, 0.08) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 20%, rgba(180, 83, 9, 0.06) 0%, transparent 45%),
+    radial-gradient(ellipse at 50% 80%, rgba(120, 113, 108, 0.05) 0%, transparent 50%),
+    #faf9f7;
 }
 
-.animate-territorio-gradient {
-  animation: gradientShift 10s ease infinite;
+/* Glassmorphism cards */
+.glass-card {
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(120, 113, 108, 0.12);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.06);
+}
+
+/* Gradient text — titoli */
+.gradient-text {
+  background: linear-gradient(135deg, #b45309 0%, #f59e0b 60%, #fcd34d 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Bottone magnetico — hover con transform */
+.btn-magnetic {
+  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.btn-magnetic:hover {
+  transform: scale(1.04) translateY(-2px);
+}
+
+/* Wave divider — separazione sezioni */
+.wave-divider {
+  overflow: hidden;
+  line-height: 0;
+}
+
+/* Scroll indicator animato */
+.scroll-dot {
+  animation: bounce 2s ease-in-out infinite;
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(8px); }
 }
