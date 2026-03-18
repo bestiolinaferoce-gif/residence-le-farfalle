@@ -16,9 +16,9 @@ export const siteConfig = {
     lng: 17.09162398176466,
   },
   contacts: {
-    phone: "+39 XXX XXX XXXX",
+    phone: "+39 3500979130",
     email: "info@residencelefarfalle.it",
-    whatsapp: "+39 XXX XXX XXXX",
+    whatsapp: "+39 3500979130",
   },
   social: {
     facebook: "",
