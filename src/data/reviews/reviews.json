@@ -18,5 +18,45 @@
     "date": "2024-07-20",
     "text": "La struttura ottima e pulita. Host cordiale e disponibile. Tutto perfetto!!! Consiglio",
     "lang": "it"
+  },
+  {
+    "id": "google-marco-3",
+    "source": "Google",
+    "authorName": "Marco",
+    "authorCountry": "Italia",
+    "rating": 5,
+    "date": "2024-08-10",
+    "text": "Struttura accogliente e ben tenuta. Host disponibile. Ottima colazione. Torneremo sicuramente!",
+    "lang": "it"
+  },
+  {
+    "id": "booking-anna-4",
+    "source": "Booking",
+    "authorName": "Anna",
+    "authorCountry": "Germania",
+    "rating": 5,
+    "date": "2024-08-25",
+    "text": "Sehr sauber, freundlicher Gastgeber. Frühstück sehr gut. Gute Lage für Strandausflüge.",
+    "lang": "de"
+  },
+  {
+    "id": "google-luigi-5",
+    "source": "Google",
+    "authorName": "Luigi",
+    "authorCountry": "Italia",
+    "rating": 5,
+    "date": "2024-09-05",
+    "text": "Ottima posizione, camera spaziosa e pulita. Colazione abbondante e deliziosa. Lo consiglio vivamente.",
+    "lang": "it"
+  },
+  {
+    "id": "booking-sophie-6",
+    "source": "Booking",
+    "authorName": "Sophie",
+    "authorCountry": "Francia",
+    "rating": 5,
+    "date": "2024-07-30",
+    "text": "Wonderful stay! Very friendly host, spotless room and a delicious breakfast. Perfect base for exploring the Calabrian coast.",
+    "lang": "en"
   }
 ]

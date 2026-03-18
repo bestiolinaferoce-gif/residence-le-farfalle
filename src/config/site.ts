@@ -9,7 +9,7 @@ export const siteConfig = {
     en: "4 independent rooms (8 guests total) with private bathroom in Isola di Capo Rizzuto, Calabria. Breakfast included, superfast WiFi, air conditioning.",
     de: "4 unabhängige Zimmer (8 Gäste gesamt) mit eigenem Bad in Isola di Capo Rizzuto, Kalabrien. Frühstück inklusive, superschnelles WLAN, Klimaanlage.",
   },
-  url: "https://residencelefarfalle.it",
+  url: "https://residence-le-farfalle.vercel.app",
   address: "Via Capo delle Colonne, 88841 Isola di Capo Rizzuto (KR)",
   coordinates: {
     lat: 38.96171494411169,
@@ -24,12 +24,22 @@ export const siteConfig = {
     facebook: "",
     instagram: "",
     tripadvisor: "",
+    google_business: "",
+  },
+  booking: {
+    airbnb: "",
+    booking_com: "",
+  },
+  host: {
+    name: "Francesco",
+    surname: "Nigro",
+    description_it: "Host professionista con anni di esperienza nell'ospitalità calabrese.",
   },
 } as const;
 
 export const roomsConfig = [
-  { id: 1, name: { it: "Camera 1", en: "Room 1", de: "Zimmer 1" }, capacity: 2, size: 20, amenities: ["private-bathroom", "tv", "ac", "wifi", "blackout"], images: ["camera-generale.webp", "camera-2-letto.webp"] },
-  { id: 2, name: { it: "Camera 2", en: "Room 2", de: "Zimmer 2" }, capacity: 2, size: 25, amenities: ["private-bathroom", "tv", "ac", "wifi", "blackout"], images: ["camera-2-letto.webp", "camera-2-interno.webp"] },
-  { id: 3, name: { it: "Camera 3", en: "Room 3", de: "Zimmer 3" }, capacity: 2, size: 22, amenities: ["private-bathroom", "tv", "ac", "wifi", "blackout"], images: ["camera-3-letto.webp", "camera-3-interno.webp"] },
-  { id: 4, name: { it: "Camera 4", en: "Room 4", de: "Zimmer 4" }, capacity: 2, size: 30, amenities: ["private-bathroom", "tv", "ac", "wifi", "blackout"], images: ["camera-4-interno.webp", "camera-5-interno.webp"] },
+  { id: 1, slug: "limone", name: { it: "Camera Limone", en: "Limone Room", de: "Zimmer Limone" }, capacity: 2, size: 20, amenities: ["private-bathroom", "tv", "ac", "wifi", "blackout"], images: ["camera-generale.webp", "camera-2-letto.webp"] },
+  { id: 2, slug: "macaone", name: { it: "Camera Macaone", en: "Macaone Room", de: "Zimmer Macaone" }, capacity: 2, size: 25, amenities: ["private-bathroom", "tv", "ac", "wifi", "blackout"], images: ["camera-2-letto.webp", "camera-2-interno.webp"] },
+  { id: 3, slug: "vanessa", name: { it: "Camera Vanessa", en: "Vanessa Room", de: "Zimmer Vanessa" }, capacity: 2, size: 22, amenities: ["private-bathroom", "tv", "ac", "wifi", "blackout"], images: ["camera-3-letto.webp", "camera-3-interno.webp"] },
+  { id: 4, slug: "aurora", name: { it: "Camera Aurora", en: "Aurora Room", de: "Zimmer Aurora" }, capacity: 2, size: 30, amenities: ["private-bathroom", "tv", "ac", "wifi", "blackout"], images: ["camera-4-interno.webp", "camera-5-interno.webp"] },
 ] as const;

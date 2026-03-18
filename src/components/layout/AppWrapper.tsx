@@ -4,6 +4,7 @@ import React from "react";
 import ErrorBoundary from "@/src/components/ui/ErrorBoundary";
 import Header from "@/src/components/layout/Header";
 import Footer from "@/src/components/layout/Footer";
+import WhatsAppButton from "@/src/components/ui/WhatsAppButton";
 import { usePathname } from "next/navigation";
 
 interface AppWrapperProps {
@@ -24,6 +25,7 @@ export default function AppWrapper({ children }: AppWrapperProps) {
       <Header />
       <main className="pt-20">{children}</main>
       <Footer locale={locale} />
+      <WhatsAppButton />
     </ErrorBoundary>
   );
 }

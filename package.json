@@ -19,6 +19,7 @@
     "next-intl": "^3.9.0",
     "react": "19.2.3",
     "react-dom": "19.2.3",
+    "resend": "^6.9.4",
     "sharp": "^0.33.0",
     "tailwind-merge": "^2.6.1",
     "tsx": "^4.21.0"
