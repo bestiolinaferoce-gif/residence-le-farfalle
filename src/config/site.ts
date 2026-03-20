@@ -4,7 +4,7 @@
 
 const resolvedSiteUrl =
   (process.env.NEXT_PUBLIC_SITE_URL ?? "").trim().replace(/\/$/, "") ||
-  "https://residence-le-farfalle.vercel.app";
+  "https://www.residencelefarfalle.com";
 
 /** P.IVA o codice fiscale titolare (opzionale — variabile d'ambiente) */
 const vatOrCf = (process.env.NEXT_PUBLIC_VAT_OR_CF ?? "").trim();
