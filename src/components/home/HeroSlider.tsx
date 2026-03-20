@@ -90,7 +90,7 @@ const HeroSlider: React.FC<HeroSliderProps> = ({ locale = "it" }) => {
               fill
               priority={heroPhotos[currentIndex].priority}
               className="object-cover"
-              quality={90}
+              quality={85}
               sizes="100vw"
             />
           </motion.div>
@@ -235,7 +235,7 @@ const HeroSlider: React.FC<HeroSliderProps> = ({ locale = "it" }) => {
             fill
             priority
             className="object-cover"
-            quality={90}
+            quality={85}
             sizes="100vw"
           />
           <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/50 to-black/70" />

@@ -1,18 +1,11 @@
 "use client";
 
-import React, { useState, useMemo } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { Star, ChevronLeft, ChevronRight, ExternalLink } from "lucide-react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
+import { motion } from "framer-motion";
+import { Star, ExternalLink } from "lucide-react";
 import Container from "@/src/components/ui/Container";
 import Card from "@/src/components/ui/Card";
-import { realReviews, getReviewStats } from "@/src/data/reviews/reviews";
-import { siteConfig } from "@/src/config/site";
-
-const SOURCE_LABELS: Record<string, string> = {
-  Booking: "Booking.com",
-  Google: "Google",
-  Diretta: "Diretta",
-};
+import { realReviews, getReviewStats, type Review } from "@/src/data/reviews/reviews";
 
 function formatDate(dateStr: string, locale: string): string {
   try {
@@ -32,35 +25,65 @@ interface ReviewsSectionProps {
   maxItems?: number;
 }
 
-const ReviewsSection: React.FC<ReviewsSectionProps> = ({ locale = "it", maxItems = 6 }) => {
-  const [currentIndex, setCurrentIndex] = useState(0);
+function ratingToStars(source: string, rating: number) {
+  if (source === "Google") return { value: 5, label: "5★" };
+  const v = Math.max(0, Math.min(5, rating / 2));
+  return { value: v, label: `${v}★` };
+}
 
-  const filteredReviews = useMemo(
-    () => realReviews.filter((r) => r.lang === locale).slice(0, maxItems),
-    [locale, maxItems]
+function StarRow({ value }: { value: number }) {
+  const full = Math.floor(value);
+  const hasHalf = value - full >= 0.5;
+  return (
+    <div className="flex items-center gap-1" aria-hidden="true">
+      {[0, 1, 2, 3, 4].map((i) => {
+        const isFull = i < full;
+        const isHalf = i === full && hasHalf;
+        return (
+          <span key={i} className="relative h-4 w-4">
+            <Star className="absolute inset-0 h-4 w-4 text-stone-300" />
+            {isFull ? (
+              <Star className="absolute inset-0 h-4 w-4 fill-amber-400 text-amber-400" />
+            ) : null}
+            {isHalf ? (
+              <span className="absolute inset-0 overflow-hidden" style={{ width: "50%" }}>
+                <Star className="h-4 w-4 fill-amber-400 text-amber-400" />
+              </span>
+            ) : null}
+          </span>
+        );
+      })}
+    </div>
   );
+}
 
+const ReviewsSection: React.FC<ReviewsSectionProps> = ({ locale = "it", maxItems = 6 }) => {
   const stats = getReviewStats();
 
-  const goToPrevious = () => {
-    setCurrentIndex((prev) =>
-      prev <= 0 ? Math.max(0, filteredReviews.length - 3) : prev - 3
-    );
-  };
+  const filteredReviews = useMemo(() => {
+    const exact = realReviews.filter((r) => r.lang === locale);
+    const list = exact.length ? exact : realReviews.filter((r) => r.lang === "it");
+    return list.slice(0, maxItems);
+  }, [locale, maxItems]);
 
-  const goToNext = () => {
-    setCurrentIndex((prev) =>
-      prev >= filteredReviews.length - 3 ? 0 : prev + 3
-    );
-  };
+  const trackRef = useRef<HTMLDivElement | null>(null);
+  const viewportRef = useRef<HTMLDivElement | null>(null);
+  const [dragBounds, setDragBounds] = useState({ left: 0, right: 0 });
+
+  useEffect(() => {
+    const compute = () => {
+      const track = trackRef.current;
+      const viewport = viewportRef.current;
+      if (!track || !viewport) return;
+      const overflow = track.scrollWidth - viewport.clientWidth;
+      setDragBounds({ left: -Math.max(0, overflow), right: 0 });
+    };
+    compute();
+    window.addEventListener("resize", compute);
+    return () => window.removeEventListener("resize", compute);
+  }, [filteredReviews.length]);
 
   if (filteredReviews.length === 0) return null;
-
-  const displayReviews =
-    filteredReviews.length <= 3
-      ? filteredReviews
-      : filteredReviews.slice(currentIndex, currentIndex + 3);
-  const showNavigation = filteredReviews.length > 3;
 
   return (
     <section
@@ -68,208 +91,96 @@ const ReviewsSection: React.FC<ReviewsSectionProps> = ({ locale = "it", maxItems
       aria-labelledby="reviews-heading"
     >
       <Container>
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-50px" }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-12"
-        >
+        <motion.div initial={{ opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5 }} className="text-center mb-10">
           <h2
             id="reviews-heading"
             className="font-display text-display-sm md:text-display-md mb-4 text-neutral-900"
           >
             Cosa Dicono i Nostri Ospiti
           </h2>
-          {stats && (
-            <div className="flex items-center justify-center gap-2 mb-4" aria-hidden="true">
-              <div className="flex items-center gap-1" role="img" aria-label={`Valutazione: ${stats.average} su 5 stelle`}>
-                {[1, 2, 3, 4, 5].map((i) => (
-                  <Star
-                    key={i}
-                    className={`h-5 w-5 shrink-0 ${
-                      i <= Math.round(stats.average)
-                        ? "fill-amber-400 text-amber-400"
-                        : "text-neutral-300"
-                    }`}
-                    aria-hidden
-                  />
-                ))}
-              </div>
-              <span className="text-lg font-semibold text-neutral-900">
-                {stats.average}
-              </span>
-              <span className="text-neutral-500">({stats.count} recensioni)</span>
-            </div>
-          )}
-          <p className="text-lg text-neutral-600 max-w-2xl mx-auto">
-            Le opinioni dei nostri ospiti sono importanti per noi
-          </p>
+          <div className="text-3xl md:text-4xl font-bold text-stone-900">
+            9.4 <span className="text-stone-500">/ 10</span> · <span className="text-amber-600">Eccellente</span>
+          </div>
+          {stats ? (
+            <div className="mt-2 text-sm text-stone-600">{stats.count} recensioni</div>
+          ) : null}
         </motion.div>
 
-        <div className="relative" role="region" aria-label="Recensioni clienti">
-          <div className="overflow-hidden">
-            <div
-              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 min-h-[280px]"
-              style={{ contentVisibility: "auto" }}
-            >
-              <AnimatePresence mode="wait">
-                {displayReviews.map((review) => (
-                  <motion.div
-                    key={review.id}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -20 }}
-                    transition={{ duration: 0.3 }}
-                    className="flex"
-                  >
-                    <Card className="h-full flex flex-col flex-1 min-h-[260px]">
-                      <div className="flex items-center justify-between mb-3">
-                        <div
-                          className="flex items-center gap-1"
-                          role="img"
-                          aria-label={`${review.rating} stelle su 5`}
-                        >
-                          {[1, 2, 3, 4, 5].map((i) => (
-                            <Star
-                              key={i}
-                              className={`h-4 w-4 shrink-0 ${
-                                i <= review.rating
-                                  ? "fill-amber-400 text-amber-400"
-                                  : "text-neutral-300"
-                              }`}
-                              aria-hidden
-                            />
-                          ))}
-                        </div>
-                        <time
-                          dateTime={review.date}
-                          className="text-xs text-neutral-500"
-                        >
-                          {formatDate(review.date, locale)}
-                        </time>
-                      </div>
-                      <blockquote className="mb-4 flex-1">
-                        <p className="text-neutral-700 text-base leading-relaxed">
-                          &ldquo;{review.text}&rdquo;
-                        </p>
-                      </blockquote>
-                      <footer className="pt-4 border-t border-neutral-200 flex items-center justify-between gap-2">
-                        <div>
-                          <p className="text-sm font-semibold text-neutral-900">
-                            {review.authorName}
-                            {review.authorCountry && (
-                              <span className="font-normal text-neutral-600">
-                                {" "}({review.authorCountry})
-                              </span>
-                            )}
-                          </p>
-                          <p className="text-xs text-neutral-500 mt-0.5">
-                            Fonte: {SOURCE_LABELS[review.source] ?? review.source}
-                          </p>
-                        </div>
-                        {review.sourceUrl && (
-                          <a
-                            href={review.sourceUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="shrink-0 p-2 rounded-lg text-primary-600 hover:bg-primary-50 transition-colors focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
-                            aria-label={`Vedi recensione su ${SOURCE_LABELS[review.source] ?? review.source}`}
-                          >
-                            <ExternalLink className="h-4 w-4" />
-                          </a>
-                        )}
-                      </footer>
-                    </Card>
-                  </motion.div>
-                ))}
-              </AnimatePresence>
-            </div>
-          </div>
-
-          {showNavigation && (
-            <div
-              className="flex items-center justify-center gap-4 mt-8"
-              role="group"
-              aria-label="Navigazione recensioni"
-            >
-              <button
-                onClick={goToPrevious}
-                className="p-3 rounded-full bg-neutral-100 hover:bg-neutral-200 transition-colors focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
-                aria-label="Recensione precedente"
-                type="button"
-              >
-                <ChevronLeft className="h-5 w-5 text-neutral-700" aria-hidden />
-              </button>
-              <div className="flex gap-2" role="tablist">
-                {Array.from({ length: Math.ceil(filteredReviews.length / 3) }).map((_, i) => (
-                  <button
-                    key={i}
-                    onClick={() => setCurrentIndex(i * 3)}
-                    className={`h-2 rounded-full transition-all focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 ${
-                      Math.floor(currentIndex / 3) === i ? "w-8 bg-primary-600" : "w-2 bg-neutral-300 hover:bg-neutral-400"
-                    }`}
-                    aria-label={`Recensione ${i + 1} di ${filteredReviews.length}`}
-                    aria-selected={Math.floor(currentIndex / 3) === i}
-                    role="tab"
-                    type="button"
-                  />
-                ))}
+        {/* Mobile carousel (drag) */}
+        <div className="md:hidden" ref={viewportRef}>
+          <motion.div
+            ref={trackRef}
+            className="flex gap-4"
+            drag="x"
+            dragConstraints={dragBounds}
+            dragElastic={0.08}
+          >
+            {filteredReviews.map((review) => (
+              <div key={review.id} className="w-[86vw] max-w-sm shrink-0">
+                <ReviewCard review={review} locale={locale} />
               </div>
-              <button
-                onClick={goToNext}
-                className="p-3 rounded-full bg-neutral-100 hover:bg-neutral-200 transition-colors focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
-                aria-label="Recensione successiva"
-                type="button"
-              >
-                <ChevronRight className="h-5 w-5 text-neutral-700" aria-hidden />
-              </button>
-            </div>
-          )}
+            ))}
+          </motion.div>
         </div>
 
-        {stats && (
-          <script
-            type="application/ld+json"
-            dangerouslySetInnerHTML={{
-              __html: JSON.stringify({
-                "@context": "https://schema.org",
-                "@type": "LodgingBusiness",
-                "@id": `${siteConfig.url}/#reviews`,
-                name: siteConfig.name,
-                aggregateRating: {
-                  "@type": "AggregateRating",
-                  ratingValue: stats.average,
-                  reviewCount: stats.count,
-                  bestRating: 5,
-                  worstRating: 1,
-                },
-                review: filteredReviews.map((r) => ({
-                  "@type": "Review",
-                  author: {
-                    "@type": "Person",
-                    name: r.authorCountry ? `${r.authorName} (${r.authorCountry})` : r.authorName,
-                  },
-                  datePublished: r.date,
-                  reviewRating: {
-                    "@type": "Rating",
-                    ratingValue: r.rating,
-                    bestRating: 5,
-                    worstRating: 1,
-                  },
-                  reviewBody: r.text,
-                  publisher: {
-                    "@type": "Organization",
-                    name: "Booking.com",
-                  },
-                })),
-              }),
-            }}
-          />
-        )}
+        {/* Desktop grid */}
+        <div className="hidden md:grid md:grid-cols-3 gap-6">
+          {filteredReviews.map((review) => (
+            <ReviewCard key={review.id} review={review} locale={locale} />
+          ))}
+        </div>
       </Container>
     </section>
   );
 };
 
 export default ReviewsSection;
+
+function ReviewCard({ review, locale }: { review: Review; locale: string }) {
+  const badge =
+    review.source === "Booking.com"
+      ? "bg-blue-100 text-blue-700"
+      : review.source === "Google"
+        ? "bg-red-100 text-red-700"
+        : "bg-stone-100 text-stone-700";
+
+  const stars = ratingToStars(review.source, review.rating);
+
+  return (
+    <Card className="h-full flex flex-col min-h-[260px]">
+      <div className="flex items-center justify-between mb-3">
+        <StarRow value={stars.value} />
+        <time dateTime={review.date} className="text-xs text-neutral-500">
+          {formatDate(review.date, locale)}
+        </time>
+      </div>
+      <blockquote className="mb-4 flex-1">
+        <p className="text-neutral-700 text-base leading-relaxed">&ldquo;{review.text}&rdquo;</p>
+      </blockquote>
+      <footer className="pt-4 border-t border-neutral-200 flex items-center justify-between gap-3">
+        <div>
+          <p className="text-sm font-semibold text-neutral-900">
+            {review.authorName}
+            {review.authorCountry ? <span className="font-normal text-neutral-600"> ({review.authorCountry})</span> : null}
+          </p>
+          <div className="mt-1">
+            <span className={`inline-flex items-center rounded-full px-2.5 py-1 text-xs font-semibold ${badge}`}>
+              {review.source}
+            </span>
+          </div>
+        </div>
+        {review.sourceUrl ? (
+          <a
+            href={review.sourceUrl}
+            target="_blank"
+            rel="noreferrer"
+            className="shrink-0 p-2 rounded-lg text-stone-700 hover:bg-stone-100 transition-colors"
+            aria-label="Apri fonte"
+          >
+            <ExternalLink className="h-4 w-4" />
+          </a>
+        ) : null}
+      </footer>
+    </Card>
+  );
+}

@@ -12,13 +12,13 @@ import reviewsData from "./reviews.json";
 
 export interface Review {
   id: string;
-  source: "Booking" | "Google" | "Diretta" | "Esempio";
+  source: "Booking.com" | "Google" | "Diretta" | "Esempio";
   authorName: string;
   authorCountry?: string; // es. "Italia", "Germania"
-  rating: number; // 1-5
+  rating: number; // Booking.com: 1-10, Google: 1-5
   date: string; // YYYY-MM-DD
   text: string;
-  lang: "it" | "en" | "de";
+  lang: "it" | "en" | "de" | "fr";
   sourceUrl?: string; // URL recensione originale (se disponibile)
   isPlaceholder?: boolean; // true solo per esempi
 }
@@ -33,11 +33,13 @@ export const getReviewStats = () => {
   const real = realReviews;
   if (real.length === 0) return null;
 
-  const average = real.reduce((sum, r) => sum + r.rating, 0) / real.length;
+  const average10 =
+    real.reduce((sum, r) => sum + (r.source === "Google" ? r.rating * 2 : r.rating), 0) /
+    real.length;
   const count = real.length;
 
   return {
-    average: Math.round(average * 10) / 10, // 1 decimale
+    average10: Math.round(average10 * 10) / 10, // 1 decimale
     count,
   };
 };

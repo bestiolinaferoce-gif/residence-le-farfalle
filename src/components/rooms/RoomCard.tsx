@@ -18,6 +18,7 @@ import {
 import { Room, amenityLabels } from "@/src/data/rooms/rooms";
 import { siteConfig } from "@/src/config/site";
 import { cn } from "@/src/lib/utils";
+import { GA_EVENTS } from "@/src/lib/analytics";
 
 const amenityIcons: Record<string, React.ReactNode> = {
   "private-bathroom": <Droplet className="h-4 w-4 shrink-0" />,
@@ -72,11 +73,17 @@ export default function RoomCard({ room, locale, index }: RoomCardProps) {
             fill
             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
             className="object-cover transition-transform duration-500 group-hover:scale-105"
+            quality={80}
             loading="lazy"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent" />
+          {room.priceFrom ? (
+            <div className="absolute top-3 right-3 bg-amber-500 text-stone-900 text-xs font-bold px-3 py-1.5 rounded-full shadow-md">
+              da €{room.priceFrom}/notte
+            </div>
+          ) : null}
           {/* Badge capienza */}
-          <div className="absolute top-4 right-4 flex flex-col gap-2 items-end">
+          <div className="absolute top-4 left-4 flex flex-col gap-2 items-start">
             <span className="bg-secondary-500 text-white text-xs font-semibold rounded-full px-3 py-1 shadow-md">
               Nel centro paese
             </span>
@@ -141,7 +148,7 @@ export default function RoomCard({ room, locale, index }: RoomCardProps) {
             </div>
             <div className="flex flex-col sm:flex-row gap-2">
               <Link
-                href={`/${locale}/camere/${room.id}`}
+                href={`/${locale}/camere/${room.slug}`}
                 className="inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-primary-500 text-white text-sm font-semibold rounded-xl hover:bg-primary-600 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 shadow-sm"
               >
                 Vedi dettagli
@@ -152,6 +159,7 @@ export default function RoomCard({ room, locale, index }: RoomCardProps) {
                   href={whatsappUrl}
                   target="_blank"
                   rel="noopener noreferrer"
+                  onClick={() => GA_EVENTS.clickWhatsapp()}
                   className="inline-flex items-center justify-center gap-2 px-4 py-2.5 border-2 border-primary-500 text-primary-600 text-sm font-semibold rounded-xl hover:bg-primary-50 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
                 >
                   <MessageCircle className="h-4 w-4" aria-hidden />

@@ -4,6 +4,7 @@ import React from "react";
 import ErrorBoundary from "@/src/components/ui/ErrorBoundary";
 import Header from "@/src/components/layout/Header";
 import Footer from "@/src/components/layout/Footer";
+import CookieBanner from "@/src/components/gdpr/CookieBanner";
 import WhatsAppButton from "@/src/components/ui/WhatsAppButton";
 import { usePathname } from "next/navigation";
 
@@ -26,6 +27,7 @@ export default function AppWrapper({ children }: AppWrapperProps) {
       <main className="pt-20">{children}</main>
       <Footer locale={locale} />
       <WhatsAppButton />
+      <CookieBanner />
     </ErrorBoundary>
   );
 }

@@ -4,10 +4,12 @@ import { siteConfig } from "@/src/config/site";
 import Container from "@/src/components/ui/Container";
 import Card from "@/src/components/ui/Card";
 import Button from "@/src/components/ui/Button";
-import LocationMap from "@/src/components/common/LocationMap";
+import ContactForm from "@/src/components/forms/ContactForm";
 import Link from "next/link";
 import type { Metadata } from "next";
 import { locales } from "@/src/lib/i18n";
+import { pageAlternates } from "@/src/lib/seo";
+import { TrackedMailto, TrackedTel, TrackedWhatsapp } from "@/src/components/analytics/TrackedLinks";
 
 export function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
@@ -18,6 +20,8 @@ export async function generateMetadata({
 }: {
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
+  const { locale } = await params;
+  const currentLocale = locale || "it";
   return {
     title: "Contatti - Residence Le Farfalle Isola di Capo Rizzuto",
     description:
@@ -28,6 +32,7 @@ export async function generateMetadata({
       "WhatsApp prenotazioni",
       "info Residence Le Farfalle",
     ],
+    alternates: pageAlternates(currentLocale, "contatti"),
   };
 }
 
@@ -38,6 +43,7 @@ interface ContattiPageProps {
 export default async function ContattiPage({ params }: ContattiPageProps) {
   const { locale } = await params;
   const currentLocale = locale || "it";
+  const waDigits = siteConfig.contacts.whatsapp.replace(/\D/g, "");
 
   return (
     <div className="min-h-screen pt-20">
@@ -58,133 +64,97 @@ export default async function ContattiPage({ params }: ContattiPageProps) {
         </Container>
       </section>
 
-      {/* Contact Info Cards */}
       <section className="py-20 bg-white">
         <Container>
-          <div className="grid md:grid-cols-3 gap-8 mb-16">
-            <Card hover className="text-center p-8">
-              <div className="flex justify-center mb-4">
-                <div className="p-4 bg-primary-100 rounded-full">
-                  <Phone className="h-8 w-8 text-primary-600" />
-                </div>
-              </div>
-              <h3 className="font-semibold text-lg mb-2 text-neutral-900">Telefono</h3>
-              <a
-                href={`tel:${siteConfig.contacts.phone}`}
-                className="text-primary-600 hover:text-primary-700 transition-colors"
-              >
-                {siteConfig.contacts.phone}
-              </a>
-              <p className="text-sm text-neutral-500 mt-2">Lun-Dom: 9:00 - 20:00</p>
+          <div className="grid gap-10 lg:grid-cols-2">
+            <Card className="p-8">
+              <ContactForm type="contact" locale={currentLocale} />
             </Card>
 
-            <Card hover className="text-center p-8">
-              <div className="flex justify-center mb-4">
-                <div className="p-4 bg-primary-100 rounded-full">
-                  <Mail className="h-8 w-8 text-primary-600" />
-                </div>
+            <div className="space-y-8">
+              <div className="grid gap-6 md:grid-cols-3 lg:grid-cols-1">
+                <Card hover className="p-6">
+                  <div className="flex items-center gap-3">
+                    <div className="grid h-12 w-12 place-items-center rounded-xl bg-amber-100">
+                      <Phone className="h-6 w-6 text-amber-700" />
+                    </div>
+                    <div>
+                      <div className="text-sm text-stone-600">Telefono</div>
+                      <TrackedTel
+                        href={`tel:${siteConfig.contacts.phone}`}
+                        className="font-semibold text-stone-900 hover:text-amber-600"
+                      >
+                        {siteConfig.contacts.phone}
+                      </TrackedTel>
+                    </div>
+                  </div>
+                </Card>
+
+                <Card hover className="p-6">
+                  <div className="flex items-center gap-3">
+                    <div className="grid h-12 w-12 place-items-center rounded-xl bg-amber-100">
+                      <Mail className="h-6 w-6 text-amber-700" />
+                    </div>
+                    <div>
+                      <div className="text-sm text-stone-600">Email</div>
+                      <TrackedMailto
+                        href={`mailto:${siteConfig.contacts.email}`}
+                        className="break-all font-semibold text-stone-900 hover:text-amber-600"
+                      >
+                        {siteConfig.contacts.email}
+                      </TrackedMailto>
+                    </div>
+                  </div>
+                </Card>
+
+                <Card hover className="p-6">
+                  <div className="flex items-center gap-3">
+                    <div className="grid h-12 w-12 place-items-center rounded-xl bg-amber-100">
+                      <MessageCircle className="h-6 w-6 text-amber-700" />
+                    </div>
+                    <div>
+                      <div className="text-sm text-stone-600">WhatsApp</div>
+                      <TrackedWhatsapp
+                        href={`https://wa.me/${waDigits}`}
+                        className="font-semibold text-stone-900 hover:text-amber-600"
+                      >
+                        {siteConfig.contacts.whatsapp}
+                      </TrackedWhatsapp>
+                    </div>
+                  </div>
+                </Card>
               </div>
-              <h3 className="font-semibold text-lg mb-2 text-neutral-900">Email</h3>
-              <a
-                href={`mailto:${siteConfig.contacts.email}`}
-                className="text-primary-600 hover:text-primary-700 transition-colors break-all"
-              >
-                {siteConfig.contacts.email}
-              </a>
-              <p className="text-sm text-neutral-500 mt-2">Rispondiamo entro 24h</p>
-            </Card>
 
-            <Card hover className="text-center p-8">
-              <div className="flex justify-center mb-4">
-                <div className="p-4 bg-primary-100 rounded-full">
-                  <MessageCircle className="h-8 w-8 text-primary-600" />
-                </div>
-              </div>
-              <h3 className="font-semibold text-lg mb-2 text-neutral-900">WhatsApp</h3>
-              <a
-                href={`https://wa.me/${siteConfig.contacts.whatsapp.replace(/\D/g, "")}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-primary-600 hover:text-primary-700 transition-colors"
-              >
-                {siteConfig.contacts.whatsapp}
-              </a>
-              <p className="text-sm text-neutral-500 mt-2">Messaggio diretto</p>
-            </Card>
-          </div>
-        </Container>
-      </section>
-
-      {/* Address & Map */}
-      <section className="py-20 bg-neutral-50">
-        <Container>
-          <div className="grid lg:grid-cols-2 gap-12">
-            <div>
-              <h2 className="font-display text-3xl font-bold mb-6 text-neutral-900">
-                Come Raggiungerci
-              </h2>
-              <Card className="p-8 mb-8">
-                <div className="flex items-start gap-4 mb-6">
-                  <MapPin className="h-6 w-6 text-primary-500 flex-shrink-0 mt-1" />
+              <Card className="p-6">
+                <div className="flex items-start gap-3">
+                  <Clock className="mt-1 h-5 w-5 text-amber-700" />
                   <div>
-                    <h3 className="font-semibold text-lg mb-2 text-neutral-900">Indirizzo</h3>
-                    <p className="text-neutral-700">{siteConfig.address}</p>
-                  </div>
-                </div>
-                <div className="space-y-4 text-neutral-700">
-                  <div>
-                    <h4 className="font-semibold mb-2">In Auto</h4>
-                    <p className="text-sm">
-                      Dalla A3, uscita Crotone. Seguire le indicazioni per Isola di Capo Rizzuto.
-                      Parcheggio gratuito disponibile.
-                    </p>
-                  </div>
-                  <div>
-                    <h4 className="font-semibold mb-2">In Aereo</h4>
-                    <p className="text-sm">
-                      Aeroporto di Lamezia Terme (80 km) o Aeroporto di Crotone (15 km). Transfer
-                      disponibile su richiesta.
-                    </p>
-                  </div>
-                  <div>
-                    <h4 className="font-semibold mb-2">In Treno</h4>
-                    <p className="text-sm">
-                      Stazione di Crotone. Da lì è possibile raggiungere il residence in auto o
-                      taxi (circa 20 minuti).
-                    </p>
-                  </div>
-                </div>
-              </Card>
-
-              <Card className="p-8">
-                <div className="flex items-start gap-4">
-                  <Clock className="h-6 w-6 text-primary-500 flex-shrink-0 mt-1" />
-                  <div>
-                    <h3 className="font-semibold text-lg mb-4 text-neutral-900">Orari</h3>
-                    <div className="space-y-2 text-neutral-700">
-                      <div className="flex justify-between">
-                        <span>Check-in</span>
-                        <span className="font-medium">Dalle 14:00</span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span>Check-out</span>
-                        <span className="font-medium">Entro le 11:00</span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span>Reception</span>
-                        <span className="font-medium">9:00 - 20:00</span>
-                      </div>
-                      <p className="text-sm text-neutral-500 mt-4">
-                        Orari flessibili disponibili su richiesta
-                      </p>
+                    <div className="font-semibold text-stone-900">Orari</div>
+                    <div className="mt-1 text-sm text-stone-600">
+                      Check-in: dalle 14:00 alle 20:00 · Check-out: entro le 11:00
                     </div>
                   </div>
                 </div>
               </Card>
-            </div>
 
-            <div>
-              <LocationMap showTitle={false} />
+              <Card className="p-2">
+                <iframe
+                  title="Google Maps - Residence Le Farfalle"
+                  src="https://maps.google.com/maps?q=38.96171494411169,17.09162398176466&z=15&output=embed"
+                  className="h-[420px] w-full rounded-2xl"
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                />
+              </Card>
+              <Card className="p-6">
+                <div className="flex items-start gap-3">
+                  <MapPin className="mt-1 h-5 w-5 text-amber-700" />
+                  <div>
+                    <div className="font-semibold text-stone-900">Indirizzo</div>
+                    <div className="mt-1 text-sm text-stone-600">{siteConfig.address}</div>
+                  </div>
+                </div>
+              </Card>
             </div>
           </div>
         </Container>

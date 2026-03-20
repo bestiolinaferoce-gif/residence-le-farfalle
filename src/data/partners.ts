@@ -39,10 +39,10 @@ export const partnerCategories: Record<
 export const partners: Partner[] = [
   {
     id: "farmacia-1",
-    name: "Farmacia comunale",
+    name: "Farmacie di zona",
     category: "farmacie",
-    description: "Farmacia di turno in centro paese",
-    phone: "+39 XXX XXX XXXX",
+    description:
+      "Elenco farmacie e turno: verificare in loco o sui canali del Comune / ASL. La struttura non pubblica numeri di terzi non verificati.",
     address: "Isola di Capo Rizzuto - Centro",
   },
   {
@@ -77,8 +77,8 @@ export const partners: Partner[] = [
     id: "transfer-1",
     name: "Transfer aeroporto",
     category: "transfer",
-    description: "Servizio NCC su prenotazione per Lamezia, Crotone",
-    phone: "+39 XXX XXX XXXX",
+    description:
+      "Servizio NCC / taxi su prenotazione (es. Lamezia Terme, Crotone). Contattare la struttura per referenze aggiornate.",
     comingSoon: true,
   },
   {

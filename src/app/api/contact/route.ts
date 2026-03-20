@@ -1,5 +1,14 @@
 import { NextRequest, NextResponse } from "next/server";
 
+function escapeHtml(input: string) {
+  return input
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#39;");
+}
+
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
@@ -7,16 +16,16 @@ export async function POST(req: NextRequest) {
 
     // Validazione base
     if (!name || !email || !message) {
-      return NextResponse.json(
-        { error: "Campi obbligatori mancanti" },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: "Campi obbligatori mancanti" }, { status: 400 });
     }
 
-    // Se RESEND_API_KEY è configurata, invia email
+    const safeName = escapeHtml(String(name));
+    const safeEmail = escapeHtml(String(email));
+    const safePhone = phone ? escapeHtml(String(phone)) : "";
+    const safeMessage = escapeHtml(String(message)).replaceAll("\n", "<br/>");
+
     const apiKey = process.env.RESEND_API_KEY;
-    const hostEmail =
-      process.env.HOST_EMAIL || "info@residencelefarfalle.it";
+    const hostEmail = process.env.HOST_EMAIL || "info@residencelefarfalle.it";
 
     if (apiKey) {
       const { Resend } = await import("resend");
@@ -30,30 +39,29 @@ export async function POST(req: NextRequest) {
       const htmlContent = `
         <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto;">
           <h2 style="color: #0d9488;">🦋 Residence Le Farfalle</h2>
-          <h3>${subject}</h3>
+          <h3>${escapeHtml(subject)}</h3>
           <table style="width:100%; border-collapse: collapse;">
-            <tr><td style="padding: 8px; font-weight: bold;">Nome:</td><td>${name}</td></tr>
-            <tr><td style="padding: 8px; font-weight: bold;">Email:</td><td>${email}</td></tr>
-            ${phone ? `<tr><td style="padding: 8px; font-weight: bold;">Telefono:</td><td>${phone}</td></tr>` : ""}
-            ${checkIn ? `<tr><td style="padding: 8px; font-weight: bold;">Check-in:</td><td>${checkIn}</td></tr>` : ""}
-            ${checkOut ? `<tr><td style="padding: 8px; font-weight: bold;">Check-out:</td><td>${checkOut}</td></tr>` : ""}
-            ${guests ? `<tr><td style="padding: 8px; font-weight: bold;">Ospiti:</td><td>${guests}</td></tr>` : ""}
-            ${rooms ? `<tr><td style="padding: 8px; font-weight: bold;">Camera:</td><td>${rooms}</td></tr>` : ""}
+            <tr><td style="padding: 8px; font-weight: bold;">Nome:</td><td>${safeName}</td></tr>
+            <tr><td style="padding: 8px; font-weight: bold;">Email:</td><td>${safeEmail}</td></tr>
+            ${safePhone ? `<tr><td style="padding: 8px; font-weight: bold;">Telefono:</td><td>${safePhone}</td></tr>` : ""}
+            ${checkIn ? `<tr><td style="padding: 8px; font-weight: bold;">Check-in:</td><td>${escapeHtml(String(checkIn))}</td></tr>` : ""}
+            ${checkOut ? `<tr><td style="padding: 8px; font-weight: bold;">Check-out:</td><td>${escapeHtml(String(checkOut))}</td></tr>` : ""}
+            ${guests ? `<tr><td style="padding: 8px; font-weight: bold;">Ospiti:</td><td>${escapeHtml(String(guests))}</td></tr>` : ""}
+            ${rooms ? `<tr><td style="padding: 8px; font-weight: bold;">Camera:</td><td>${escapeHtml(String(rooms))}</td></tr>` : ""}
           </table>
           <p><strong>Messaggio:</strong></p>
-          <p style="background:#f5f5f4; padding: 12px; border-radius: 8px;">${message}</p>
+          <p style="background:#f5f5f4; padding: 12px; border-radius: 8px;">${safeMessage}</p>
         </div>
       `;
 
       await resend.emails.send({
         from: "Le Farfalle <noreply@residencelefarfalle.it>",
         to: hostEmail,
-        replyTo: email,
+        replyTo: String(email),
         subject,
         html: htmlContent,
       });
     } else {
-      // Fallback: log in console (utile in sviluppo senza RESEND configurato)
       console.log("[contact] Nuovo messaggio:", { name, email, type, message });
     }
 

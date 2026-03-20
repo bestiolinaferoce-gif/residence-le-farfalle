@@ -1,20 +1,20 @@
 [
   {
     "id": "booking-francesca-1",
-    "source": "Booking",
+    "source": "Booking.com",
     "authorName": "Francesca",
     "authorCountry": "Italia",
-    "rating": 5,
+    "rating": 10,
     "date": "2024-06-15",
     "text": "Giovanni gentilissimo e pronto ad esaudire le nostre richieste. Camera pulita, tutto perfettamente funzionante.",
     "lang": "it"
   },
   {
     "id": "booking-elisabetta-2",
-    "source": "Booking",
+    "source": "Booking.com",
     "authorName": "Elisabetta",
     "authorCountry": "Italia",
-    "rating": 5,
+    "rating": 10,
     "date": "2024-07-20",
     "text": "La struttura ottima e pulita. Host cordiale e disponibile. Tutto perfetto!!! Consiglio",
     "lang": "it"
@@ -31,10 +31,10 @@
   },
   {
     "id": "booking-anna-4",
-    "source": "Booking",
+    "source": "Booking.com",
     "authorName": "Anna",
     "authorCountry": "Germania",
-    "rating": 5,
+    "rating": 9,
     "date": "2024-08-25",
     "text": "Sehr sauber, freundlicher Gastgeber. Frühstück sehr gut. Gute Lage für Strandausflüge.",
     "lang": "de"
@@ -51,12 +51,12 @@
   },
   {
     "id": "booking-sophie-6",
-    "source": "Booking",
+    "source": "Booking.com",
     "authorName": "Sophie",
     "authorCountry": "Francia",
-    "rating": 5,
+    "rating": 9,
     "date": "2024-07-30",
-    "text": "Wonderful stay! Very friendly host, spotless room and a delicious breakfast. Perfect base for exploring the Calabrian coast.",
-    "lang": "en"
+    "text": "Très bon séjour. Hôte chaleureux, chambre propre et confortable. Le petit-déjeuner est délicieux.",
+    "lang": "fr"
   }
 ]

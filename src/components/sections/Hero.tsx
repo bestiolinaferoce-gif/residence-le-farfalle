@@ -6,6 +6,7 @@ import Image from "next/image";
 import { ChevronDown, MapPin, Star, Wifi, Coffee, Wind } from "lucide-react";
 import { motion } from "framer-motion";
 import { siteConfig } from "@/src/config/site";
+import { GA_EVENTS } from "@/src/lib/analytics";
 
 interface HeroProps {
   locale?: string;
@@ -87,6 +88,16 @@ export default function Hero({ locale = "it" }: HeroProps) {
           Le Farfalle
         </motion.h1>
 
+        {/* Trust strip */}
+        <motion.p
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.32 }}
+          className="text-white/80 text-sm md:text-base mb-5"
+        >
+          4 camere · Centro paese · Colazione inclusa
+        </motion.p>
+
         {/* Tagline */}
         <motion.p
           initial={{ opacity: 0, y: 20 }}
@@ -105,21 +116,34 @@ export default function Hero({ locale = "it" }: HeroProps) {
           transition={{ duration: 0.6, delay: 0.5 }}
           className="flex flex-col sm:flex-row gap-4 justify-center mb-14"
         >
-          <Link href={`/${locale}/prenota`}>
-            <span className="inline-flex items-center justify-center px-9 py-4 rounded-xl bg-amber-500 hover:bg-amber-400 text-stone-900 font-semibold text-base tracking-wide transition-all duration-200 hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0 cursor-pointer select-none">
-              Prenota ora
-            </span>
-          </Link>
           {hasWhatsApp ? (
-            <Link href={whatsappUrl} target="_blank" rel="noopener noreferrer">
-              <span className="inline-flex items-center justify-center px-9 py-4 rounded-xl border border-white/30 bg-white/10 backdrop-blur-sm hover:bg-white/20 text-white font-semibold text-base tracking-wide transition-all duration-200 hover:-translate-y-0.5 active:translate-y-0 cursor-pointer select-none">
-                Scrivici su WhatsApp
-              </span>
-            </Link>
+            <>
+              <Link
+                href={`/${locale}/camere`}
+                onClick={() => GA_EVENTS.ctaClick("scopri_camere")}
+              >
+                <span className="inline-flex items-center justify-center px-9 py-4 rounded-xl bg-amber-500 hover:bg-amber-400 text-stone-900 font-semibold text-base tracking-wide transition-all duration-200 hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0 cursor-pointer select-none">
+                  Scopri le Camere
+                </span>
+              </Link>
+              <Link
+                href={whatsappUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => GA_EVENTS.clickWhatsapp()}
+              >
+                <span className="inline-flex items-center justify-center px-9 py-4 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-white font-semibold text-base tracking-wide transition-all duration-200 hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0 cursor-pointer select-none">
+                  Scrivici su WhatsApp
+                </span>
+              </Link>
+            </>
           ) : (
-            <Link href={`/${locale}/contatti`}>
-              <span className="inline-flex items-center justify-center px-9 py-4 rounded-xl border border-white/30 bg-white/10 backdrop-blur-sm hover:bg-white/20 text-white font-semibold text-base tracking-wide transition-all duration-200 hover:-translate-y-0.5 active:translate-y-0 cursor-pointer select-none">
-                Contattaci
+            <Link
+              href={`/${locale}/camere`}
+              onClick={() => GA_EVENTS.ctaClick("scopri_camere")}
+            >
+              <span className="inline-flex items-center justify-center px-9 py-4 rounded-xl bg-amber-500 hover:bg-amber-400 text-stone-900 font-semibold text-base tracking-wide transition-all duration-200 hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0 cursor-pointer select-none">
+                Scopri le Camere
               </span>
             </Link>
           )}

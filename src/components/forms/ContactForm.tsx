@@ -1,7 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import React, { useState } from "react";
 import { rooms } from "@/src/data/rooms/rooms";
+import { GA_EVENTS } from "@/src/lib/analytics";
 
 type FormType = "contact" | "preventivo";
 
@@ -103,9 +104,17 @@ export default function ContactForm({
       const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...form, type }),
+        body: JSON.stringify({
+          ...form,
+          type: type === "preventivo" ? "preventivo" : "contact",
+        }),
       });
       if (!res.ok) throw new Error("server_error");
+      if (type === "preventivo") {
+        GA_EVENTS.formSubmitPreventivo();
+      } else {
+        GA_EVENTS.formSubmitContact();
+      }
       setStatus("success");
     } catch {
       setStatus("error");
@@ -116,9 +125,7 @@ export default function ContactForm({
     return (
       <div className="bg-teal-50 border border-teal-200 rounded-2xl p-8 text-center">
         <div className="text-4xl mb-3">🦋</div>
-        <h3 className="font-display text-xl font-bold text-teal-800 mb-2">
-          {t.successTitle}
-        </h3>
+        <h3 className="font-display text-xl font-bold text-teal-800 mb-2">{t.successTitle}</h3>
         <p className="text-teal-700">{t.successText}</p>
       </div>
     );
@@ -126,9 +133,10 @@ export default function ContactForm({
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
-      {/* Nome */}
       <div>
-        <label htmlFor="cf-name" className={labelClass}>{t.name}</label>
+        <label htmlFor="cf-name" className={labelClass}>
+          {t.name}
+        </label>
         <input
           id="cf-name"
           name="name"
@@ -141,9 +149,10 @@ export default function ContactForm({
         />
       </div>
 
-      {/* Email */}
       <div>
-        <label htmlFor="cf-email" className={labelClass}>{t.email}</label>
+        <label htmlFor="cf-email" className={labelClass}>
+          {t.email}
+        </label>
         <input
           id="cf-email"
           name="email"
@@ -156,9 +165,10 @@ export default function ContactForm({
         />
       </div>
 
-      {/* Telefono */}
       <div>
-        <label htmlFor="cf-phone" className={labelClass}>{t.phone}</label>
+        <label htmlFor="cf-phone" className={labelClass}>
+          {t.phone}
+        </label>
         <input
           id="cf-phone"
           name="phone"
@@ -170,12 +180,13 @@ export default function ContactForm({
         />
       </div>
 
-      {/* Campi extra per preventivo */}
       {type === "preventivo" && (
         <>
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label htmlFor="cf-checkin" className={labelClass}>{t.checkIn}</label>
+              <label htmlFor="cf-checkin" className={labelClass}>
+                {t.checkIn}
+              </label>
               <input
                 id="cf-checkin"
                 name="checkIn"
@@ -187,7 +198,9 @@ export default function ContactForm({
               />
             </div>
             <div>
-              <label htmlFor="cf-checkout" className={labelClass}>{t.checkOut}</label>
+              <label htmlFor="cf-checkout" className={labelClass}>
+                {t.checkOut}
+              </label>
               <input
                 id="cf-checkout"
                 name="checkOut"
@@ -202,7 +215,9 @@ export default function ContactForm({
 
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label htmlFor="cf-guests" className={labelClass}>{t.guests}</label>
+              <label htmlFor="cf-guests" className={labelClass}>
+                {t.guests}
+              </label>
               <select
                 id="cf-guests"
                 name="guests"
@@ -215,7 +230,9 @@ export default function ContactForm({
               </select>
             </div>
             <div>
-              <label htmlFor="cf-rooms" className={labelClass}>{t.room}</label>
+              <label htmlFor="cf-rooms" className={labelClass}>
+                {t.room}
+              </label>
               <select
                 id="cf-rooms"
                 name="rooms"
@@ -235,9 +252,10 @@ export default function ContactForm({
         </>
       )}
 
-      {/* Messaggio */}
       <div>
-        <label htmlFor="cf-message" className={labelClass}>{t.message}</label>
+        <label htmlFor="cf-message" className={labelClass}>
+          {t.message}
+        </label>
         <textarea
           id="cf-message"
           name="message"
@@ -250,12 +268,8 @@ export default function ContactForm({
         />
       </div>
 
-      {/* Errore */}
-      {status === "error" && (
-        <p className="text-red-600 text-sm">{t.errorText}</p>
-      )}
+      {status === "error" && <p className="text-red-600 text-sm">{t.errorText}</p>}
 
-      {/* Submit */}
       <button
         type="submit"
         disabled={status === "loading"}
@@ -264,16 +278,8 @@ export default function ContactForm({
         {status === "loading" ? (
           <>
             <svg className="animate-spin h-4 w-4" viewBox="0 0 24 24" fill="none">
-              <circle
-                className="opacity-25"
-                cx="12" cy="12" r="10"
-                stroke="currentColor" strokeWidth="4"
-              />
-              <path
-                className="opacity-75"
-                fill="currentColor"
-                d="M4 12a8 8 0 018-8v8H4z"
-              />
+              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z" />
             </svg>
             {t.sending}
           </>

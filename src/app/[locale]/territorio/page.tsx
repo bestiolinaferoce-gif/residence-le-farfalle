@@ -9,6 +9,7 @@ import TerritorioTabs from "@/src/components/territorio/TerritorioTabs";
 import Newsletter from "@/src/components/sections/Newsletter";
 import type { Metadata } from "next";
 import { locales } from "@/src/lib/i18n";
+import { pageAlternates } from "@/src/lib/seo";
 
 export function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
@@ -19,6 +20,8 @@ export async function generateMetadata({
 }: {
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
+  const { locale } = await params;
+  const currentLocale = locale || "it";
   return {
     title: "Il Territorio - Isola di Capo Rizzuto e Calabria Ionica",
     description:
@@ -35,6 +38,7 @@ export async function generateMetadata({
       "cosa vedere Calabria",
       "itinerari Calabria",
     ],
+    alternates: pageAlternates(currentLocale, "territorio"),
   };
 }
 

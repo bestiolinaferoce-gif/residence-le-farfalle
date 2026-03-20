@@ -58,7 +58,12 @@ const RoomsPreview: React.FC<RoomsPreviewProps> = ({ locale = "it" }) => {
                       sizes="(max-width: 768px) 100vw, 50vw"
                       loading="lazy"
                     />
-                    <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm rounded-full px-3 py-1 flex items-center gap-2">
+                    {room.priceFrom ? (
+                      <div className="absolute top-3 right-3 bg-amber-500 text-stone-900 text-xs font-bold px-3 py-1.5 rounded-full shadow-md z-[1]">
+                        da €{room.priceFrom}/notte
+                      </div>
+                    ) : null}
+                    <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm rounded-full px-3 py-1 flex items-center gap-2">
                       <Users className="h-4 w-4 text-primary-500" aria-hidden />
                       <span className="text-sm font-semibold text-neutral-900">
                         {room.capacity} posti

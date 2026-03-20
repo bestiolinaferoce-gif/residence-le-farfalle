@@ -79,7 +79,7 @@ export default function HomeHero({ locale = "it" }: HomeHeroProps) {
               fill
               priority={currentIndex === 0}
               className="object-cover"
-              quality={75}
+              quality={85}
               sizes="100vw"
             />
           </motion.div>

@@ -9,48 +9,62 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        // Mediterranean fresh: mare + sabbia + farfalle
-        primary: {
-          50: "#fff7ed",
-          100: "#ffedd5",
-          200: "#fed7aa",
-          300: "#fdba74",
-          400: "#fb923c",
-          500: "#ffa500", // arancio principale
-          600: "#ea580c",
-          700: "#c2410c",
-          800: "#9a3412",
-          900: "#7c2d12",
+        butterfly: {
+          50: "#fdf4ff",
+          100: "#fae8ff",
+          200: "#f5d0fe",
+          300: "#f0abfc",
+          400: "#e879f9",
+          500: "#d946ef",
+          600: "#c026d3",
+          700: "#a21caf",
+          800: "#86198f",
+          900: "#701a75",
         },
-        secondary: {
-          50: "#f0fdfa",
-          100: "#ccfbf1",
-          200: "#99f6e4",
-          300: "#5eead4",
-          400: "#2dd4bf",
-          500: "#0d9488", // teal mare
-          600: "#0f766e",
-          700: "#115e59",
-          800: "#134e4a",
-          900: "#134342",
+        coral: {
+          50: "#fff1f2",
+          100: "#ffe4e6",
+          200: "#fecdd3",
+          300: "#fda4af",
+          400: "#fb7185",
+          500: "#f43f5e",
+          600: "#e11d48",
+          700: "#be123c",
+          800: "#9f1239",
+          900: "#881337",
         },
-        sea: {
+        lime: {
+          50: "#f7fee7",
+          100: "#ecfccb",
+          200: "#d9f99d",
+          300: "#bef264",
+          400: "#a3e635",
+          500: "#84cc16",
+          600: "#65a30d",
+          700: "#4d7c0f",
+          800: "#3f6212",
+          900: "#365314",
+        },
+        amber: {
+          50: "#fffbeb",
+          100: "#fef3c7",
+          200: "#fde68a",
+          300: "#fcd34d",
+          400: "#fbbf24",
+          500: "#f59e0b",
+          600: "#d97706",
+          700: "#b45309",
+          800: "#92400e",
+          900: "#78350f",
+        },
+        sky: {
           50: "#f0f9ff",
           100: "#e0f2fe",
           200: "#bae6fd",
           300: "#7dd3fc",
           400: "#38bdf8",
-          500: "#0ea5e9", // azzurro mare
+          500: "#0ea5e9",
           600: "#0284c7",
-        },
-        sand: {
-          50: "#fefce8",
-          100: "#fef9c3",
-          200: "#fef08a",
-          300: "#fde047",
-          400: "#facc15",
-          500: "#e8dcc4", // beige sabbia
-          600: "#d4c9a8",
         },
         neutral: {
           50: "#fafaf9",
@@ -64,15 +78,13 @@ const config: Config = {
           800: "#292524",
           900: "#1c1917",
         },
-        accent: {
-          coral: "#f97316",
-          yellow: "#eab308",
-          teal: "#14b8a6",
-        },
+        surface: "#FEFBFF",
+        "surface-2": "#F5F0FF",
       },
       fontFamily: {
-        sans: ["var(--font-inter)", "system-ui", "sans-serif"],
-        display: ["var(--font-playfair)", "serif"],
+        sans: ["var(--font-plus-jakarta)", "system-ui", "sans-serif"],
+        display: ["var(--font-clash-display)", "var(--font-plus-jakarta)", "serif"],
+        mono: ["var(--font-jetbrains)", "monospace"],
       },
       fontSize: {
         "display-lg": ["4.5rem", { lineHeight: "1.1", letterSpacing: "-0.02em" }],
@@ -84,44 +96,41 @@ const config: Config = {
         medium: "0 10px 40px -10px rgba(0, 0, 0, 0.1), 0 2px 10px -2px rgba(0, 0, 0, 0.05)",
         hard: "0 20px 60px -15px rgba(0, 0, 0, 0.15), 0 10px 20px -5px rgba(0, 0, 0, 0.08)",
       },
-      animation: {
-        "fade-in": "fadeIn 0.5s ease-in-out",
-        "slide-up": "slideUp 0.6s ease-out",
-        "slide-down": "slideDown 0.6s ease-out",
-        "scale-in": "scaleIn 0.4s ease-out",
-        "gradient-shift": "gradientShift 8s ease infinite",
-        "float": "float 6s ease-in-out infinite",
-        "wave": "wave 4s ease-in-out infinite",
-      },
       keyframes: {
-        fadeIn: {
-          "0%": { opacity: "0" },
-          "100%": { opacity: "1" },
+        flutter: {
+          "0%, 100%": { transform: "translateY(0) rotate(-3deg) scaleX(1)" },
+          "25%": { transform: "translateY(-12px) rotate(3deg) scaleX(0.95)" },
+          "75%": { transform: "translateY(-6px) rotate(-1deg) scaleX(1.05)" },
         },
-        slideUp: {
-          "0%": { transform: "translateY(30px)", opacity: "0" },
-          "100%": { transform: "translateY(0)", opacity: "1" },
-        },
-        slideDown: {
-          "0%": { transform: "translateY(-30px)", opacity: "0" },
-          "100%": { transform: "translateY(0)", opacity: "1" },
-        },
-        scaleIn: {
-          "0%": { transform: "scale(0.95)", opacity: "0" },
-          "100%": { transform: "scale(1)", opacity: "1" },
-        },
-        gradientShift: {
-          "0%, 100%": { backgroundPosition: "0% 50%" },
+        meshGradient: {
+          "0%": { backgroundPosition: "0% 50%" },
           "50%": { backgroundPosition: "100% 50%" },
+          "100%": { backgroundPosition: "0% 50%" },
         },
-        float: {
-          "0%, 100%": { transform: "translateY(0) rotate(0deg)" },
-          "50%": { transform: "translateY(-20px) rotate(5deg)" },
+        shimmer: {
+          "0%": { backgroundPosition: "-200% 0" },
+          "100%": { backgroundPosition: "200% 0" },
         },
-        wave: {
-          "0%, 100%": { transform: "translateX(0) scaleY(1)" },
-          "50%": { transform: "translateX(-25px) scaleY(1.1)" },
+        blob: {
+          "0%, 100%": { borderRadius: "60% 40% 30% 70% / 60% 30% 70% 40%" },
+          "50%": { borderRadius: "30% 60% 70% 40% / 50% 60% 30% 60%" },
         },
+        revealUp: {
+          "0%": { clipPath: "inset(100% 0 0 0)", transform: "translateY(20px)" },
+          "100%": { clipPath: "inset(0% 0 0 0)", transform: "translateY(0)" },
+        },
+        bounce: {
+          "0%, 100%": { transform: "translateY(0)" },
+          "50%": { transform: "translateY(8px)" },
+        },
+      },
+      animation: {
+        flutter: "flutter 4s ease-in-out infinite",
+        meshGradient: "meshGradient 8s ease infinite",
+        shimmer: "shimmer 2s linear infinite",
+        blob: "blob 8s ease-in-out infinite",
+        revealUp: "revealUp 0.7s ease-out forwards",
+        "bounce-dot": "bounce 2s ease-in-out infinite",
       },
       backgroundSize: {
         "300%": "300%",

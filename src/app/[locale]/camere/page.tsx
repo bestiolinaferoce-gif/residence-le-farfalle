@@ -1,13 +1,14 @@
 import React from "react";
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
+import Image from "next/image";
+import { ArrowRight, Droplet, Tv, Wind, Wifi, Moon } from "lucide-react";
+import { rooms, amenityLabels } from "@/src/data/rooms/rooms";
 import Container from "@/src/components/ui/Container";
 import Button from "@/src/components/ui/Button";
-import RoomsHero from "@/src/components/rooms/RoomsHero";
-import RoomsSection from "@/src/components/rooms/RoomsSection";
 import Newsletter from "@/src/components/sections/Newsletter";
 import type { Metadata } from "next";
 import { locales } from "@/src/lib/i18n";
+import { pageAlternates } from "@/src/lib/seo";
 
 export function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
@@ -18,7 +19,8 @@ export async function generateMetadata({
 }: {
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
-  await params;
+  const { locale } = await params;
+  const currentLocale = locale || "it";
   return {
     title: "Le Nostre Camere - Residence Le Farfalle Isola di Capo Rizzuto",
     description:
@@ -31,6 +33,7 @@ export async function generateMetadata({
       "alloggio Isola di Capo Rizzuto",
       "bed and breakfast Calabria",
     ],
+    alternates: pageAlternates(currentLocale, "camere"),
   };
 }
 
@@ -42,11 +45,86 @@ export default async function RoomsPage({ params }: RoomsPageProps) {
   const { locale } = await params;
   const currentLocale = locale || "it";
 
+  const amenityIcons: Record<string, React.ReactNode> = {
+    "private-bathroom": <Droplet className="h-4 w-4" aria-hidden />,
+    tv: <Tv className="h-4 w-4" aria-hidden />,
+    ac: <Wind className="h-4 w-4" aria-hidden />,
+    wifi: <Wifi className="h-4 w-4" aria-hidden />,
+    blackout: <Moon className="h-4 w-4" aria-hidden />,
+  };
+
   return (
     <div className="min-h-screen pt-20">
-      <RoomsHero />
+      <section className="h-48 bg-stone-900 flex items-center">
+        <Container>
+          <div className="text-center">
+            <h1 className="font-display text-3xl md:text-4xl font-bold text-white">Le nostre camere</h1>
+            <p className="mt-2 text-stone-200">
+              4 camere indipendenti con bagno privato · Colazione inclusa · da €70/notte
+            </p>
+          </div>
+        </Container>
+      </section>
 
-      <RoomsSection locale={currentLocale} />
+      <section className="py-16 bg-white">
+        <Container>
+          <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
+            {rooms.map((room) => {
+              const name = room.name[currentLocale as keyof typeof room.name] ?? room.name.it;
+              return (
+                <article
+                  key={room.id}
+                  className="overflow-hidden rounded-2xl border border-stone-200 bg-white shadow-soft"
+                >
+                  <div className="relative aspect-video bg-stone-100">
+                    <Image
+                      src={`/images/rooms/${room.images[0]}`}
+                      alt={name}
+                      fill
+                      sizes="(min-width: 1024px) 50vw, 100vw"
+                      className="object-cover"
+                      quality={80}
+                      loading="lazy"
+                    />
+                  </div>
+                  <div className="p-6">
+                    <div className="flex items-start justify-between gap-4">
+                      <div>
+                        <h2 className="font-display text-2xl font-bold text-stone-900">{name}</h2>
+                        <div className="mt-1 text-sm text-stone-600">
+                          da <span className="font-semibold text-stone-900">€{room.priceFrom}</span>/notte
+                        </div>
+                      </div>
+                      <div className="text-sm text-stone-600">{room.size} m²</div>
+                    </div>
+
+                    <div className="mt-4 flex flex-wrap gap-2">
+                      {room.amenities.slice(0, 4).map((key) => (
+                        <span
+                          key={key}
+                          className="inline-flex items-center gap-2 rounded-xl border border-stone-200 bg-stone-50 px-3 py-2 text-xs font-semibold text-stone-700"
+                        >
+                          <span className="text-amber-600">{amenityIcons[key]}</span>
+                          {amenityLabels[key]?.[currentLocale as "it" | "en" | "de"] ?? key}
+                        </span>
+                      ))}
+                    </div>
+
+                    <div className="mt-6">
+                      <Link href={`/${currentLocale}/camere/${room.slug}`}>
+                        <Button variant="primary" size="md" className="w-full">
+                          Scopri di più
+                          <ArrowRight className="h-4 w-4 ml-2" aria-hidden />
+                        </Button>
+                      </Link>
+                    </div>
+                  </div>
+                </article>
+              );
+            })}
+          </div>
+        </Container>
+      </section>
 
       {/* CTA Premium */}
       <section className="relative py-20 overflow-hidden">

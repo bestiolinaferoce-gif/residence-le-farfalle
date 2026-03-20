@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
@@ -22,6 +22,7 @@ import Container from "@/src/components/ui/Container";
 import Card from "@/src/components/ui/Card";
 import Button from "@/src/components/ui/Button";
 import PreventivoForm from "@/src/components/rooms/PreventivoForm";
+import ImageGallery from "@/src/components/ui/ImageGallery";
 
 const amenityIcons: Record<string, React.ReactNode> = {
   "private-bathroom": <Droplet className="h-5 w-5" />,
@@ -37,7 +38,6 @@ interface RoomDetailProps {
 }
 
 export default function RoomDetail({ room, locale }: RoomDetailProps) {
-  const [imgIndex, setImgIndex] = useState(0);
   const currentLocale = (locale || "it") as "it" | "en" | "de";
   const roomName = room.name[currentLocale] ?? room.name.it;
   const otherRooms = rooms.filter((r) => r.id !== room.id);
@@ -67,51 +67,10 @@ export default function RoomDetail({ room, locale }: RoomDetailProps) {
               animate={{ opacity: 1, y: 0 }}
               className="space-y-4"
             >
-              <div className="relative aspect-[4/3] rounded-2xl overflow-hidden bg-neutral-100">
-                <Image
-                  src={`/images/rooms/${room.images[imgIndex]}`}
-                  alt={`${roomName} - immagine ${imgIndex + 1}`}
-                  fill
-                  className="object-cover"
-                  sizes="(max-width: 1024px) 100vw, 66vw"
-                  priority
-                />
-                {room.images.length > 1 && (
-                  <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
-                    {room.images.map((_, i) => (
-                      <button
-                        key={i}
-                        onClick={() => setImgIndex(i)}
-                        className={`w-3 h-3 rounded-full transition-all ${
-                          i === imgIndex ? "bg-white w-6" : "bg-white/50"
-                        }`}
-                        aria-label={`Vai a immagine ${i + 1}`}
-                      />
-                    ))}
-                  </div>
-                )}
-              </div>
-              {room.images.length > 1 && (
-                <div className="grid grid-cols-4 gap-2">
-                  {room.images.map((img, i) => (
-                    <button
-                      key={i}
-                      onClick={() => setImgIndex(i)}
-                      className={`relative aspect-video rounded-lg overflow-hidden border-2 transition-colors ${
-                        i === imgIndex ? "border-primary-500" : "border-transparent"
-                      }`}
-                    >
-                      <Image
-                        src={`/images/rooms/${img}`}
-                        alt=""
-                        fill
-                        className="object-cover"
-                        sizes="150px"
-                      />
-                    </button>
-                  ))}
-                </div>
-              )}
+              <ImageGallery
+                images={room.images.map((img) => `/images/rooms/${img}`)}
+                alt={roomName}
+              />
             </motion.section>
 
             {/* Servizi presenti */}
@@ -229,7 +188,7 @@ export default function RoomDetail({ room, locale }: RoomDetailProps) {
                   {otherRooms.slice(0, 3).map((r) => (
                     <Link
                       key={r.id}
-                      href={`/${locale}/camere/${r.id}`}
+                      href={`/${locale}/camere/${r.slug}`}
                       className="block group"
                     >
                       <Card hover padding="sm" className="flex gap-4">

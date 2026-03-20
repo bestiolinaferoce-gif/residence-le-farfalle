@@ -9,6 +9,7 @@ import PartnersSection from "@/src/components/partner/PartnersSection";
 import Newsletter from "@/src/components/sections/Newsletter";
 import type { Metadata } from "next";
 import { locales } from "@/src/lib/i18n";
+import { pageAlternates } from "@/src/lib/seo";
 
 export function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
@@ -19,7 +20,8 @@ export async function generateMetadata({
 }: {
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
-  await params;
+  const { locale } = await params;
+  const currentLocale = locale || "it";
   return {
     title: "Servizi & Partner - Residence Le Farfalle",
     description:
@@ -31,6 +33,7 @@ export async function generateMetadata({
       "parcheggio gratuito Isola di Capo Rizzuto",
       "transfer aeroporto Crotone",
     ],
+    alternates: pageAlternates(currentLocale, "servizi"),
   };
 }
 
@@ -45,6 +48,18 @@ export default async function ServicesPage({ params }: ServicesPageProps) {
   return (
     <div className="min-h-screen pt-20">
       <ServiziHero />
+
+      <section className="border-b border-stone-200 bg-amber-50/40 py-8">
+        <Container>
+          <p className="mx-auto max-w-3xl text-center text-sm text-stone-700 md:text-base">
+            {currentLocale === "en"
+              ? "Free parking is available within 50 metres of the property. Always available, including in high season. Please verify details with the host if needed."
+              : currentLocale === "de"
+                ? "Kostenloser Parkplatz in unmittelbarer Nähe der Unterkunft (innerhalb von 50 Metern). Immer verfügbar, auch in der Hochsaison. Bei Bedarf beim Gastgeber bestätigen."
+                : "Parcheggio gratuito disponibile nelle immediate vicinanze della struttura (entro 50 metri). Sempre disponibile, anche in alta stagione. Verificare con il titolare se necessario."}
+          </p>
+        </Container>
+      </section>
 
       <ServiziGrid locale={currentLocale} />
 

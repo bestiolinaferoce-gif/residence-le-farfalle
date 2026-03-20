@@ -2,39 +2,39 @@
 
 import React from "react";
 import { motion } from "framer-motion";
-import { ShieldCheck, MapPin, Home, Leaf, Coffee } from "lucide-react";
+import { Waves, Coffee, Heart, MapPin, ParkingCircle, Star } from "lucide-react";
 import Container from "@/src/components/ui/Container";
 
 const features = [
   {
-    icon: ShieldCheck,
-    title: "Pulizia impeccabile",
-    description:
-      "Camere e spazi comuni curati nei minimi dettagli, con ricambio biancheria e sanificazione quotidiana.",
-  },
-  {
-    icon: MapPin,
-    title: "Posizione centrale",
-    description:
-      "Nel cuore di Isola di Capo Rizzuto, a pochi minuti a piedi dai servizi, ristoranti e dalle navette per le spiagge.",
-  },
-  {
-    icon: Home,
-    title: "Comfort autentico",
-    description:
-      "Aria condizionata, WiFi superfast, bagno privato e set cortesia inclusi in ogni camera.",
-  },
-  {
-    icon: Leaf,
-    title: "Relax e tranquillità",
-    description:
-      "Un ambiente tranquillo e accogliente per staccare dalla routine e vivere la Calabria più autentica.",
+    icon: Waves,
+    title: "A 5 minuti dalle spiagge dell'AMP",
+    description: "Mare vicino e facile da raggiungere, perfetto per giornate in relax.",
   },
   {
     icon: Coffee,
-    title: "Colazione ogni mattina",
-    description:
-      "Colazione continentale servita ogni mattina: l'energia giusta per esplorare la Calabria ionica.",
+    title: "Colazione artigianale inclusa ogni mattina",
+    description: "Un inizio di giornata semplice e buono, ogni giorno.",
+  },
+  {
+    icon: Heart,
+    title: "Atmosfera familiare, non anonima",
+    description: "Accoglienza vera, con attenzione ai dettagli.",
+  },
+  {
+    icon: MapPin,
+    title: "Centro paese, tutto a piedi",
+    description: "Bar, ristoranti e servizi a pochi minuti.",
+  },
+  {
+    icon: ParkingCircle,
+    title: "Parcheggio convenzionato a 50m",
+    description: "Comodo e vicino, senza stress.",
+  },
+  {
+    icon: Star,
+    title: "9.4/10 · Eccellente su Booking.com",
+    description: "Un punteggio che parla da solo.",
   },
 ];
 
@@ -75,7 +75,7 @@ export default function PercheLeFarfalle() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-60px" }}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
         >
           {features.map((feature) => (
             <motion.div

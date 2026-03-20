@@ -55,6 +55,7 @@ export default function HomeRoomsPreview({ locale = "it" }: HomeRoomsPreviewProp
                       fill
                       className="object-cover group-hover:scale-105 transition-transform duration-500"
                       sizes="(max-width: 768px) 100vw, 50vw"
+                      quality={80}
                       loading="lazy"
                     />
                     <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm rounded-full px-3 py-2 flex items-center gap-2">

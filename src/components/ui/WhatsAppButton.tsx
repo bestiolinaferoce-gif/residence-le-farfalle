@@ -1,44 +1,67 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import React, { useEffect, useMemo, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { MessageCircle } from "lucide-react";
 import { siteConfig } from "@/src/config/site";
+import { GA_EVENTS } from "@/src/lib/analytics";
 
-/**
- * Pulsante WhatsApp floating — fisso in basso a destra
- * Appare dopo 2 secondi con fade-in. Su hover espande label.
- */
+function digitsOnly(input: string) {
+  return input.replace(/\D/g, "");
+}
+
 export default function WhatsAppButton() {
   const [visible, setVisible] = useState(false);
-  const digits = siteConfig.contacts.whatsapp.replace(/\D/g, "");
-  const url =
-    digits.length >= 10
-      ? `https://wa.me/${digits}?text=Ciao!%20Vorrei%20informazioni%20su%20Residence%20Le%20Farfalle`
-      : "#";
+  const [hovered, setHovered] = useState(false);
 
   useEffect(() => {
-    const t = setTimeout(() => setVisible(true), 2000);
-    return () => clearTimeout(t);
+    const t = window.setTimeout(() => setVisible(true), 2000);
+    return () => window.clearTimeout(t);
   }, []);
 
-  if (!visible || digits.length < 10) return null;
+  const { href, valid } = useMemo(() => {
+    const digits = digitsOnly(siteConfig.contacts.whatsapp || "");
+    const isValid = digits.length >= 10;
+    const text = encodeURIComponent("Ciao! Vorrei informazioni su Residence Le Farfalle");
+    return {
+      valid: isValid,
+      href: isValid ? `https://wa.me/${digits}?text=${text}` : "",
+    };
+  }, []);
+
+  if (!valid) return null;
 
   return (
-    <a
-      href={url}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="fixed bottom-6 right-6 z-50 flex items-center gap-2 bg-green-500 hover:bg-green-400 text-white px-4 py-3 rounded-full shadow-lg transition-all duration-300 hover:scale-105 group"
-      aria-label="Contattaci su WhatsApp"
-      style={{
-        opacity: visible ? 1 : 0,
-        transition: "opacity 0.5s ease, transform 0.3s ease",
-      }}
-    >
-      <MessageCircle className="h-5 w-5 flex-shrink-0" />
-      <span className="text-sm font-semibold max-w-0 overflow-hidden group-hover:max-w-xs transition-all duration-300 whitespace-nowrap">
-        Scrivici
-      </span>
-    </a>
+    <AnimatePresence>
+      {visible ? (
+        <motion.a
+          href={href}
+          target="_blank"
+          rel="noreferrer"
+          onClick={() => GA_EVENTS.clickWhatsapp()}
+          initial={{ opacity: 0, y: 10, scale: 0.98 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          exit={{ opacity: 0, y: 10, scale: 0.98 }}
+          onHoverStart={() => setHovered(true)}
+          onHoverEnd={() => setHovered(false)}
+          className="group fixed bottom-6 right-6 z-50 inline-flex items-center gap-3 rounded-full bg-emerald-500 px-4 py-3 text-white shadow-soft ring-1 ring-emerald-400/40 transition hover:bg-emerald-400 focus:outline-none focus:ring-2 focus:ring-emerald-200"
+          aria-label="Scrivici su WhatsApp"
+        >
+          <span className="grid h-10 w-10 place-items-center rounded-full bg-white/15">
+            <MessageCircle className="h-5 w-5" />
+          </span>
+          <div className="hidden overflow-hidden whitespace-nowrap font-semibold md:block">
+            <motion.span
+              initial={false}
+              animate={hovered ? { maxWidth: 120, opacity: 1 } : { maxWidth: 0, opacity: 0 }}
+              transition={{ type: "spring", stiffness: 260, damping: 24 }}
+              className="block"
+            >
+              Scrivici
+            </motion.span>
+          </div>
+        </motion.a>
+      ) : null}
+    </AnimatePresence>
   );
 }
