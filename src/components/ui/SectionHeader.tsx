@@ -6,7 +6,7 @@ import { cn } from "@/src/lib/utils";
 const ButterflyIcon = () => (
   <svg
     viewBox="0 0 24 26"
-    className="w-5 h-5 text-secondary-400"
+    className="h-5 w-5 text-primary-500"
     fill="currentColor"
     aria-hidden
   >

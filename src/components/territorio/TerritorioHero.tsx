@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { Waves, MapPin, Compass } from "lucide-react";
 import Container from "@/src/components/ui/Container";
@@ -15,9 +16,22 @@ export default function TerritorioHero() {
       className="relative min-h-[70vh] flex items-center justify-center overflow-hidden py-24"
       aria-labelledby="territorio-hero-heading"
     >
-      {/* Background gradient animato - colori vivi mediterranei */}
+      {/* Foto reale del territorio (sotto il gradiente) */}
+      <div className="absolute inset-0" aria-hidden>
+        <Image
+          src="/images/territorio/area-marina-protetta.jpg"
+          alt=""
+          fill
+          priority
+          loading="eager"
+          className="object-cover"
+          sizes="100vw"
+        />
+      </div>
+
+      {/* Tinta mediterranea leggera (la foto resta ben visibile) */}
       <div
-        className="absolute inset-0 bg-[length:300%_300%] animate-territorio-gradient"
+        className="absolute inset-0 bg-[length:300%_300%] animate-territorio-gradient opacity-35"
         style={{
           backgroundImage:
             "linear-gradient(135deg, #0c4a6e 0%, #0369a1 25%, #0d9488 50%, #14b8a6 75%, #0ea5e9 100%)",
@@ -25,8 +39,8 @@ export default function TerritorioHero() {
         }}
       />
 
-      {/* Overlay scuro per contrasto testo */}
-      <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/50" />
+      {/* Contrasto per titolo e paragrafi */}
+      <div className="absolute inset-0 bg-gradient-to-b from-black/55 via-black/25 to-black/60" />
 
       {/* Forme decorative flottanti */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
@@ -133,8 +147,8 @@ export default function TerritorioHero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
           >
-            Come host locali, ti guidiamo alla scoperta delle meraviglie nascoste, delle
-            spiagge più belle e dei luoghi che rendono questa terra unica al mondo
+            Dalla Residence Le Farfalle ti suggeriamo spiagge, borghi e itinerari dell&apos;Area
+            Marina Protetta e della costa ionica — senza fretta, con lo sguardo di chi vive il territorio
           </motion.p>
 
           {/* CTA decorative */}

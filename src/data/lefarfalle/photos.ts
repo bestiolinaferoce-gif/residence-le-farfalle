@@ -11,9 +11,21 @@ export interface HeroPhoto {
 
 export const heroPhotos: HeroPhoto[] = [
   {
+    src: "/images/rooms/le-farfalle-matrimoniale-03.png",
+    alt: "Camera matrimoniale moderna con testiera colorata e decorazioni farfalle — Residence Le Farfalle",
+    priority: true,
+  },
+  {
+    src: "/images/rooms/le-farfalle-matrimoniale-01.png",
+    alt: "Camera luminosa con letto matrimoniale e dettagli farfalle — Residence Le Farfalle",
+  },
+  {
+    src: "/images/rooms/le-farfalle-bagno.png",
+    alt: "Bagno privato moderno — Residence Le Farfalle",
+  },
+  {
     src: "/images/rooms/camera-generale.webp",
     alt: "Residence Le Farfalle - Vista generale delle camere",
-    priority: true, // Prima immagine per LCP
   },
   {
     src: "/images/rooms/camera-2-interno.webp",

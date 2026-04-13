@@ -5,6 +5,8 @@ import AppWrapper from "@/src/components/layout/AppWrapper";
 import "./globals.css";
 import { siteConfig } from "@/src/config/site";
 
+const googleSiteVerification = process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION?.trim();
+
 const jakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
   variable: "--font-plus-jakarta",
@@ -25,6 +27,11 @@ export const metadata: Metadata = {
     template: `%s | ${siteConfig.name}`,
   },
   description: siteConfig.description.it,
+  verification: googleSiteVerification
+    ? {
+        google: googleSiteVerification,
+      }
+    : undefined,
   openGraph: {
     siteName: siteConfig.name,
     type: "website",

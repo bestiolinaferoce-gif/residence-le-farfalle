@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { locales } from "@/src/lib/i18n";
 import Container from "@/src/components/ui/Container";
 import { pageAlternates } from "@/src/lib/seo";
+import { getPageMetadata } from "@/src/lib/page-metadata";
 
 export function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
@@ -15,9 +16,10 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params;
   const currentLocale = locale || "it";
+  const m = getPageMetadata("termini", currentLocale);
   return {
-    title: "Termini e Condizioni - Residence Le Farfalle",
-    description: "Termini e condizioni di prenotazione e soggiorno presso Residence Le Farfalle.",
+    title: m.title,
+    description: m.description,
     alternates: pageAlternates(currentLocale, "termini"),
   };
 }

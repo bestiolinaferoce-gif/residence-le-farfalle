@@ -1,21 +1,15 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import { motion } from "framer-motion";
-import { Phone, ExternalLink } from "lucide-react";
-import { partners, partnerCategories, type PartnerCategory } from "@/src/data/partners";
+import {
+  getPartnerCategoryLabel,
+  getPartnerSectionCopy,
+  getPartnersSorted,
+  type PartnerCategory,
+} from "@/src/data/partners";
 import Container from "@/src/components/ui/Container";
-import Card from "@/src/components/ui/Card";
-
-const categoryLabels: Record<PartnerCategory, string> = {
-  farmacie: "Farmacie",
-  "guardie-mediche": "Numeri utili",
-  supermarket: "Supermarket / Alimentari",
-  ristoranti: "Ristoranti",
-  transfer: "Transfer / NCC",
-  noleggio: "Noleggio",
-  escursioni: "Escursioni / Diving",
-};
+import PartnerCard from "@/src/components/partner/PartnerCard";
 
 interface PartnersSectionProps {
   locale?: string;
@@ -23,100 +17,108 @@ interface PartnersSectionProps {
 }
 
 export default function PartnersSection({ locale = "it", id }: PartnersSectionProps) {
+  const copy = getPartnerSectionCopy(locale);
+  const sorted = useMemo(() => getPartnersSorted(), []);
   const [activeCategory, setActiveCategory] = useState<PartnerCategory | "all">("all");
 
   const filtered =
     activeCategory === "all"
-      ? partners
-      : partners.filter((p) => p.category === activeCategory);
+      ? sorted
+      : sorted.filter((p) => p.category === activeCategory);
+
+  const cats = (
+    [
+      "farmacie",
+      "guardie-mediche",
+      "supermarket",
+      "ristoranti",
+      "transfer",
+      "noleggio",
+      "escursioni",
+    ] satisfies PartnerCategory[]
+  ).slice();
 
   return (
-    <section id={id} className="py-20 bg-neutral-50">
-      <Container>
+    <section id={id} className="relative overflow-hidden py-20">
+      <div
+        className="pointer-events-none absolute inset-0 mesh-gradient opacity-90"
+        aria-hidden
+      />
+      <Container className="relative">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mb-12"
+          className="mx-auto max-w-3xl text-center"
         >
-          <h2 className="font-display text-3xl font-bold text-neutral-900 mb-4">
-            Partner & Servizi utili
-          </h2>
-          <p className="text-neutral-600 max-w-2xl mx-auto">
-            Farmacie, transfer, escursioni e tutto ciò che ti serve per la tua vacanza
+          <p className="text-sm font-semibold uppercase tracking-widest text-secondary-600">
+            {copy.kicker}
           </p>
+          <h2 className="mt-3 font-display text-3xl font-bold text-neutral-900 md:text-4xl">
+            {copy.title}
+          </h2>
+          <p className="mt-4 text-lg text-neutral-600">{copy.subtitle}</p>
         </motion.div>
 
-        <div className="flex flex-wrap justify-center gap-2 mb-10">
+        <motion.ul
+          initial={{ opacity: 0, y: 12 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="mx-auto mt-10 grid max-w-4xl gap-4 sm:grid-cols-3"
+        >
+          {copy.pillars.map((pillar) => (
+            <li
+              key={pillar.title}
+              className="rounded-2xl border border-white/60 bg-white/70 px-4 py-4 text-left shadow-sm backdrop-blur-md"
+            >
+              <div className="font-semibold text-neutral-900">{pillar.title}</div>
+              <p className="mt-1 text-sm text-neutral-600">{pillar.body}</p>
+            </li>
+          ))}
+        </motion.ul>
+
+        <div className="mt-12 flex flex-wrap justify-center gap-2">
           <button
+            type="button"
             onClick={() => setActiveCategory("all")}
-            className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
+            className={`rounded-full px-4 py-2 text-sm font-semibold transition-all ${
               activeCategory === "all"
-                ? "bg-secondary-500 text-white"
-                : "bg-white text-neutral-700 hover:bg-neutral-100"
+                ? "bg-secondary-600 text-white shadow-md shadow-secondary-600/25"
+                : "border border-neutral-200 bg-white/80 text-neutral-700 hover:border-secondary-200"
             }`}
           >
-            Tutti
+            {copy.allLabel}
           </button>
-          {(Object.keys(categoryLabels) as PartnerCategory[]).map((cat) => (
+          {cats.map((cat) => (
             <button
               key={cat}
+              type="button"
               onClick={() => setActiveCategory(cat)}
-              className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
+              className={`rounded-full px-4 py-2 text-sm font-semibold transition-all ${
                 activeCategory === cat
-                  ? "bg-secondary-500 text-white"
-                  : "bg-white text-neutral-700 hover:bg-neutral-100"
+                  ? "bg-secondary-600 text-white shadow-md shadow-secondary-600/25"
+                  : "border border-neutral-200 bg-white/80 text-neutral-700 hover:border-secondary-200"
               }`}
             >
-              {categoryLabels[cat]}
+              {getPartnerCategoryLabel(cat, locale)}
             </button>
           ))}
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="mt-10 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
           {filtered.map((partner, i) => (
             <motion.div
               key={partner.id}
-              initial={{ opacity: 0, y: 15 }}
+              initial={{ opacity: 0, y: 16 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: i * 0.03 }}
+              transition={{ delay: i * 0.04 }}
             >
-              <Card hover>
-                <span className="text-xs font-medium text-secondary-600 uppercase">
-                  {categoryLabels[partner.category]}
-                </span>
-                <h3 className="font-semibold text-lg mt-1 mb-2 text-neutral-900">
-                  {partner.name}
-                </h3>
-                <p className="text-sm text-neutral-600 mb-4">{partner.description}</p>
-                {partner.comingSoon ? (
-                  <span className="text-sm text-neutral-500 italic">In arrivo</span>
-                ) : (
-                  <>
-                    {partner.phone && (
-                      <a
-                        href={`tel:${partner.phone}`}
-                        className="flex items-center gap-2 text-secondary-600 text-sm font-medium hover:underline"
-                      >
-                        <Phone className="h-4 w-4" />
-                        {partner.phone}
-                      </a>
-                    )}
-                    {partner.link && (
-                      <a
-                        href={partner.link}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex items-center gap-2 text-secondary-600 text-sm font-medium hover:underline mt-1"
-                      >
-                        <ExternalLink className="h-4 w-4" />
-                        Sito web
-                      </a>
-                    )}
-                  </>
-                )}
-              </Card>
+              <PartnerCard
+                partner={partner}
+                categoryLabel={getPartnerCategoryLabel(partner.category, locale)}
+                locale={locale}
+              />
             </motion.div>
           ))}
         </div>

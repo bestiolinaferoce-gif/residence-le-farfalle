@@ -4,6 +4,8 @@ import { locales } from "@/src/lib/i18n";
 import Container from "@/src/components/ui/Container";
 import Link from "next/link";
 import { pageAlternates } from "@/src/lib/seo";
+import { getPageMetadata } from "@/src/lib/page-metadata";
+import { siteConfig, STRUCTURE_CIN } from "@/src/config/site";
 
 export function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
@@ -16,10 +18,10 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params;
   const currentLocale = locale || "it";
+  const m = getPageMetadata("privacy", currentLocale);
   return {
-    title: "Privacy Policy - Residence Le Farfalle",
-    description:
-      "Informativa sulla privacy e trattamento dei dati personali di Residence Le Farfalle, Isola di Capo Rizzuto.",
+    title: m.title,
+    description: m.description,
     alternates: pageAlternates(currentLocale, "privacy"),
   };
 }
@@ -47,26 +49,29 @@ export default async function PrivacyPage({ params }: PrivacyPageProps) {
             <h2 className="font-display text-xl font-bold text-neutral-900 mt-8 mb-4">
               1. Titolare del trattamento
             </h2>
-            <p>Il titolare del trattamento dei dati personali è:</p>
+            <p>
+              Il titolare del trattamento dei dati personali è la struttura ricettiva{" "}
+              <strong>Residence Le Farfalle</strong>, con sede operativa nei recapiti sottoindicati.
+              Per richieste relative alla privacy utilizzare l&apos;email dedicata.
+            </p>
             <ul className="list-none pl-0 mt-3 space-y-1 text-sm">
               <li>
-                <strong>Francesco Nigro</strong>
+                <strong>Residence Le Farfalle</strong>
               </li>
-              <li>Residence Le Farfalle</li>
               <li>Via Capo delle Colonne, 88841 Isola di Capo Rizzuto (KR)</li>
               <li>
                 Tel:{" "}
-                <a href="tel:+393500979130" className="text-butterfly-600 underline">
-                  +39 3500979130
+                <a href={`tel:${siteConfig.contacts.phone.replace(/[^\d+]/g, "")}`} className="text-butterfly-600 underline">
+                  {siteConfig.contacts.phone}
                 </a>
               </li>
               <li>
                 Email:{" "}
-                <a href="mailto:info@residencelefarfalle.it" className="text-butterfly-600 underline">
-                  info@residencelefarfalle.it
+                <a href={`mailto:${siteConfig.contacts.email}`} className="text-butterfly-600 underline">
+                  {siteConfig.contacts.email}
                 </a>
               </li>
-              <li>CIN struttura: IT101013C2I8M3ARTU</li>
+              <li>CIN struttura: {STRUCTURE_CIN}</li>
             </ul>
           </section>
 
@@ -132,7 +137,10 @@ export default async function PrivacyPage({ params }: PrivacyPageProps) {
               <li>Revoca del consenso</li>
             </ul>
             <p className="mt-4">
-              Per esercitare i diritti scrivi a info@residencelefarfalle.it
+              Per esercitare i diritti scrivi a{" "}
+              <a href={`mailto:${siteConfig.contacts.email}`} className="text-butterfly-600 underline">
+                {siteConfig.contacts.email}
+              </a>
             </p>
           </section>
 

@@ -3,14 +3,258 @@
     "welcome": "Willkommen",
     "bookNow": "Jetzt buchen",
     "learnMore": "Mehr erfahren",
-    "contact": "Kontakt"
+    "contact": "Kontakt",
+    "seeTerritory": "Die Region entdecken",
+    "all": "Alle"
   },
   "navigation": {
     "home": "Startseite",
     "rooms": "Zimmer",
     "services": "Dienstleistungen",
-    "territory": "Gebiet",
+    "territory": "Region",
     "book": "Buchen",
     "contact": "Kontakt"
+  },
+  "hero": {
+    "imageAlt": "Zimmer in der Residence Le Farfalle — Isola di Capo Rizzuto, Kalabrien",
+    "locationPill": "Ortsmitte Isola di Capo Rizzuto · strategische Lage",
+    "eyebrow": "Residence & Bed and Breakfast",
+    "headline": "Residence Le Farfalle",
+    "headlineAccent": "Design-B&B im Dorfkern — nah an allem",
+    "trustLine": "4 Suiten · liebevolle Einrichtung · reichhaltiges Frühstück · Service auf Wunsch",
+    "tagline": "Geräumige, helle Zimmer mit eigenem Bad, Komfort auf Boutique-Niveau und familiäre Gastfreundschaft. Frisches Frühstück jeden Morgen, superschnelles WLAN und alles, was Sie brauchen, um das Beste der ionischen Küste zu genießen — ohne auf die Ortsmitte zu verzichten.",
+    "ctaRooms": "Zimmer entdecken",
+    "ctaWhatsapp": "WhatsApp schreiben",
+    "scrollHint": "Mehr",
+    "badgeVerified": "Verifiziert",
+    "badgeBreakfast": "Frühstück inklusive",
+    "badgeAc": "Klimaanlage",
+    "badgeWifi": "Superschnelles WLAN",
+    "whatsappPrefill": "Hallo! Ich möchte Informationen zur Residence Le Farfalle"
+  },
+  "homeRooms": {
+    "kicker": "Gut schlafen, besser aufwachen",
+    "heading": "Unsere Zimmer",
+    "sub": "Vier verschiedene Räume, alle geschmackvoll eingerichtet: bequeme Betten, moderne Bäder, Klimaanlage und Details, die nach einem Tag am Meer zählen.",
+    "features": [
+      "Klimaanlage",
+      "Eigenes Bad",
+      "Pflegeset"
+    ],
+    "detailLink": "Zimmerdetails",
+    "cta": "Alle Zimmer",
+    "spotOne": "Gast",
+    "spotMany": "Gäste"
+  },
+  "perche": {
+    "kicker": "Moderne Guesthouse-Atmosphäre",
+    "title": "Warum Le Farfalle",
+    "sub": "Mehr als eine Übernachtung: eine elegante Basis im Zentrum von Isola di Capo Rizzuto, mit einem Frühstück, das die Reise lohnt, und dem Meer nur eine kurze Fahrt entfernt.",
+    "items": [
+      {
+        "title": "Kurz zu den Stränden des Meeresschutzgebiets",
+        "description": "Das Meer ist nah und leicht erreichbar."
+      },
+      {
+        "title": "Frühstück inklusive — immer reichhaltig",
+        "description": "Süß und herzhaft, Kaffee und Säfte: Energie für Strand oder Ausflug."
+      },
+      {
+        "title": "Durchdachte Einrichtung, Premium-Ferienkomfort",
+        "description": "Saubere, helle Räume zum wirklichen Entspannen."
+      },
+      {
+        "title": "Ortsmitte — alles zu Fuß",
+        "description": "Bars, Restaurants und Services in wenigen Minuten."
+      },
+      {
+        "title": "Partnerparkplatz 50 m",
+        "description": "Praktisch und stressfrei."
+      },
+      {
+        "title": "9,4/10 · Ausgezeichnet auf Booking.com",
+        "description": "Eine Bewertung, die für sich spricht."
+      }
+    ]
+  },
+  "servicesSection": {
+    "kicker": "Komfort & Gastfreundschaft",
+    "heading": "Leistungen für Gäste mit Anspruch",
+    "sub": "Vom guten Morgen am Tisch bis zu Reisetipps: vieles inklusive, anderes auf Anfrage — fragen Sie uns.",
+    "breakfast": {
+      "title": "Frühstück inklusive",
+      "desc": "Jeden Morgen ein reich gedeckter Tisch: süß und herzhaft, heiß und kalt — der richtige Start."
+    },
+    "wifi": {
+      "title": "Superschnelles WLAN",
+      "desc": "Glasfaser in der ganzen Unterkunft — auch für leichtes Homeoffice."
+    },
+    "ac": {
+      "title": "Klima in den Zimmern",
+      "desc": "Eigenes Klima in jedem Zimmer — gut schlafen auch im Hochsommer."
+    },
+    "tv": {
+      "title": "Smart-TV",
+      "desc": "LED-Smart-TV für einen entspannten Abend nach dem Strand."
+    },
+    "bath": {
+      "title": "Eigenes Bad",
+      "desc": "Jedes Zimmer mit modernem Bad und Pflegeset."
+    },
+    "transfer": {
+      "title": "Transfer & Anreise",
+      "desc": "Auf Wunsch: Transfer vom Flughafen und Bahnhof — wir helfen bei der Organisation."
+    },
+    "tours": {
+      "title": "Ausflüge & Meer",
+      "desc": "Tipps zu Bootstouren, Schnorcheln im Schutzgebiet und Tagesausflüge ins Hinterland."
+    },
+    "restaurants": {
+      "title": "Partner vor Ort",
+      "desc": "Netzwerk aus Restaurants und Aktivitäten — das Beste der Region."
+    }
+  },
+  "mareVicino": {
+    "kicker": "Isola di Capo Rizzuto",
+    "title": "Meer und Dörfer ohne die Ortsmitte zu verlassen",
+    "intro": "Wer im Zentrum wohnt, hat Bars, Märkte und Restaurants vor der Tür — und erreicht trotzdem in wenigen Minuten die ikonischen Strände des Schutzgebiets und Ziele wie Le Castella.",
+    "highlights": [
+      {
+        "title": "Strände mit dem Auto",
+        "desc": "Strände des Schutzgebiats liegen 5–15 Autominuten entfernt."
+      },
+      {
+        "title": "Meeresschutzgebiet",
+        "desc": "Eines der größten Meeresschutzgebiete Italiens — klares Wasser, reiche Unterwasserwelt."
+      },
+      {
+        "title": "Nahe Ziele",
+        "desc": "Le Castella, Capo Colonna und Crotone sind gut erreichbar."
+      },
+      {
+        "title": "Shuttle & Transfer",
+        "desc": "Infos zu Shuttle und Transfer direkt in der Unterkunft."
+      }
+    ],
+    "stripTitle": "Meeresschutzgebiet Capo Rizzuto",
+    "stripSub": "Eines der größten Meeresschutzgebiete Italiens. Schnorcheln und Tauchen.",
+    "stripTime": "5–15 Min. mit dem Auto"
+  },
+  "territorio60": {
+    "kicker": "Ionisches Kalabrien",
+    "heading": "Die Region intensiv erleben",
+    "sub": "Kristallklares Meer, Dörfer auf den Hügeln, echtes Essen: von der Residence aus planen Sie ruhige Tage oder Mini-Abenteuer — das sollten Sie nicht verpassen.",
+    "cta": "Region entdecken",
+    "cards": {
+      "spiagge": {
+        "title": "Postkartenstrände",
+        "excerpt": "Vom feinen Sand in Capo Rizzuto zu Buchten bei Le Castella — jeden Tag ein neues Blau."
+      },
+      "area-marina": {
+        "title": "Meeresschutzgebiet",
+        "excerpt": "Schnorcheln, Boote, artenreiche Böden: eines Italiens Umweltschätze, gut erreichbar."
+      },
+      "borghi": {
+        "title": "Dörfer & Geschichte",
+        "excerpt": "Le Castella mit Wasserschloss, antikes Crotone, Capo Colonna im Sonnenuntergang."
+      },
+      "eventi": {
+        "title": "Events & Sommer",
+        "excerpt": "Fischfeste, Patronatsfeste, Abende am Meer — fragen Sie uns beim Buchen nach dem Kalender."
+      },
+      "escursioni": {
+        "title": "Ausflüge & Natur",
+        "excerpt": "Von der Sila bis zu den Valli Cupe, plus Bootstouren an der Küste — wir empfehlen sichere, unvergessliche Erlebnisse."
+      },
+      "food": {
+        "title": "Territorium auf dem Teller",
+        "excerpt": "Frischer Fisch, Peperoncino, Öl und lokale Weine — Trattorien, wo auch Einheimische essen."
+      }
+    }
+  },
+  "locationSection": {
+    "kicker": "Inspiration für Ihren Urlaub",
+    "heading": "Von der Residence ins Land",
+    "sub": "Reale Entfernungen von unseren Zimmern: Meer, Geschichte und kalabrisches Hinterland im Tagesausflug.",
+    "cta": "Region entdecken",
+    "attractions": [
+      {
+        "name": "Meeresschutzgebiet Capo Rizzuto",
+        "distance": "2 km",
+        "time": "5 Min.",
+        "description": "Marine Reserve mit klarem Wasser"
+      },
+      {
+        "name": "Strände Le Castella",
+        "distance": "8 km",
+        "time": "15 Min.",
+        "description": "Goldener Sand und türkises Meer"
+      },
+      {
+        "name": "Crotone Altstadt",
+        "distance": "12 km",
+        "time": "20 Min.",
+        "description": "Antike Stadt, jahrtausendealte Geschichte"
+      },
+      {
+        "name": "Archäologischer Park Capo Colonna",
+        "distance": "15 km",
+        "time": "25 Min.",
+        "description": "Tempel der Hera Lacinia"
+      }
+    ]
+  },
+  "homeCta": {
+    "kicker": "Residence Le Farfalle",
+    "title": "Ihre stilvolle Basis im Zentrum von Isola di Capo Rizzuto",
+    "body": "Gepflegtes Frühstück, geräumige Zimmer und maßgeschneiderte Tipps für Meer, Dörfer und lokale Küche. Schreiben Sie uns für Termine, Verfügbarkeit und besondere Wünsche — wir verwöhnen gerne Gäste, die sich für uns entscheiden.",
+    "primary": "Angebot anfragen",
+    "secondary": "Kontakt"
+  },
+  "newsletter": {
+    "thanksTitle": "Danke für Ihre Anmeldung!",
+    "thanksSub": "Sie erhalten Neuigkeiten und Angebote für Ihren nächsten Urlaub.",
+    "title": "Bleiben Sie informiert",
+    "sub": "Angebote, Tipps zur Region und Neuigkeiten von Residence Le Farfalle",
+    "placeholder": "Ihre E-Mail",
+    "loading": "Senden…",
+    "submit": "Anmelden"
+  },
+  "homeFooter": {
+    "tagline": "B&B-Residence im Zentrum von Isola di Capo Rizzuto: gepflegte Zimmer, großzügiges Frühstück, voller Service — und die Strände des Schutzgebiats nur eine kurze Fahrt entfernt.",
+    "faqTitle": "Häufige Fragen",
+    "bookNow": "Jetzt buchen",
+    "contact": "Kontakt",
+    "copyright": "Isola di Capo Rizzuto, Kalabrien.",
+    "faq": [
+      {
+        "q": "Check-in / Check-out",
+        "a": "Check-in ab 14:00, Check-out bis 10:00. Flexibel auf Anfrage."
+      },
+      {
+        "q": "Parkplatz",
+        "a": "Kostenlose Parkplätze in der Nähe."
+      },
+      {
+        "q": "Haustiere",
+        "a": "Kontaktieren Sie uns für unsere Haustierregeln."
+      },
+      {
+        "q": "Frühstück",
+        "a": "Kontinentales Frühstück inklusive, täglich serviert."
+      }
+    ]
+  },
+  "roomCard": {
+    "badgeArea": "Ortsmitte",
+    "privateBath": "Eigenes Bad",
+    "allInclusive": "Alles inklusive",
+    "from": "Ab",
+    "perNight": "/Nacht",
+    "details": "Details",
+    "quote": "Angebot anfragen",
+    "guestOne": "Gast",
+    "guestMany": "Gäste",
+    "whatsappRoom": "Hallo! Ich möchte Informationen zum Zimmer {room} in der Residence Le Farfalle"
   }
 }

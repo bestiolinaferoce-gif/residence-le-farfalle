@@ -67,9 +67,13 @@ html {
   }
 }
 
-/* Base styles */
+/* Base styles — canvas premium leggero (sezioni sovrascrivono con bg propri) */
 body {
-  background-color: white;
+  background-color: #faf8ff;
+  background-image:
+    radial-gradient(ellipse 100% 60% at 100% 0%, rgba(217, 70, 239, 0.07) 0%, transparent 55%),
+    radial-gradient(ellipse 80% 50% at 0% 40%, rgba(14, 165, 233, 0.06) 0%, transparent 50%),
+    radial-gradient(ellipse 70% 45% at 50% 100%, rgba(245, 158, 11, 0.05) 0%, transparent 50%);
   color: rgb(28 25 23);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -103,12 +107,53 @@ h6 {
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.06);
 }
 
-/* Gradient text — titoli */
+/* Gradient text — titoli (calore) */
 .gradient-text {
   background: linear-gradient(135deg, #b45309 0%, #f59e0b 60%, #fcd34d 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+}
+
+/* Gradient brand — farfalla → corallo → ambra */
+.gradient-text-brand {
+  background: linear-gradient(120deg, #d946ef 0%, #f43f5e 45%, #f59e0b 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Sezioni con mesh morbido (homepage) */
+.mesh-section-light {
+  background:
+    radial-gradient(ellipse 90% 70% at 90% 10%, rgba(217, 70, 239, 0.06) 0%, transparent 55%),
+    radial-gradient(ellipse 70% 50% at 10% 90%, rgba(14, 165, 233, 0.05) 0%, transparent 50%),
+    #fafaf9;
+}
+
+.mesh-section-white {
+  background:
+    radial-gradient(ellipse 80% 60% at 50% -10%, rgba(217, 70, 239, 0.04) 0%, transparent 45%),
+    #ffffff;
+}
+
+/* CTA finale: profondo + griglia sottile */
+.cta-mesh-dark {
+  background:
+    linear-gradient(145deg, #1a0b2e 0%, #0c4a6e 42%, #0f172a 100%);
+  position: relative;
+}
+
+.cta-mesh-dark::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+  background-size: 56px 56px;
+  mask-image: linear-gradient(to bottom, rgb(0 0 0 / 0.55) 0%, transparent 92%);
+  pointer-events: none;
 }
 
 /* Bottone magnetico — hover con transform */

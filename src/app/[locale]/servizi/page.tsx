@@ -10,6 +10,7 @@ import Newsletter from "@/src/components/sections/Newsletter";
 import type { Metadata } from "next";
 import { locales } from "@/src/lib/i18n";
 import { pageAlternates } from "@/src/lib/seo";
+import { getPageMetadata } from "@/src/lib/page-metadata";
 
 export function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
@@ -22,17 +23,11 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params;
   const currentLocale = locale || "it";
+  const m = getPageMetadata("servizi", currentLocale);
   return {
-    title: "Servizi & Partner - Residence Le Farfalle",
-    description:
-      "Colazione inclusa, WiFi, aria condizionata, parcheggio. Partner utili: farmacie, transfer, escursioni. Tutto per la tua vacanza a Isola di Capo Rizzuto.",
-    keywords: [
-      "servizi residence",
-      "colazione inclusa Calabria",
-      "WiFi gratuito",
-      "parcheggio gratuito Isola di Capo Rizzuto",
-      "transfer aeroporto Crotone",
-    ],
+    title: m.title,
+    description: m.description,
+    keywords: m.keywords,
     alternates: pageAlternates(currentLocale, "servizi"),
   };
 }

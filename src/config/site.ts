@@ -1,6 +1,9 @@
 /**
- * Configurazione generale del sito
+ * Configurazione generale del sito — Residence Le Farfalle
  */
+
+/** Email di contatto ufficiale (form, footer, privacy, structured data) */
+export const CONTACT_EMAIL = "lefarfallecaporizzuto@gmail.com" as const;
 
 const resolvedSiteUrl =
   (process.env.NEXT_PUBLIC_SITE_URL ?? "").trim().replace(/\/$/, "") ||
@@ -27,10 +30,10 @@ export const siteConfig = {
   },
   contacts: {
     phone: "+39 3500979130",
-    email: "info@residencelefarfalle.it",
+    email: CONTACT_EMAIL,
     whatsapp: "+39 3500979130",
   },
-  // FIX-17: inserire URL reali quando disponibili dal proprietario
+  /** Social / OTA: valorizzare su Vercel o qui quando disponibili */
   social: {
     facebook: "",
     instagram: "",
@@ -40,12 +43,6 @@ export const siteConfig = {
   booking: {
     airbnb: "",
     booking_com: "",
-  },
-  host: {
-    name: "Francesco",
-    surname: "Nigro",
-    description_it:
-      "Host professionista con anni di esperienza nell'ospitalità calabrese.",
   },
   /** Vuoto finché non imposti NEXT_PUBLIC_VAT_OR_CF su Vercel / .env.local */
   vatOrCf,
@@ -59,7 +56,11 @@ export const roomsConfig = [
     capacity: 2,
     size: 20,
     amenities: ["private-bathroom", "tv", "ac", "wifi", "blackout"],
-    images: ["camera-generale.webp", "camera-2-letto.webp"],
+    images: [
+      "le-farfalle-matrimoniale-01.png",
+      "camera-generale.webp",
+      "camera-2-letto.webp",
+    ],
   },
   {
     id: 2,
@@ -68,7 +69,13 @@ export const roomsConfig = [
     capacity: 2,
     size: 25,
     amenities: ["private-bathroom", "tv", "ac", "wifi", "blackout"],
-    images: ["camera-2-letto.webp", "camera-2-interno.webp", "camera-2-bagno.webp"],
+    images: [
+      "le-farfalle-matrimoniale-03.png",
+      "le-farfalle-bagno.png",
+      "camera-2-letto.webp",
+      "camera-2-interno.webp",
+      "camera-2-bagno.webp",
+    ],
   },
   {
     id: 3,
@@ -77,7 +84,11 @@ export const roomsConfig = [
     capacity: 2,
     size: 22,
     amenities: ["private-bathroom", "tv", "ac", "wifi", "blackout"],
-    images: ["camera-3-letto.webp", "camera-3-interno.webp"],
+    images: [
+      "le-farfalle-matrimoniale-02.png",
+      "camera-3-letto.webp",
+      "camera-3-interno.webp",
+    ],
   },
   {
     id: 4,
@@ -86,6 +97,6 @@ export const roomsConfig = [
     capacity: 2,
     size: 30,
     amenities: ["private-bathroom", "tv", "ac", "wifi", "blackout"],
-    images: ["camera-4-interno.webp", "camera-5-interno.webp"],
+    images: ["le-farfalle-matrimoniale-04.png", "camera-4-interno.webp", "camera-5-interno.webp"],
   },
 ] as const;

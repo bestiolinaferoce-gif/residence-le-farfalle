@@ -60,7 +60,7 @@ Helper **`pageAlternates(locale, segment)`** in `src/lib/seo.ts`, applicato a:
 
 | Correzione | File |
 |------------|------|
-| **Privacy:** titolare reale (Francesco Nigro), indirizzo, tel, email, **CIN** | `src/app/[locale]/privacy/page.tsx` |
+| **Privacy:** titolare struttura (minimo necessario), indirizzo, tel, email, **CIN** | `src/app/[locale]/privacy/page.tsx` |
 | **Cookie policy** | `src/app/[locale]/cookie/page.tsx` (più `alternates`) |
 | **Termini e condizioni:** sezione prenotazione/cancellazione **completata** (testo in chiaro + rimando alla conferma contrattuale del titolare); rimosso `TODO` | `src/app/[locale]/termini/page.tsx` |
 | **Footer:** CIN, link Privacy / Cookie / **Termini**, copyright con anno dinamico | `src/components/layout/Footer.tsx` |

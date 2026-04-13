@@ -9,6 +9,7 @@ import Newsletter from "@/src/components/sections/Newsletter";
 import type { Metadata } from "next";
 import { locales } from "@/src/lib/i18n";
 import { pageAlternates } from "@/src/lib/seo";
+import { getPageMetadata } from "@/src/lib/page-metadata";
 
 export function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
@@ -21,18 +22,11 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params;
   const currentLocale = locale || "it";
+  const m = getPageMetadata("camere", currentLocale);
   return {
-    title: "Le Nostre Camere - Residence Le Farfalle Isola di Capo Rizzuto",
-    description:
-      "4 camere indipendenti (8 posti totali, 2 pax per camera) con bagno privato, aria condizionata, WiFi superfast e colazione inclusa. Isola di Capo Rizzuto, Calabria.",
-    keywords: [
-      "camere Isola di Capo Rizzuto",
-      "camere Crotone",
-      "residence Calabria",
-      "camere con bagno privato",
-      "alloggio Isola di Capo Rizzuto",
-      "bed and breakfast Calabria",
-    ],
+    title: m.title,
+    description: m.description,
+    keywords: m.keywords,
     alternates: pageAlternates(currentLocale, "camere"),
   };
 }
@@ -71,6 +65,7 @@ export default async function RoomsPage({ params }: RoomsPageProps) {
           <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
             {rooms.map((room) => {
               const name = room.name[currentLocale as keyof typeof room.name] ?? room.name.it;
+              const cardAlt = `${name} — Residence Le Farfalle, Isola di Capo Rizzuto`;
               return (
                 <article
                   key={room.id}
@@ -79,7 +74,7 @@ export default async function RoomsPage({ params }: RoomsPageProps) {
                   <div className="relative aspect-video bg-stone-100">
                     <Image
                       src={`/images/rooms/${room.images[0]}`}
-                      alt={name}
+                      alt={cardAlt}
                       fill
                       sizes="(min-width: 1024px) 50vw, 100vw"
                       className="object-cover"

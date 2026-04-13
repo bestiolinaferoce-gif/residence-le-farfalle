@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { locales } from "@/src/lib/i18n";
 import PartnersPage from "@/src/components/partner/PartnersPage";
 import { pageAlternates } from "@/src/lib/seo";
+import { getPageMetadata } from "@/src/lib/page-metadata";
 
 export function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
@@ -15,16 +16,11 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params;
   const currentLocale = locale || "it";
+  const m = getPageMetadata("partner", currentLocale);
   return {
-    title: "Partner & Servizi utili - Residence Le Farfalle",
-    description:
-      "Farmacie, guardie mediche, supermarket, ristoranti, transfer, noleggio, escursioni. Tutti i contatti utili per la tua vacanza a Isola di Capo Rizzuto.",
-    keywords: [
-      "farmacie Isola di Capo Rizzuto",
-      "transfer aeroporto",
-      "escursioni Calabria",
-      "servizi utili Isola di Capo Rizzuto",
-    ],
+    title: m.title,
+    description: m.description,
+    keywords: m.keywords,
     alternates: pageAlternates(currentLocale, "partner"),
   };
 }

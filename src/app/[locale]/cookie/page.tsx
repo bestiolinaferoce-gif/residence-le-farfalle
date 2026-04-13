@@ -4,6 +4,7 @@ import { locales } from "@/src/lib/i18n";
 import Container from "@/src/components/ui/Container";
 import Link from "next/link";
 import { pageAlternates } from "@/src/lib/seo";
+import { getPageMetadata } from "@/src/lib/page-metadata";
 
 export function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
@@ -16,9 +17,10 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params;
   const currentLocale = locale || "it";
+  const m = getPageMetadata("cookie", currentLocale);
   return {
-    title: "Cookie Policy - Residence Le Farfalle",
-    description: "Informativa sui cookie utilizzati dal sito Residence Le Farfalle.",
+    title: m.title,
+    description: m.description,
     alternates: pageAlternates(currentLocale, "cookie"),
   };
 }
@@ -60,8 +62,8 @@ export default async function CookiePage({ params }: CookiePageProps) {
         </h1>
         <div className="prose prose-neutral max-w-none space-y-6 text-neutral-700">
           <p>
-            Questa Cookie Policy descrive i cookie utilizzati sul sito residencelefarfalle.it gestito
-            da Residence Le Farfalle.
+            Questa Cookie Policy descrive i cookie utilizzati sul sito web ufficiale di Residence Le
+            Farfalle (Isola di Capo Rizzuto).
           </p>
 
           <h2 className="font-display text-xl font-bold text-neutral-900 mt-8 mb-4">

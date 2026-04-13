@@ -3,7 +3,9 @@
     "welcome": "Benvenuti",
     "bookNow": "Prenota ora",
     "learnMore": "Scopri di più",
-    "contact": "Contatti"
+    "contact": "Contatti",
+    "seeTerritory": "Scopri il territorio",
+    "all": "Tutti"
   },
   "navigation": {
     "home": "Home",
@@ -12,5 +14,247 @@
     "territory": "Territorio",
     "book": "Prenota",
     "contact": "Contatti"
+  },
+  "hero": {
+    "imageAlt": "Camera del Residence Le Farfalle — Isola di Capo Rizzuto, Calabria",
+    "locationPill": "Centro Isola di Capo Rizzuto · posizione strategica",
+    "eyebrow": "Residence & Bed and Breakfast",
+    "headline": "Residence Le Farfalle",
+    "headlineAccent": "B&B design nel cuore del paese — a due passi da tutto",
+    "trustLine": "4 suite indipendenti · arredi curati · colazione sempre ricca · servizi su misura",
+    "tagline": "Camere spaziose e luminose con bagno privato, comfort da boutique hotel e accoglienza familiare. Colazione con prodotti freschi ogni mattina, WiFi superfast e tutto ciò che serve per vivere il meglio della Calabria ionica senza rinunciare al centro paese.",
+    "ctaRooms": "Scopri le Camere",
+    "ctaWhatsapp": "Scrivici su WhatsApp",
+    "scrollHint": "Scopri",
+    "badgeVerified": "Verificato",
+    "badgeBreakfast": "Colazione inclusa",
+    "badgeAc": "Aria condizionata",
+    "badgeWifi": "WiFi superfast",
+    "whatsappPrefill": "Ciao! Vorrei informazioni su Residence Le Farfalle"
+  },
+  "homeRooms": {
+    "kicker": "Dormire bene, svegliarsi meglio",
+    "heading": "Le nostre camere",
+    "sub": "Quattro ambienti diversi, tutti arredati con gusto: letti comodi, bagni moderni, aria condizionata e dettagli che fanno la differenza dopo una giornata al mare.",
+    "features": [
+      "Aria condizionata",
+      "Bagno privato",
+      "Set cortesia"
+    ],
+    "detailLink": "Dettagli camera",
+    "cta": "Vedi tutte le camere",
+    "spotOne": "posto",
+    "spotMany": "posti"
+  },
+  "perche": {
+    "kicker": "Esperienza da guest house moderna",
+    "title": "Perché scegliere Le Farfalle",
+    "sub": "Non è solo un posto dove dormire: è una base elegante nel centro di Isola di Capo Rizzuto, con colazione che vale il viaggio e il mare a portata di auto.",
+    "items": [
+      {
+        "title": "A 5 minuti dalle spiagge dell'AMP",
+        "description": "Mare vicino e facile da raggiungere, perfetto per giornate in relax."
+      },
+      {
+        "title": "Colazione inclusa — sempre abbondante e gustosa",
+        "description": "Dolce e salato, caffè e succhi: partire con energia prima di spiaggia o escursioni."
+      },
+      {
+        "title": "Arredi curati e comfort da casa vacanza premium",
+        "description": "Spazi puliti, luminosi e pensati per rilassarsi davvero."
+      },
+      {
+        "title": "Centro paese, tutto a piedi",
+        "description": "Bar, ristoranti e servizi a pochi minuti."
+      },
+      {
+        "title": "Parcheggio convenzionato a 50m",
+        "description": "Comodo e vicino, senza stress."
+      },
+      {
+        "title": "9.4/10 · Eccellente su Booking.com",
+        "description": "Un punteggio che parla da solo."
+      }
+    ]
+  },
+  "servicesSection": {
+    "kicker": "Comfort e ospitalità",
+    "heading": "Servizi pensati per chi vuole il meglio",
+    "sub": "Dal buongiorno in tavola al supporto per itinerari: molti servizi inclusi, altri su richiesta — chiedici pure.",
+    "breakfast": {
+      "title": "Colazione inclusa",
+      "desc": "Tavola ricca ogni mattina: dolce, salato, bevande calde e fredde — il modo giusto per iniziare la giornata."
+    },
+    "wifi": {
+      "title": "WiFi superfast",
+      "desc": "Fibra ad alta velocità in tutta la struttura, ideale anche per smart working leggero."
+    },
+    "ac": {
+      "title": "Clima in camera",
+      "desc": "Aria condizionata autonoma per dormire bene anche nei mesi più caldi."
+    },
+    "tv": {
+      "title": "Smart TV",
+      "desc": "TV LED con streaming per una serata relax dopo il mare."
+    },
+    "bath": {
+      "title": "Bagno privato",
+      "desc": "Ogni camera con bagno dedicato, moderno e con set di cortesia."
+    },
+    "transfer": {
+      "title": "Transfer e arrivo",
+      "desc": "Su prenotazione: transfer da aeroporti e stazioni — ti aiutiamo a organizzare."
+    },
+    "tours": {
+      "title": "Escursioni e mare",
+      "desc": "Consigli su boat tour, snorkeling nell’AMP e gite nell’entroterra."
+    },
+    "restaurants": {
+      "title": "Convenzioni in zona",
+      "desc": "Rete di ristoranti e attività partner per assaggiare il meglio del territorio."
+    }
+  },
+  "mareVicino": {
+    "kicker": "Isola di Capo Rizzuto",
+    "title": "Mare e borghi, senza rinunciare al centro",
+    "intro": "Soggiornare in centro significa avere bar, market e ristoranti sotto casa — e comunque raggiungere in pochi minuti le spiagge iconiche dell’Area Marina Protetta e mete come Le Castella.",
+    "highlights": [
+      {
+        "title": "Spiagge in auto",
+        "desc": "Le spiagge dell'Area Marina Protetta sono raggiungibili in 5–15 minuti d'auto da noi."
+      },
+      {
+        "title": "Area Marina Protetta",
+        "desc": "Una delle più estese riserve marine d'Italia, con acque cristalline e fondali ricchi di vita."
+      },
+      {
+        "title": "Mete vicine",
+        "desc": "Le Castella, Capo Colonna e Crotone sono facilmente raggiungibili per escursioni."
+      },
+      {
+        "title": "Navette e transfer",
+        "desc": "Informazioni su navette e transfer disponibili direttamente in struttura."
+      }
+    ],
+    "stripTitle": "Area Marina Protetta Capo Rizzuto",
+    "stripSub": "Una delle più grandi riserve marine d'Italia. Acque limpide, snorkeling e immersioni.",
+    "stripTime": "5–15 min in auto"
+  },
+  "territorio60": {
+    "kicker": "Calabria ionica",
+    "heading": "Territorio da vivere",
+    "sub": "Mare cristallino, borghi arroccati, cucina autentica: dalla residence parti per micro-avventure o giornate slow — ecco cosa non perdere.",
+    "cta": "Scopri il territorio",
+    "cards": {
+      "spiagge": {
+        "title": "Spiagge da cartolina",
+        "excerpt": "Dalla sabbia fine di Capo Rizzuto alle calette vicino Le Castella: ogni giorno una nuova tinta di blu."
+      },
+      "area-marina": {
+        "title": "Area Marina Protetta",
+        "excerpt": "Snorkeling, barche e fondali ricchissimi: uno dei gioielli ambientali d’Italia, a portata di pedalò o gita organizzata."
+      },
+      "borghi": {
+        "title": "Borghi e storia",
+        "excerpt": "Le Castella con il castello sull’acqua, Crotone magno-greca, Capo Colonna al tramonto: la Calabria che emoziona."
+      },
+      "eventi": {
+        "title": "Eventi ed estate",
+        "excerpt": "Sagre del pesce, feste patronali, serate sul lungomare: chiedici il calendario quando prenoti."
+      },
+      "escursioni": {
+        "title": "Escursioni & natura",
+        "excerpt": "Dalla Sila alle Valli Cupe, fino ai boat tour sulla costa: ti indirizziamo su esperienze sicure e memorabili."
+      },
+      "food": {
+        "title": "Cucina di territorio",
+        "excerpt": "Pesce appena pescato, peperoncino, olio e vini locali: ti segnaliamo osterie e ristoranti dove mangiano anche i residenti."
+      }
+    }
+  },
+  "locationSection": {
+    "kicker": "Idee per la tua vacanza",
+    "heading": "Dalla residence al territorio",
+    "sub": "Distanze reali dalle nostre camere: il mare, la storia e l’entroterra calabrese sono a portata di giornata.",
+    "cta": "Scopri il territorio",
+    "attractions": [
+      {
+        "name": "Area Marina Protetta Capo Rizzuto",
+        "distance": "2 km",
+        "time": "5 min",
+        "description": "Riserva marina con acque cristalline"
+      },
+      {
+        "name": "Spiagge Le Castella",
+        "distance": "8 km",
+        "time": "15 min",
+        "description": "Spiagge dorate e mare turchese"
+      },
+      {
+        "name": "Crotone centro storico",
+        "distance": "12 km",
+        "time": "20 min",
+        "description": "Città antica con storia millenaria"
+      },
+      {
+        "name": "Parco archeologico Capo Colonna",
+        "distance": "15 km",
+        "time": "25 min",
+        "description": "Tempio di Hera Lacinia"
+      }
+    ]
+  },
+  "homeCta": {
+    "kicker": "Residence Le Farfalle",
+    "title": "La tua base chic nel centro di Isola di Capo Rizzuto",
+    "body": "Colazione curata, camere spaziose e consigli su misura per il mare, i borghi e la cucina locale. Scrivici per date, disponibilità e piccole richieste speciali: ci piace coccolare chi sceglie di stare da noi.",
+    "primary": "Richiedi preventivo",
+    "secondary": "Contattaci"
+  },
+  "newsletter": {
+    "thanksTitle": "Grazie per esserti iscritto!",
+    "thanksSub": "Riceverai novità e offerte speciali per la tua prossima vacanza.",
+    "title": "Resta aggiornato",
+    "sub": "Offerte, consigli sul territorio e novità Residence Le Farfalle",
+    "placeholder": "La tua email",
+    "loading": "Invio...",
+    "submit": "Iscriviti"
+  },
+  "homeFooter": {
+    "tagline": "B&B residence nel centro di Isola di Capo Rizzuto: camere curate, colazione generosa, servizi completi — e il mare dell’Area Marina Protetta a pochi minuti in auto.",
+    "faqTitle": "Domande frequenti",
+    "bookNow": "Prenota ora",
+    "contact": "Contattaci",
+    "copyright": "Isola di Capo Rizzuto, Calabria.",
+    "faq": [
+      {
+        "q": "Check-in / Check-out",
+        "a": "Check-in dalle 14:00, check-out entro le 10:00. Su richiesta possiamo essere flessibili."
+      },
+      {
+        "q": "Parcheggio",
+        "a": "Parcheggio gratuito disponibile nelle vicinanze."
+      },
+      {
+        "q": "Animali",
+        "a": "Contattaci per la policy animali."
+      },
+      {
+        "q": "Colazione",
+        "a": "Colazione continentale inclusa, servita ogni mattina."
+      }
+    ]
+  },
+  "roomCard": {
+    "badgeArea": "Nel centro paese",
+    "privateBath": "Bagno privato",
+    "allInclusive": "Tutto incluso",
+    "from": "A partire da",
+    "perNight": "/notte",
+    "details": "Vedi dettagli",
+    "quote": "Richiedi preventivo",
+    "guestOne": "posto",
+    "guestMany": "posti",
+    "whatsappRoom": "Ciao! Vorrei informazioni sulla {room} — Residence Le Farfalle"
   }
 }

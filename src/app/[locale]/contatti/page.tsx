@@ -9,6 +9,7 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { locales } from "@/src/lib/i18n";
 import { pageAlternates } from "@/src/lib/seo";
+import { getPageMetadata } from "@/src/lib/page-metadata";
 import { TrackedMailto, TrackedTel, TrackedWhatsapp } from "@/src/components/analytics/TrackedLinks";
 
 export function generateStaticParams() {
@@ -22,16 +23,11 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params;
   const currentLocale = locale || "it";
+  const m = getPageMetadata("contatti", currentLocale);
   return {
-    title: "Contatti - Residence Le Farfalle Isola di Capo Rizzuto",
-    description:
-      "Contattaci per informazioni, prenotazioni o assistenza. Telefono, email, WhatsApp. Siamo disponibili per aiutarti a organizzare la tua vacanza perfetta in Calabria.",
-    keywords: [
-      "contatti Residence Le Farfalle",
-      "prenotazioni Isola di Capo Rizzuto",
-      "WhatsApp prenotazioni",
-      "info Residence Le Farfalle",
-    ],
+    title: m.title,
+    description: m.description,
+    keywords: m.keywords,
     alternates: pageAlternates(currentLocale, "contatti"),
   };
 }
@@ -66,10 +62,10 @@ export default async function ContattiPage({ params }: ContattiPageProps) {
 
       <section className="py-20 bg-white">
         <Container>
-          <div className="grid gap-10 lg:grid-cols-2">
-            <Card className="p-8">
+          <div className="grid gap-10 lg:grid-cols-2 lg:items-start">
+            <div className="min-w-0">
               <ContactForm type="contact" locale={currentLocale} />
-            </Card>
+            </div>
 
             <div className="space-y-8">
               <div className="grid gap-6 md:grid-cols-3 lg:grid-cols-1">

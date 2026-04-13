@@ -4,9 +4,10 @@ import React, { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence, useMotionValueEvent, useScroll } from "framer-motion";
-import { Menu, X, Sparkles, Coffee } from "lucide-react";
+import { Menu, X, Coffee } from "lucide-react";
 import { cn } from "@/src/lib/utils";
 import Button from "@/src/components/ui/Button";
+import { ButterflyIcon } from "@/src/components/ui/ButterflyIcon";
 import LanguageSwitcher from "./LanguageSwitcher";
 import { navigation, type NavLocale } from "@/src/config/navigation";
 
@@ -34,10 +35,10 @@ const Header: React.FC = () => {
   return (
     <header
       className={cn(
-        "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
+        "fixed top-0 left-0 right-0 z-50 transition-all duration-300 border-b",
         isScrolled
-          ? "bg-white/95 backdrop-blur-md shadow-soft"
-          : "bg-transparent"
+          ? "border-stone-200/80 bg-white/95 shadow-soft backdrop-blur-md"
+          : "border-white/10 bg-stone-950/30 backdrop-blur-xl"
       )}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -46,12 +47,21 @@ const Header: React.FC = () => {
           <Link
             href={`/${localeRaw}`}
             className={cn(
-              "flex items-center gap-2 text-xl font-display font-bold transition-colors",
-              isScrolled ? "text-neutral-900 hover:text-primary-500" : "text-white hover:text-white/90"
+              "flex items-center gap-2.5 text-xl font-display font-bold transition-colors",
+              isScrolled ? "text-neutral-900 hover:text-primary-600" : "text-white hover:text-white/95"
             )}
           >
-            <Sparkles className={cn("h-6 w-6", isScrolled ? "text-primary-500" : "text-amber-300")} />
-            <span>Le Farfalle</span>
+            <span
+              className={cn(
+                "flex h-9 w-9 shrink-0 items-center justify-center rounded-xl",
+                isScrolled
+                  ? "bg-primary-50 text-primary-600 ring-1 ring-primary-100"
+                  : "bg-white/15 text-amber-200 ring-1 ring-white/25"
+              )}
+            >
+              <ButterflyIcon className="h-6 w-6" />
+            </span>
+            <span className="tracking-tight">Le Farfalle</span>
           </Link>
 
           {/* Desktop Navigation */}
@@ -64,9 +74,13 @@ const Header: React.FC = () => {
                   href={item.href}
                   className={cn(
                     "text-sm font-medium transition-colors",
-                    isActive
-                      ? "text-primary-600"
-                      : "text-neutral-700 hover:text-primary-500"
+                    isScrolled
+                      ? isActive
+                        ? "text-primary-600"
+                        : "text-neutral-700 hover:text-primary-600"
+                      : isActive
+                        ? "text-amber-200"
+                        : "text-white/85 hover:text-white"
                   )}
                 >
                   {item.label}
@@ -77,8 +91,15 @@ const Header: React.FC = () => {
 
           {/* Right Side Actions */}
           <div className="flex items-center gap-3">
-            <div className="hidden md:flex items-center gap-2 rounded-full bg-white/70 px-3 py-1.5 text-xs font-semibold text-stone-700 ring-1 ring-stone-200">
-              <Coffee className="h-4 w-4 text-amber-600" aria-hidden />
+            <div
+              className={cn(
+                "hidden items-center gap-2 rounded-full px-3 py-1.5 text-xs font-semibold md:flex",
+                isScrolled
+                  ? "bg-amber-50 text-stone-800 ring-1 ring-amber-200/80"
+                  : "bg-white/15 text-white ring-1 ring-white/25 backdrop-blur-sm"
+              )}
+            >
+              <Coffee className={cn("h-4 w-4", isScrolled ? "text-amber-600" : "text-amber-200")} aria-hidden />
               Colazione inclusa
             </div>
             <Link href={`/${localeRaw}/prenota`} className="shrink-0">
@@ -87,7 +108,7 @@ const Header: React.FC = () => {
               </Button>
             </Link>
             <div className="hidden md:block">
-              <LanguageSwitcher />
+              <LanguageSwitcher opaqueHeader={isScrolled} />
             </div>
 
             {/* Mobile Menu Button */}
@@ -158,7 +179,7 @@ const Header: React.FC = () => {
                   );
                 })}
                 <div className="pt-6 border-t border-stone-200">
-                  <LanguageSwitcher />
+                  <LanguageSwitcher opaqueHeader />
                 </div>
               </nav>
             </motion.aside>

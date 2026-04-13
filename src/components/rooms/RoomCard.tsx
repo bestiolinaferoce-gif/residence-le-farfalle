@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { useLocaleStrings } from "@/src/components/i18n/LocaleProvider";
 import {
   Users,
   Maximize2,
@@ -37,11 +38,12 @@ interface RoomCardProps {
 export default function RoomCard({ room, locale, index }: RoomCardProps) {
   const [imgIndex, setImgIndex] = useState(0);
   const currentLocale = (locale || "it") as "it" | "en" | "de";
+  const { t } = useLocaleStrings("roomCard");
   const roomName = room.name[currentLocale] ?? room.name.it;
   const whatsappDigits = siteConfig.contacts.whatsapp.replace(/\D/g, "");
   const hasWhatsApp = whatsappDigits.length >= 10;
   const whatsappUrl = hasWhatsApp
-    ? `https://wa.me/${whatsappDigits}?text=${encodeURIComponent(`Ciao! Vorrei informazioni sulla ${roomName} - Residence Le Farfalle`)}`
+    ? `https://wa.me/${whatsappDigits}?text=${encodeURIComponent(t("whatsappRoom", { room: roomName }))}`
     : "#";
 
   return (
@@ -69,7 +71,7 @@ export default function RoomCard({ room, locale, index }: RoomCardProps) {
         >
           <Image
             src={`/images/rooms/${room.images[imgIndex]}`}
-            alt={roomName}
+            alt={`${roomName} — Residence Le Farfalle, Isola di Capo Rizzuto`}
             fill
             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
             className="object-cover transition-transform duration-500 group-hover:scale-105"
@@ -84,13 +86,15 @@ export default function RoomCard({ room, locale, index }: RoomCardProps) {
           ) : null}
           {/* Badge capienza */}
           <div className="absolute top-4 left-4 flex flex-col gap-2 items-start">
-            <span className="bg-secondary-500 text-white text-xs font-semibold rounded-full px-3 py-1 shadow-md">
-              Nel centro paese
+            <span className="rounded-full bg-secondary-500 px-3 py-1 text-xs font-semibold text-white shadow-md">
+              {t("badgeArea")}
             </span>
-            <div className="flex items-center gap-2 bg-white/95 backdrop-blur-sm rounded-full px-3 py-1.5 shadow-md">
+            <div className="flex items-center gap-2 rounded-full bg-white/95 px-3 py-1.5 shadow-md backdrop-blur-sm">
               <Users className="h-4 w-4 text-primary-600" aria-hidden />
               <span className="text-sm font-semibold text-neutral-900">
-                {room.capacity} {room.capacity === 1 ? "posto" : "posti"}
+                {room.capacity === 1
+                  ? `${room.capacity} ${t("guestOne")}`
+                  : `${room.capacity} ${t("guestMany")}`}
               </span>
             </div>
           </div>
@@ -115,11 +119,11 @@ export default function RoomCard({ room, locale, index }: RoomCardProps) {
           <h3 className="font-display text-xl sm:text-2xl font-bold text-neutral-900 mb-2">
             {roomName}
           </h3>
-          <p className="text-neutral-600 text-sm mb-2">
-            {room.size} m² · Bagno privato
+          <p className="mb-2 text-sm text-neutral-600">
+            {room.size} m² · {t("privateBath")}
           </p>
-          <span className="inline-block mb-4 text-xs font-semibold text-secondary-600 bg-secondary-100 rounded-lg px-2.5 py-1">
-            Tutto incluso
+          <span className="mb-4 inline-block rounded-lg bg-secondary-100 px-2.5 py-1 text-xs font-semibold text-secondary-600">
+            {t("allInclusive")}
           </span>
 
           {/* 3 icone servizi */}
@@ -140,10 +144,10 @@ export default function RoomCard({ room, locale, index }: RoomCardProps) {
           {/* Prezzo + CTAs */}
           <div className="mt-auto pt-4 border-t border-neutral-200 space-y-4">
             <div>
-              <span className="text-xs text-neutral-500">A partire da</span>
+              <span className="text-xs text-neutral-500">{t("from")}</span>
               <p className="text-2xl font-bold text-primary-600">
                 €{room.priceFrom}
-                <span className="text-sm font-normal text-neutral-500">/notte</span>
+                <span className="text-sm font-normal text-neutral-500">{t("perNight")}</span>
               </p>
             </div>
             <div className="flex flex-col sm:flex-row gap-2">
@@ -151,7 +155,7 @@ export default function RoomCard({ room, locale, index }: RoomCardProps) {
                 href={`/${locale}/camere/${room.slug}`}
                 className="inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-primary-500 text-white text-sm font-semibold rounded-xl hover:bg-primary-600 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 shadow-sm"
               >
-                Vedi dettagli
+                {t("details")}
                 <ArrowRight className="h-4 w-4" aria-hidden />
               </Link>
               {hasWhatsApp && (
@@ -160,10 +164,10 @@ export default function RoomCard({ room, locale, index }: RoomCardProps) {
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={() => GA_EVENTS.clickWhatsapp()}
-                  className="inline-flex items-center justify-center gap-2 px-4 py-2.5 border-2 border-primary-500 text-primary-600 text-sm font-semibold rounded-xl hover:bg-primary-50 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
+                  className="inline-flex items-center justify-center gap-2 rounded-xl border-2 border-primary-500 px-4 py-2.5 text-sm font-semibold text-primary-600 transition-all duration-200 hover:bg-primary-50 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
                 >
                   <MessageCircle className="h-4 w-4" aria-hidden />
-                  Richiedi preventivo
+                  {t("quote")}
                 </a>
               )}
             </div>

@@ -33,7 +33,9 @@ export async function generateMetadata({
   const currentLocale = locale || "it";
   const room = rooms.find((r) => r.slug === slug);
   if (!room) return { title: "Camera non trovata" };
-  const title = `Camera ${room.name.it} — Residence Le Farfalle`;
+  const roomLocalizedName =
+    room.name[currentLocale as keyof typeof room.name] ?? room.name.it;
+  const title = `${roomLocalizedName} — Residence Le Farfalle`;
   const desc =
     room.description[currentLocale as keyof typeof room.description] ?? room.description.it;
   return {
@@ -109,7 +111,7 @@ export default async function RoomSlugPage({
       <section className="relative h-[60vh] min-h-[420px] overflow-hidden bg-stone-900">
         <Image
           src={`/images/rooms/${room.images[0]}`}
-          alt={roomName}
+          alt={`${roomName} — Residence Le Farfalle, Isola di Capo Rizzuto`}
           fill
           priority
           quality={85}
@@ -170,13 +172,14 @@ export default async function RoomSlugPage({
                 <div className="mt-6 grid gap-6 md:grid-cols-3">
                   {otherRooms.map((r) => {
                     const n = r.name[currentLocale] ?? r.name.it;
+                    const thumbAlt = `${n} — Residence Le Farfalle, Isola di Capo Rizzuto — anteprima`;
                     return (
                       <Link key={r.slug} href={`/${currentLocale}/camere/${r.slug}`} className="group">
                         <Card hover className="overflow-hidden p-0">
                           <div className="relative aspect-video bg-stone-100">
                             <Image
                               src={`/images/rooms/${r.images[0]}`}
-                              alt={n}
+                              alt={thumbAlt}
                               fill
                               sizes="(min-width: 768px) 33vw, 100vw"
                               className="object-cover transition-transform duration-300 group-hover:scale-105"

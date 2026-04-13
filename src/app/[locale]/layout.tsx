@@ -1,5 +1,10 @@
 import React from "react";
 import type { Metadata } from "next";
+import itMessages from "../../../messages/it.json";
+import enMessages from "../../../messages/en.json";
+import deMessages from "../../../messages/de.json";
+import { LocaleProvider } from "@/src/components/i18n/LocaleProvider";
+import type { MessagesTree } from "@/src/components/i18n/LocaleProvider";
 import { siteConfig } from "@/src/config/site";
 import { getReviewStats } from "@/src/data/reviews/reviews";
 
@@ -27,12 +32,20 @@ export async function generateMetadata({
       description: siteConfig.description[currentLocale as keyof typeof siteConfig.description] || siteConfig.description.it,
       images: [
         {
-          url: `${siteConfig.url}/images/rooms/camera-generale.webp`,
+          url: `${siteConfig.url}/images/rooms/le-farfalle-matrimoniale-03.png`,
           width: 1536,
           height: 1024,
-          alt: "Residence Le Farfalle - Vista generale",
+          alt: "Camera matrimoniale moderna — Residence Le Farfalle, Isola di Capo Rizzuto",
         },
       ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: siteConfig.name,
+      description:
+        siteConfig.description[currentLocale as keyof typeof siteConfig.description] ||
+        siteConfig.description.it,
+      images: [`${siteConfig.url}/images/rooms/le-farfalle-matrimoniale-03.png`],
     },
     alternates: {
       canonical: `${siteConfig.url}/${currentLocale}`,
@@ -56,9 +69,23 @@ export default async function LocaleLayout({
 }: LocaleLayoutProps) {
   const { locale } = await params;
   const currentLocale = locale || "it";
+  const messages: MessagesTree =
+    currentLocale === "en"
+      ? (enMessages as unknown as MessagesTree)
+      : currentLocale === "de"
+        ? (deMessages as unknown as MessagesTree)
+        : (itMessages as unknown as MessagesTree);
 
   const langMap: Record<string, string> = { it: "it", en: "en", de: "de" };
   const htmlLang = langMap[currentLocale] || "it";
+  const descLang =
+    currentLocale === "en" || currentLocale === "de" ? currentLocale : "it";
+  const lodgingAmenityNames: Record<string, string[]> = {
+    it: ["Colazione inclusa", "WiFi gratuito", "Aria condizionata", "Bagno privato"],
+    en: ["Breakfast included", "Free WiFi", "Air conditioning", "Private bathroom"],
+    de: ["Frühstück inklusive", "Kostenloses WLAN", "Klimaanlage", "Eigenes Bad"],
+  };
+  const amenityLabels = lodgingAmenityNames[descLang];
 
   const reviewStats = getReviewStats();
   const aggregateRating =
@@ -83,8 +110,10 @@ export default async function LocaleLayout({
     "@context": "https://schema.org",
     "@type": "BedAndBreakfast",
     name: "Residence Le Farfalle",
+    description: siteConfig.description[descLang],
+    image: [`${siteConfig.url.replace(/\/$/, "")}/images/rooms/le-farfalle-matrimoniale-03.png`],
     telephone: siteConfig.contacts.phone,
-    email: "info@residencelefarfalle.it",
+    email: siteConfig.contacts.email,
     address: {
       "@type": "PostalAddress",
       streetAddress: "Via Capo delle Colonne",
@@ -101,12 +130,11 @@ export default async function LocaleLayout({
     checkinTime: "14:00",
     checkoutTime: "11:00",
     numberOfRooms: 4,
-    amenityFeature: [
-      { "@type": "LocationFeatureSpecification", name: "Colazione inclusa", value: true },
-      { "@type": "LocationFeatureSpecification", name: "WiFi gratuito", value: true },
-      { "@type": "LocationFeatureSpecification", name: "Aria condizionata", value: true },
-      { "@type": "LocationFeatureSpecification", name: "Bagno privato", value: true },
-    ],
+    amenityFeature: amenityLabels.map((name) => ({
+      "@type": "LocationFeatureSpecification" as const,
+      name,
+      value: true,
+    })),
     priceRange: "€€",
     aggregateRating,
   };
@@ -122,7 +150,9 @@ export default async function LocaleLayout({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
-      {children}
+      <LocaleProvider locale={currentLocale} messages={messages}>
+        {children}
+      </LocaleProvider>
     </>
   );
 }

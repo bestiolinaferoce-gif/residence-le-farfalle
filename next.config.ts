@@ -1,7 +1,8 @@
 import type { NextConfig } from "next";
 import createNextIntlPlugin from "next-intl/plugin";
 
-const withNextIntl = createNextIntlPlugin("./src/i18n.ts");
+/** Percorso richiesto da next-intl v3+: `src/i18n/request.ts` (rilevazione automatica se senza argomenti) */
+const withNextIntl = createNextIntlPlugin();
 
 const nextConfig: NextConfig = {
   async redirects() {

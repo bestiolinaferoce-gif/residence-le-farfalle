@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { Mail, CheckCircle2 } from "lucide-react";
+import { useLocaleStrings } from "@/src/components/i18n/LocaleProvider";
 import Container from "@/src/components/ui/Container";
 
 interface NewsletterProps {
@@ -10,6 +11,7 @@ interface NewsletterProps {
 }
 
 export default function Newsletter({ variant = "light" }: NewsletterProps) {
+  const { t } = useLocaleStrings("newsletter");
   const [email, setEmail] = useState("");
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -39,7 +41,7 @@ export default function Newsletter({ variant = "light" }: NewsletterProps) {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="max-w-xl mx-auto text-center"
+          className="mx-auto max-w-xl text-center"
         >
           {isSubmitted ? (
             <div className="flex flex-col items-center gap-3">
@@ -49,36 +51,32 @@ export default function Newsletter({ variant = "light" }: NewsletterProps) {
                   isDark ? "text-white" : "text-neutral-900"
                 }`}
               >
-                Grazie per esserti iscritto!
+                {t("thanksTitle")}
               </h3>
               <p
-                className={`text-sm ${
-                  isDark ? "text-secondary-200" : "text-neutral-600"
-                }`}
+                className={`text-sm ${isDark ? "text-secondary-200" : "text-neutral-600"}`}
               >
-                Riceverai novità e offerte speciali per la tua prossima vacanza.
+                {t("thanksSub")}
               </p>
             </div>
           ) : (
             <>
               <h3
-                className={`font-display text-xl md:text-2xl font-bold mb-2 ${
+                className={`font-display mb-2 text-xl font-bold md:text-2xl ${
                   isDark ? "text-white" : "text-neutral-900"
                 }`}
               >
-                Resta aggiornato
+                {t("title")}
               </h3>
               <p
-                className={`text-sm mb-6 ${
-                  isDark ? "text-secondary-200" : "text-neutral-600"
-                }`}
+                className={`mb-6 text-sm ${isDark ? "text-secondary-200" : "text-neutral-600"}`}
               >
-                Offerte, consigli sul territorio e novità Residence Le Farfalle
+                {t("sub")}
               </p>
-              <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3">
+              <form onSubmit={handleSubmit} className="flex flex-col gap-3 sm:flex-row">
                 <div className="relative flex-1">
                   <Mail
-                    className={`absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 ${
+                    className={`absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 ${
                       isDark ? "text-secondary-400" : "text-neutral-400"
                     }`}
                   />
@@ -86,21 +84,21 @@ export default function Newsletter({ variant = "light" }: NewsletterProps) {
                     type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    placeholder="La tua email"
+                    placeholder={t("placeholder")}
                     required
-                    className={`w-full pl-12 pr-4 py-3 rounded-xl border focus:ring-2 focus:ring-secondary-500 focus:border-transparent ${
+                    className={`w-full rounded-xl border py-3 pl-12 pr-4 focus:border-transparent focus:ring-2 focus:ring-secondary-500 ${
                       isDark
-                        ? "bg-secondary-900/50 border-secondary-600 text-white placeholder:text-secondary-400"
-                        : "bg-white border-neutral-300 text-neutral-900"
+                        ? "border-secondary-600 bg-secondary-900/50 text-white placeholder:text-secondary-400"
+                        : "border-neutral-300 bg-white text-neutral-900"
                     }`}
                   />
                 </div>
                 <button
                   type="submit"
                   disabled={isLoading}
-                  className="px-6 py-3 bg-secondary-500 text-white font-semibold rounded-xl hover:bg-secondary-600 transition-colors disabled:opacity-70"
+                  className="rounded-xl bg-secondary-500 px-6 py-3 font-semibold text-white transition-colors hover:bg-secondary-600 disabled:opacity-70"
                 >
-                  {isLoading ? "Invio..." : "Iscriviti"}
+                  {isLoading ? t("loading") : t("submit")}
                 </button>
               </form>
             </>

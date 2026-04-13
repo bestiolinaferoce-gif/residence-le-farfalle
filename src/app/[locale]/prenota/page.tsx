@@ -1,6 +1,6 @@
 import React from "react";
 import Image from "next/image";
-import { Star, Phone, MessageCircle } from "lucide-react";
+import { MapPin, Phone, MessageCircle, Sparkles } from "lucide-react";
 import { siteConfig } from "@/src/config/site";
 import Container from "@/src/components/ui/Container";
 import Card from "@/src/components/ui/Card";
@@ -8,6 +8,7 @@ import ContactForm from "@/src/components/forms/ContactForm";
 import type { Metadata } from "next";
 import { locales } from "@/src/lib/i18n";
 import { pageAlternates } from "@/src/lib/seo";
+import { getPageMetadata } from "@/src/lib/page-metadata";
 import { TrackedTel, TrackedWhatsapp } from "@/src/components/analytics/TrackedLinks";
 
 export function generateStaticParams() {
@@ -21,10 +22,11 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params;
   const currentLocale = locale || "it";
+  const m = getPageMetadata("prenota", currentLocale);
   return {
-    title: "Richiedi preventivo - Residence Le Farfalle",
-    description:
-      "Richiedi un preventivo personalizzato per il tuo soggiorno a Isola di Capo Rizzuto. Rispondiamo entro 24 ore.",
+    title: m.title,
+    description: m.description,
+    keywords: m.keywords,
     alternates: pageAlternates(currentLocale, "prenota"),
   };
 }
@@ -40,70 +42,101 @@ export default async function PrenotaPage({ params }: PrenotaPageProps) {
 
   return (
     <div className="min-h-screen pt-20">
-      <section className="py-16 bg-white">
-        <Container>
-          <div className="mx-auto max-w-4xl text-center">
-            <h1 className="font-display text-display-sm md:text-display-md text-neutral-900">
-              Richiedi il tuo preventivo
-            </h1>
-            <p className="mt-3 text-lg text-neutral-600">
-              Compila il form: rispondiamo entro 24 ore.
+      <section className="relative overflow-hidden border-b border-stone-200/70 py-16 md:py-20">
+        <div className="pointer-events-none absolute inset-0 mesh-gradient" aria-hidden />
+        <div
+          className="pointer-events-none absolute -right-24 top-0 h-72 w-72 rounded-full bg-fuchsia-400/15 blur-3xl"
+          aria-hidden
+        />
+        <Container className="relative">
+          <div className="mx-auto max-w-3xl text-center">
+            <p className="inline-flex items-center gap-2 rounded-full border border-stone-200/80 bg-white/70 px-4 py-1.5 text-xs font-bold uppercase tracking-[0.2em] text-secondary-700 backdrop-blur-sm">
+              <Sparkles className="h-3.5 w-3.5" aria-hidden />
+              Preventivo
             </p>
+            <h1 className="mt-6 font-display text-display-sm font-bold text-neutral-900 md:text-display-md">
+              Il tuo soggiorno a Isola di Capo Rizzuto
+            </h1>
+            <p className="mx-auto mt-4 max-w-2xl text-lg leading-relaxed text-neutral-600">
+              Date flessibili, massimo 8 ospiti in 4 camere indipendenti. Compila il modulo: ti
+              rispondiamo con una proposta chiara, senza impegno.
+            </p>
+            <div className="mt-8 flex flex-wrap items-center justify-center gap-3 text-sm text-neutral-600">
+              <span className="rounded-full bg-white/80 px-4 py-2 font-medium shadow-sm backdrop-blur">
+                Colazione inclusa
+              </span>
+              <span className="rounded-full bg-white/80 px-4 py-2 font-medium shadow-sm backdrop-blur">
+                Area Marina a pochi minuti in auto
+              </span>
+              <span className="rounded-full bg-white/80 px-4 py-2 font-medium shadow-sm backdrop-blur">
+                WiFi · Aria condizionata
+              </span>
+            </div>
           </div>
         </Container>
       </section>
 
-      <section className="pb-20 bg-white">
+      <section className="relative bg-stone-50/80 py-16 md:py-20">
         <Container>
-          <div className="grid gap-10 lg:grid-cols-2">
-            <Card className="p-6 md:p-8">
+          <div className="mx-auto grid max-w-6xl gap-12 lg:grid-cols-12 lg:gap-10">
+            <div className="lg:col-span-7">
               <ContactForm type="preventivo" locale={currentLocale} />
-              <div className="mt-6 rounded-2xl border border-stone-200 bg-stone-50 p-5">
-                <div className="text-sm font-semibold text-stone-900">Oppure chiamaci / scrivici</div>
-                <div className="mt-3 grid gap-3 sm:grid-cols-2">
-                  <TrackedTel
-                    href={`tel:${siteConfig.contacts.phone}`}
-                    className="inline-flex items-center justify-center gap-2 rounded-xl border border-stone-200 bg-white px-4 py-3 text-sm font-semibold text-stone-900 hover:border-amber-200"
-                  >
-                    <Phone className="h-4 w-4" />
-                    {siteConfig.contacts.phone}
-                  </TrackedTel>
-                  <TrackedWhatsapp
-                    href={`https://wa.me/${waDigits}`}
-                    className="inline-flex items-center justify-center gap-2 rounded-xl border border-stone-200 bg-white px-4 py-3 text-sm font-semibold text-stone-900 hover:border-amber-200"
-                  >
-                    <MessageCircle className="h-4 w-4" />
-                    WhatsApp
-                  </TrackedWhatsapp>
-                </div>
-              </div>
-            </Card>
+            </div>
 
-            <div className="lg:pt-2">
-              <Card className="p-6 md:p-8">
-                <div className="relative aspect-video overflow-hidden rounded-2xl">
+            <aside className="lg:col-span-5 lg:pt-2">
+              <Card className="overflow-hidden border border-stone-200/80 p-0 shadow-lg shadow-stone-900/5">
+                <div className="relative aspect-[4/3] w-full">
                   <Image
-                    src="/images/rooms/camera-generale.webp"
-                    alt="Residence Le Farfalle"
+                    src="/images/rooms/le-farfalle-matrimoniale-03.png"
+                    alt="Interno luminoso di una camera del Residence Le Farfalle, Isola di Capo Rizzuto"
                     fill
                     sizes="(min-width: 1024px) 420px, 100vw"
                     className="object-cover"
                     quality={80}
                   />
-                </div>
-                <div className="mt-6">
-                  <div className="text-lg font-semibold text-stone-900">Residence Le Farfalle</div>
-                  <div className="mt-2 flex items-center gap-2 text-stone-700">
-                    <div className="flex items-center gap-1 text-amber-500">
-                      {Array.from({ length: 5 }).map((_, i) => (
-                        <Star key={i} className="h-4 w-4 fill-current" />
-                      ))}
+                  <div className="absolute inset-0 bg-gradient-to-t from-stone-900/50 via-transparent to-transparent" />
+                  <div className="absolute bottom-4 left-4 right-4 text-white">
+                    <div className="font-display text-lg font-bold drop-shadow-md">
+                      Residence Le Farfalle
                     </div>
-                    <span className="text-sm text-stone-600">Risposta garantita entro 24 ore</span>
+                    <div className="mt-1 flex items-start gap-2 text-sm text-white/95 drop-shadow">
+                      <MapPin className="mt-0.5 h-4 w-4 shrink-0" aria-hidden />
+                      <span>{siteConfig.address}</span>
+                    </div>
                   </div>
                 </div>
+                <div className="space-y-5 p-6 md:p-8">
+                  <div>
+                    <h2 className="font-display text-xl font-bold text-stone-900">
+                      Preferisci parlare direttamente?
+                    </h2>
+                    <p className="mt-2 text-sm leading-relaxed text-stone-600">
+                      Chiamaci o scrivici su WhatsApp per disponibilità rapida o domande sul territorio.
+                    </p>
+                  </div>
+                  <div className="grid gap-3">
+                    <TrackedTel
+                      href={`tel:${siteConfig.contacts.phone}`}
+                      className="inline-flex items-center justify-center gap-2 rounded-2xl border border-stone-200 bg-white px-4 py-3.5 text-sm font-semibold text-stone-900 shadow-sm transition hover:border-amber-300 hover:shadow-md"
+                    >
+                      <Phone className="h-4 w-4" aria-hidden />
+                      {siteConfig.contacts.phone}
+                    </TrackedTel>
+                    <TrackedWhatsapp
+                      href={`https://wa.me/${waDigits}`}
+                      className="inline-flex items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-[#25D366] to-[#128C7E] px-4 py-3.5 text-sm font-semibold text-white shadow-md shadow-green-600/20 transition hover:brightness-105"
+                    >
+                      <MessageCircle className="h-4 w-4" aria-hidden />
+                      WhatsApp
+                    </TrackedWhatsapp>
+                  </div>
+                  <p className="text-xs leading-relaxed text-stone-500">
+                    Riscontriamo le richieste online in genere entro 24 ore. Indica nel modulo se
+                    preferisci email o WhatsApp.
+                  </p>
+                </div>
               </Card>
-            </div>
+            </aside>
           </div>
         </Container>
       </section>

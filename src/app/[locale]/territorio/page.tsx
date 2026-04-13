@@ -10,6 +10,7 @@ import Newsletter from "@/src/components/sections/Newsletter";
 import type { Metadata } from "next";
 import { locales } from "@/src/lib/i18n";
 import { pageAlternates } from "@/src/lib/seo";
+import { getPageMetadata } from "@/src/lib/page-metadata";
 
 export function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
@@ -22,22 +23,11 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params;
   const currentLocale = locale || "it";
+  const m = getPageMetadata("territorio", currentLocale);
   return {
-    title: "Il Territorio - Isola di Capo Rizzuto e Calabria Ionica",
-    description:
-      "Guida completa a Isola di Capo Rizzuto: spiagge da sogno, Area Marina Protetta, siti archeologici, borghi caratteristici. Itinerari consigliati e consigli pratici da host locali per la tua vacanza in Calabria.",
-    keywords: [
-      "Isola di Capo Rizzuto",
-      "Calabria ionica",
-      "spiagge Calabria",
-      "Area Marina Protetta Capo Rizzuto",
-      "Le Castella",
-      "Crotone",
-      "Parco Archeologico Capo Colonna",
-      "vacanze Calabria",
-      "cosa vedere Calabria",
-      "itinerari Calabria",
-    ],
+    title: m.title,
+    description: m.description,
+    keywords: m.keywords,
     alternates: pageAlternates(currentLocale, "territorio"),
   };
 }
@@ -49,8 +39,11 @@ interface Attraction {
   description: string;
   category: "beach" | "history" | "nature" | "culture";
   image: string;
+  /** Testo alternativo descrittivo per SEO e accessibilità */
+  imageAlt: string;
 }
 
+/** Immagini reali del territorio (import da Desktop/foto-territorio → public/images/territorio) */
 const attractions: Attraction[] = [
   {
     name: "Area Marina Protetta Capo Rizzuto",
@@ -59,7 +52,8 @@ const attractions: Attraction[] = [
     description:
       "Una delle più grandi e belle riserve marine d'Italia. Le acque cristalline e i fondali ricchi di vita marina rendono questo luogo un paradiso per snorkeling e immersioni. Consigliamo di visitarla al mattino presto per godere della calma e della trasparenza dell'acqua.",
     category: "nature",
-    image: "https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=800&h=600&fit=crop&q=80",
+    image: "/images/territorio/area-marina-protetta.jpg",
+    imageAlt: "Area Marina Protetta di Capo Rizzuto, mare turchese e costa — vicino al Residence Le Farfalle",
   },
   {
     name: "Spiagge Le Castella",
@@ -68,7 +62,8 @@ const attractions: Attraction[] = [
     description:
       "Spiagge dorate e mare turchese con il caratteristico isolotto e il castello aragonese che si specchia nelle acque. Una delle più belle spiagge della Calabria, perfetta per famiglie. Il borgo offre anche ottimi ristoranti di pesce fresco.",
     category: "beach",
-    image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800&h=600&fit=crop&q=80",
+    image: "/images/territorio/spiaggia-capopiccolo.jpg",
+    imageAlt: "Spiaggia e mare vicino a Le Castella e Capo Rizzuto — Calabria ionica",
   },
   {
     name: "Crotone centro storico",
@@ -77,7 +72,8 @@ const attractions: Attraction[] = [
     description:
       "Città antica con storia millenaria, dal periodo magno-greco ai giorni nostri. Il Museo Archeologico Nazionale custodisce reperti unici. Passeggiare per le vie del centro è un viaggio nel tempo. Consigliamo una visita al pomeriggio, quando il caldo si attenua.",
     category: "history",
-    image: "https://images.unsplash.com/photo-1515542622106-78bda8ba0e5b?w=800&h=600&fit=crop&q=80",
+    image: "/images/territorio/spiaggia-grande-capo-rizzuto.jpg",
+    imageAlt: "Costa ionica in provincia di Crotone — mare vicino a Crotone e Isola di Capo Rizzuto",
   },
   {
     name: "Parco archeologico Capo Colonna",
@@ -86,7 +82,8 @@ const attractions: Attraction[] = [
     description:
       "Sito archeologico con il tempio di Hera Lacinia, uno dei più importanti santuari della Magna Grecia. La colonna superstite si staglia contro il cielo con una vista mozzafiato sul mare. Il tramonto qui è spettacolare. Ideale per una mezza giornata.",
     category: "history",
-    image: "https://images.unsplash.com/photo-1515542622106-78bda8ba0e5b?w=800&h=600&fit=crop&q=80",
+    image: "/images/territorio/tramonto-area-marina.jpg",
+    imageAlt: "Tramonto sul mare in Area Marina Protetta Capo Rizzuto — atmosfera vicina a Capo Colonna",
   },
   {
     name: "Spiaggia di Soverato",
@@ -95,7 +92,8 @@ const attractions: Attraction[] = [
     description:
       "Chiamata la 'Perla dello Ionio', Soverato offre una delle spiagge più lunghe e attrezzate della Calabria. Sabbia fine, mare pulito e servizi completi. Perfetta per chi cerca relax e comodità. Il lungomare è ideale per passeggiate serali.",
     category: "beach",
-    image: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=600&fit=crop&q=80",
+    image: "/images/territorio/spiagge-rosse.jpg",
+    imageAlt: "Spiagge rosse e scogliera sulla costa ionica calabrese — giornata mare verso Soverato",
   },
   {
     name: "Sila e Parco Nazionale",
@@ -105,6 +103,7 @@ const attractions: Attraction[] = [
       "Il grande altopiano della Sila con foreste secolari, laghi cristallini e sentieri naturalistici. Perfetto per escursioni e trekking. In estate offre frescura e panorami mozzafiato. Consigliamo una giornata intera per esplorare i laghi e i borghi montani.",
     category: "nature",
     image: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=800&h=600&fit=crop&q=80",
+    imageAlt: "Foresta e sentiero — escursione in montagna (Sila, Calabria)",
   },
   {
     name: "Le Castella - Borgo marinaro",
@@ -113,7 +112,8 @@ const attractions: Attraction[] = [
     description:
       "Pittoresco borgo di pescatori con ristoranti tipici che servono pesce appena pescato, bar caratteristici e negozi di artigianato locale. L'atmosfera autentica e la tradizione culinaria rendono questo luogo imperdibile. Ideale per cena al tramonto.",
     category: "culture",
-    image: "https://images.unsplash.com/photo-1519682337058-a94d519337bc?w=800&h=600&fit=crop&q=80",
+    image: "/images/territorio/le-castella-castello.jpg",
+    imageAlt: "Castello Aragonese di Le Castella visto dal mare — Isola di Capo Rizzuto",
   },
   {
     name: "Riserva Naturale Valli Cupe",
@@ -122,7 +122,8 @@ const attractions: Attraction[] = [
     description:
       "Canyon spettacolari, cascate nascoste e sentieri nella natura incontaminata. Un'esperienza unica per gli amanti del trekking e della fotografia. Le cascate sono più spettacolari in primavera. Consigliamo scarpe comode e almeno mezza giornata.",
     category: "nature",
-    image: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=600&fit=crop&q=80",
+    image: "/images/territorio/valli-cupe-4.jpg",
+    imageAlt: "Riserva naturale Valli Cupe, canyon e vegetazione — escursione giornaliera dalla costa",
   },
 ];
 
@@ -201,7 +202,7 @@ export default async function TerritorioPage({ params }: TerritorioPageProps) {
                 <div className="relative h-48 w-full overflow-hidden">
                   <Image
                     src={attraction.image}
-                    alt={attraction.name}
+                    alt={attraction.imageAlt}
                     fill
                     className="object-cover group-hover:scale-110 transition-transform duration-500"
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"

@@ -6,7 +6,12 @@ import { Globe, Check } from "lucide-react";
 import { cn } from "@/src/lib/utils";
 import { locales, type Locale, localeNames } from "@/src/lib/i18n";
 
-const LanguageSwitcher: React.FC = () => {
+interface LanguageSwitcherProps {
+  /** true quando l'header è su sfondo chiaro (dopo scroll) */
+  opaqueHeader?: boolean;
+}
+
+const LanguageSwitcher: React.FC<LanguageSwitcherProps> = ({ opaqueHeader = true }) => {
   const [isOpen, setIsOpen] = useState(false);
   const router = useRouter();
   const pathname = usePathname();
@@ -27,11 +32,16 @@ const LanguageSwitcher: React.FC = () => {
     <div className="relative">
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-neutral-100 transition-colors"
+        className={cn(
+          "flex items-center gap-2 rounded-lg px-3 py-2 transition-colors",
+          opaqueHeader
+            ? "hover:bg-neutral-100"
+            : "text-white hover:bg-white/10"
+        )}
         aria-label="Cambia lingua"
         aria-expanded={isOpen}
       >
-        <Globe className="h-4 w-4 text-neutral-600" />
+        <Globe className={cn("h-4 w-4", opaqueHeader ? "text-neutral-600" : "text-white/90")} />
         <span className="text-sm font-medium uppercase">{currentLocale}</span>
       </button>
 

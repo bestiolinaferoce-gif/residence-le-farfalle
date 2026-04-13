@@ -3,40 +3,10 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { Waves, Coffee, Heart, MapPin, ParkingCircle, Star } from "lucide-react";
+import { useLocaleStrings } from "@/src/components/i18n/LocaleProvider";
 import Container from "@/src/components/ui/Container";
 
-const features = [
-  {
-    icon: Waves,
-    title: "A 5 minuti dalle spiagge dell'AMP",
-    description: "Mare vicino e facile da raggiungere, perfetto per giornate in relax.",
-  },
-  {
-    icon: Coffee,
-    title: "Colazione artigianale inclusa ogni mattina",
-    description: "Un inizio di giornata semplice e buono, ogni giorno.",
-  },
-  {
-    icon: Heart,
-    title: "Atmosfera familiare, non anonima",
-    description: "Accoglienza vera, con attenzione ai dettagli.",
-  },
-  {
-    icon: MapPin,
-    title: "Centro paese, tutto a piedi",
-    description: "Bar, ristoranti e servizi a pochi minuti.",
-  },
-  {
-    icon: ParkingCircle,
-    title: "Parcheggio convenzionato a 50m",
-    description: "Comodo e vicino, senza stress.",
-  },
-  {
-    icon: Star,
-    title: "9.4/10 · Eccellente su Booking.com",
-    description: "Un punteggio che parla da solo.",
-  },
-];
+const icons = [Waves, Coffee, Heart, MapPin, ParkingCircle, Star] as const;
 
 const containerVariants = {
   hidden: {},
@@ -45,29 +15,34 @@ const containerVariants = {
 
 const itemVariants = {
   hidden: { opacity: 0, y: 24 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.55, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] } },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.55, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] },
+  },
 };
 
 export default function PercheLeFarfalle() {
+  const { t, raw } = useLocaleStrings("perche");
+  const items = raw<{ title: string; description: string }[]>("items");
+
   return (
-    <section className="py-24 bg-stone-50">
+    <section className="mesh-section-light py-24">
       <Container>
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          className="mb-16 text-center"
         >
-          <p className="text-amber-600 text-sm font-semibold tracking-[0.15em] uppercase mb-3">
-            I nostri punti di forza
+          <p className="mb-3 text-sm font-semibold uppercase tracking-[0.2em] text-primary-600">
+            {t("kicker")}
           </p>
-          <h2 className="font-display text-3xl md:text-4xl lg:text-5xl font-bold text-stone-900 mb-4">
-            Perché scegliere Le Farfalle
+          <h2 className="mb-4 font-display text-3xl font-bold text-stone-900 md:text-4xl lg:text-5xl">
+            {t("title")}
           </h2>
-          <p className="text-stone-500 text-lg max-w-2xl mx-auto">
-            Un soggiorno curato, senza sorprese, nel posto giusto per scoprire la Calabria.
-          </p>
+          <p className="mx-auto max-w-2xl text-lg leading-relaxed text-stone-600">{t("sub")}</p>
         </motion.div>
 
         <motion.div
@@ -75,23 +50,26 @@ export default function PercheLeFarfalle() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-60px" }}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+          className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3"
         >
-          {features.map((feature) => (
-            <motion.div
-              key={feature.title}
-              variants={itemVariants}
-              className="group bg-white rounded-2xl p-7 border border-stone-100 hover:border-amber-200 hover:shadow-md transition-all duration-300"
-            >
-              <div className="w-11 h-11 bg-amber-50 rounded-xl flex items-center justify-center mb-5 group-hover:bg-amber-100 transition-colors">
-                <feature.icon className="h-5 w-5 text-amber-600" strokeWidth={1.75} />
-              </div>
-              <h3 className="font-semibold text-base text-stone-900 mb-2 leading-snug">
-                {feature.title}
-              </h3>
-              <p className="text-stone-500 text-sm leading-relaxed">{feature.description}</p>
-            </motion.div>
-          ))}
+          {items.map((feature, i) => {
+            const Icon = icons[i] ?? Star;
+            return (
+              <motion.div
+                key={feature.title}
+                variants={itemVariants}
+                className="group rounded-3xl border border-stone-200/80 bg-white/90 p-7 shadow-soft backdrop-blur-sm transition-all duration-300 hover:border-primary-200/80 hover:shadow-lg hover:shadow-primary-500/5"
+              >
+                <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-primary-50 to-secondary-50 transition-transform duration-300 group-hover:scale-105">
+                  <Icon className="h-5 w-5 text-primary-600" strokeWidth={1.75} />
+                </div>
+                <h3 className="mb-2 text-base font-semibold leading-snug text-stone-900">
+                  {feature.title}
+                </h3>
+                <p className="text-sm leading-relaxed text-stone-500">{feature.description}</p>
+              </motion.div>
+            );
+          })}
         </motion.div>
       </Container>
     </section>

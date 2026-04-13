@@ -146,7 +146,7 @@ const Footer: React.FC<FooterProps> = ({ locale = "it" }) => {
 
         <div className="mt-12 border-t border-white/10 pt-6 flex flex-col gap-3 md:flex-row md:items-center md:justify-between text-sm text-stone-400">
           <div className="flex flex-col gap-1">
-            <span>© {new Date().getFullYear()} Residence Le Farfalle · Francesco Nigro</span>
+            <span>© {new Date().getFullYear()} Residence Le Farfalle</span>
             <span className="text-xs text-stone-500">
               CIN: {STRUCTURE_CIN}
               {siteConfig.vatOrCf ? (
