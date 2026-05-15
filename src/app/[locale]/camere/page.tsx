@@ -6,10 +6,18 @@ import { rooms, amenityLabels } from "@/src/data/rooms/rooms";
 import Container from "@/src/components/ui/Container";
 import Button from "@/src/components/ui/Button";
 import Newsletter from "@/src/components/sections/Newsletter";
+import BreadcrumbJsonLd from "@/src/components/ui/BreadcrumbJsonLd";
+import { siteConfig } from "@/src/config/site";
 import type { Metadata } from "next";
 import { locales } from "@/src/lib/i18n";
 import { pageAlternates } from "@/src/lib/seo";
 import { getPageMetadata } from "@/src/lib/page-metadata";
+
+const camereBreadcrumbLabel: Record<string, { home: string; camere: string }> = {
+  it: { home: "Home", camere: "Camere" },
+  en: { home: "Home", camere: "Rooms" },
+  de: { home: "Home", camere: "Zimmer" },
+};
 
 export function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
@@ -38,6 +46,8 @@ interface RoomsPageProps {
 export default async function RoomsPage({ params }: RoomsPageProps) {
   const { locale } = await params;
   const currentLocale = locale || "it";
+  const baseUrl = siteConfig.url.replace(/\/$/, "");
+  const bc = camereBreadcrumbLabel[currentLocale] ?? camereBreadcrumbLabel.it;
 
   const amenityIcons: Record<string, React.ReactNode> = {
     "private-bathroom": <Droplet className="h-4 w-4" aria-hidden />,
@@ -49,6 +59,12 @@ export default async function RoomsPage({ params }: RoomsPageProps) {
 
   return (
     <div className="min-h-screen pt-20">
+      <BreadcrumbJsonLd
+        items={[
+          { name: bc.home, url: `${baseUrl}/${currentLocale}` },
+          { name: bc.camere, url: `${baseUrl}/${currentLocale}/camere` },
+        ]}
+      />
       <section className="h-48 bg-stone-900 flex items-center">
         <Container>
           <div className="text-center">

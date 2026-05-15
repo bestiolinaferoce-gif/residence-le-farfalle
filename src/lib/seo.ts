@@ -20,6 +20,7 @@ export function pageAlternates(
       it: `${root}/it${path}`,
       en: `${root}/en${path}`,
       de: `${root}/de${path}`,
+      "x-default": `${root}/it${path}`,
     },
   };
 }

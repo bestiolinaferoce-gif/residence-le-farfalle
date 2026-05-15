@@ -53,6 +53,7 @@ export async function generateMetadata({
         it: `${siteConfig.url}/it`,
         en: `${siteConfig.url}/en`,
         de: `${siteConfig.url}/de`,
+        "x-default": `${siteConfig.url}/it`,
       },
     },
   };
@@ -141,6 +142,15 @@ export default async function LocaleLayout({
 
   return (
     <>
+      {/*
+        Root <html lang> sta in src/app/layout.tsx ("it" come fallback). In App Router
+        non è possibile sovrascrivere l'attributo html dal layout di un segmento
+        figlio in modo SSR-friendly senza spostare il <html> qui (che entrerebbe
+        in conflitto col root layout). Aggiorniamo l'attributo via script lato
+        client così che screen reader e crawler che valutano il DOM finale leggano
+        il locale corretto. Il <link rel="alternate" hreflang> nelle metadata copre
+        comunque il segnale primario per Google.
+      */}
       <script
         dangerouslySetInnerHTML={{
           __html: `document.documentElement.lang = "${htmlLang}";`,

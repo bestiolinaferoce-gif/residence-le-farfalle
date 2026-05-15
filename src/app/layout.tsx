@@ -1,11 +1,18 @@
 import { Plus_Jakarta_Sans, Syne } from "next/font/google";
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import Script from "next/script";
 import AppWrapper from "@/src/components/layout/AppWrapper";
 import "./globals.css";
 import { siteConfig } from "@/src/config/site";
 
-const googleSiteVerification = process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION?.trim();
+// Sostituire con il token reale dalla Google Search Console.
+// In alternativa valorizzare NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION su Vercel.
+const GOOGLE_SITE_VERIFICATION_TOKEN = "GOOGLE_SITE_VERIFICATION_TOKEN";
+const googleSiteVerification =
+  process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION?.trim() ||
+  (GOOGLE_SITE_VERIFICATION_TOKEN !== "GOOGLE_SITE_VERIFICATION_TOKEN"
+    ? GOOGLE_SITE_VERIFICATION_TOKEN
+    : undefined);
 
 const jakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
@@ -27,6 +34,7 @@ export const metadata: Metadata = {
     template: `%s | ${siteConfig.name}`,
   },
   description: siteConfig.description.it,
+  robots: { index: true, follow: true },
   verification: googleSiteVerification
     ? {
         google: googleSiteVerification,
@@ -36,6 +44,12 @@ export const metadata: Metadata = {
     siteName: siteConfig.name,
     type: "website",
   },
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  themeColor: "#ffffff",
 };
 
 export default function RootLayout({

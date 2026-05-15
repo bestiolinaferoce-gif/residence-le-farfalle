@@ -4,7 +4,7 @@ import React from "react";
 import Link from "next/link";
 import { Mail, Phone, MapPin, Waves } from "lucide-react";
 import { useLocaleStrings } from "@/src/components/i18n/LocaleProvider";
-import { siteConfig } from "@/src/config/site";
+import { siteConfig, STRUCTURE_CIN } from "@/src/config/site";
 import Container from "@/src/components/ui/Container";
 
 interface HomeFooterProps {
@@ -75,6 +75,9 @@ export default function HomeFooter({ locale = "it" }: HomeFooterProps) {
 
         <p className="mt-12 text-center text-sm text-secondary-400">
           © {new Date().getFullYear()} Residence Le Farfalle. {t("copyright")}
+        </p>
+        <p className="mt-2 text-center text-xs text-secondary-500">
+          CIN: {STRUCTURE_CIN}
         </p>
       </Container>
     </section>

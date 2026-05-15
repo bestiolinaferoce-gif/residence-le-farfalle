@@ -2,7 +2,10 @@ import React from "react";
 import type { Metadata } from "next";
 import { locales } from "@/src/lib/i18n";
 import { pageAlternates } from "@/src/lib/seo";
+import { getPageMetadata } from "@/src/lib/page-metadata";
+import { siteConfig } from "@/src/config/site";
 import Container from "@/src/components/ui/Container";
+import BreadcrumbJsonLd from "@/src/components/ui/BreadcrumbJsonLd";
 
 export function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
@@ -10,24 +13,21 @@ export function generateStaticParams() {
 
 type Loc = "it" | "en" | "de";
 
-const pageCopy: Record<Loc, { title: string; description: string; h1: string }> = {
+const pageCopy: Record<Loc, { h1: string; breadcrumbHome: string; breadcrumbFaq: string }> = {
   it: {
-    title: "FAQ - Residence Le Farfalle Isola di Capo Rizzuto",
-    description:
-      "Risposte alle domande più frequenti su mare, colazione, parcheggio, check-in, prenotazioni e servizi a Residence Le Farfalle.",
     h1: "Domande frequenti",
+    breadcrumbHome: "Home",
+    breadcrumbFaq: "Domande frequenti",
   },
   en: {
-    title: "FAQ - Residence Le Farfalle Isola di Capo Rizzuto",
-    description:
-      "Answers to common questions about the sea, breakfast, parking, check-in, bookings and services at Residence Le Farfalle.",
     h1: "Frequently asked questions",
+    breadcrumbHome: "Home",
+    breadcrumbFaq: "FAQ",
   },
   de: {
-    title: "FAQ - Residence Le Farfalle Isola di Capo Rizzuto",
-    description:
-      "Antworten auf häufige Fragen zu Meer, Frühstück, Parkplatz, Check-in, Buchung und Service in der Residence Le Farfalle.",
     h1: "Häufig gestellte Fragen",
+    breadcrumbHome: "Home",
+    breadcrumbFaq: "Häufige Fragen",
   },
 };
 
@@ -171,11 +171,10 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params;
   const currentLocale = locale || "it";
-  const l = resolveLocale(locale);
-  const c = pageCopy[l];
+  const m = getPageMetadata("faq", currentLocale);
   return {
-    title: c.title,
-    description: c.description,
+    title: m.title,
+    description: m.description,
     alternates: pageAlternates(currentLocale, "faq"),
   };
 }
@@ -186,9 +185,12 @@ interface FaqPageProps {
 
 export default async function FaqPage({ params }: FaqPageProps) {
   const { locale } = await params;
+  const currentLocale = locale || "it";
   const l = resolveLocale(locale);
   const c = pageCopy[l];
   const items = faqs[l];
+  const m = getPageMetadata("faq", currentLocale);
+  const baseUrl = siteConfig.url.replace(/\/$/, "");
 
   const faqSchema = {
     "@context": "https://schema.org",
@@ -209,9 +211,15 @@ export default async function FaqPage({ params }: FaqPageProps) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />
+      <BreadcrumbJsonLd
+        items={[
+          { name: c.breadcrumbHome, url: `${baseUrl}/${currentLocale}` },
+          { name: c.breadcrumbFaq, url: `${baseUrl}/${currentLocale}/faq` },
+        ]}
+      />
       <Container className="max-w-3xl">
         <h1 className="font-display text-3xl md:text-4xl font-bold text-neutral-900 mb-4">{c.h1}</h1>
-        <p className="text-neutral-600 mb-10 text-sm md:text-base">{c.description}</p>
+        <p className="text-neutral-600 mb-10 text-sm md:text-base">{m.description}</p>
         <ul className="space-y-8 list-none p-0 m-0">
           {items.map((faq) => (
             <li key={faq.q} className="border-b border-stone-200 pb-8 last:border-0">

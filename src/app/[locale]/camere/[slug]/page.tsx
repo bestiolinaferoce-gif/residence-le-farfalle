@@ -13,6 +13,13 @@ import ImageGallery from "@/src/components/ui/ImageGallery";
 import { siteConfig } from "@/src/config/site";
 import { pageAlternates } from "@/src/lib/seo";
 import RoomViewTracker from "@/src/components/rooms/RoomViewTracker";
+import BreadcrumbJsonLd from "@/src/components/ui/BreadcrumbJsonLd";
+
+const roomBreadcrumbLabel: Record<string, { home: string; camere: string }> = {
+  it: { home: "Home", camere: "Camere" },
+  en: { home: "Home", camere: "Rooms" },
+  de: { home: "Home", camere: "Zimmer" },
+};
 
 export function generateStaticParams() {
   const params: { locale: string; slug: string }[] = [];
@@ -101,12 +108,22 @@ export default async function RoomSlugPage({
     },
   };
 
+  const baseUrl = siteConfig.url.replace(/\/$/, "");
+  const bc = roomBreadcrumbLabel[currentLocale] ?? roomBreadcrumbLabel.it;
+
   return (
     <div className="min-h-screen pt-20">
       <RoomViewTracker slug={slug} />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(hotelRoomSchema) }}
+      />
+      <BreadcrumbJsonLd
+        items={[
+          { name: bc.home, url: `${baseUrl}/${currentLocale}` },
+          { name: bc.camere, url: `${baseUrl}/${currentLocale}/camere` },
+          { name: roomName, url: `${baseUrl}/${currentLocale}/camere/${slug}` },
+        ]}
       />
       <section className="relative h-[60vh] min-h-[420px] overflow-hidden bg-stone-900">
         <Image

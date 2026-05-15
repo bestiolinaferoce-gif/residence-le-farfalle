@@ -16,14 +16,32 @@ export default function Newsletter({ variant = "light" }: NewsletterProps) {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
+  const [error, setError] = useState<string | null>(null);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!email.trim()) return;
+    const value = email.trim();
+    if (!value) return;
     setIsLoading(true);
-    await new Promise((r) => setTimeout(r, 800));
-    setIsSubmitted(true);
-    setIsLoading(false);
-    setEmail("");
+    setError(null);
+    try {
+      const res = await fetch("/api/newsletter", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: value }),
+      });
+      if (!res.ok) {
+        const data = (await res.json().catch(() => ({}))) as { error?: string };
+        setError(data.error ?? "Errore iscrizione");
+        return;
+      }
+      setIsSubmitted(true);
+      setEmail("");
+    } catch {
+      setError("Errore di rete");
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const isDark = variant === "dark";
@@ -101,6 +119,14 @@ export default function Newsletter({ variant = "light" }: NewsletterProps) {
                   {isLoading ? t("loading") : t("submit")}
                 </button>
               </form>
+              {error ? (
+                <p
+                  role="alert"
+                  className={`mt-3 text-sm ${isDark ? "text-red-300" : "text-red-600"}`}
+                >
+                  {error}
+                </p>
+              ) : null}
             </>
           )}
         </motion.div>

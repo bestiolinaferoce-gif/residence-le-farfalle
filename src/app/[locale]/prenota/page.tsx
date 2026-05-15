@@ -5,11 +5,18 @@ import { siteConfig } from "@/src/config/site";
 import Container from "@/src/components/ui/Container";
 import Card from "@/src/components/ui/Card";
 import ContactForm from "@/src/components/forms/ContactForm";
+import BreadcrumbJsonLd from "@/src/components/ui/BreadcrumbJsonLd";
 import type { Metadata } from "next";
 import { locales } from "@/src/lib/i18n";
 import { pageAlternates } from "@/src/lib/seo";
 import { getPageMetadata } from "@/src/lib/page-metadata";
 import { TrackedTel, TrackedWhatsapp } from "@/src/components/analytics/TrackedLinks";
+
+const prenotaBreadcrumbLabel: Record<string, { home: string; prenota: string }> = {
+  it: { home: "Home", prenota: "Prenota" },
+  en: { home: "Home", prenota: "Book" },
+  de: { home: "Home", prenota: "Buchen" },
+};
 
 export function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
@@ -39,9 +46,17 @@ export default async function PrenotaPage({ params }: PrenotaPageProps) {
   const { locale } = await params;
   const currentLocale = locale || "it";
   const waDigits = siteConfig.contacts.whatsapp.replace(/\D/g, "");
+  const baseUrl = siteConfig.url.replace(/\/$/, "");
+  const bc = prenotaBreadcrumbLabel[currentLocale] ?? prenotaBreadcrumbLabel.it;
 
   return (
     <div className="min-h-screen pt-20">
+      <BreadcrumbJsonLd
+        items={[
+          { name: bc.home, url: `${baseUrl}/${currentLocale}` },
+          { name: bc.prenota, url: `${baseUrl}/${currentLocale}/prenota` },
+        ]}
+      />
       <section className="relative overflow-hidden border-b border-stone-200/70 py-16 md:py-20">
         <div className="pointer-events-none absolute inset-0 mesh-gradient" aria-hidden />
         <div

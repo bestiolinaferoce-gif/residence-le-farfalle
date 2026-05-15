@@ -6,11 +6,18 @@ import Card from "@/src/components/ui/Card";
 import Button from "@/src/components/ui/Button";
 import ContactForm from "@/src/components/forms/ContactForm";
 import Link from "next/link";
+import BreadcrumbJsonLd from "@/src/components/ui/BreadcrumbJsonLd";
 import type { Metadata } from "next";
 import { locales } from "@/src/lib/i18n";
 import { pageAlternates } from "@/src/lib/seo";
 import { getPageMetadata } from "@/src/lib/page-metadata";
 import { TrackedMailto, TrackedTel, TrackedWhatsapp } from "@/src/components/analytics/TrackedLinks";
+
+const contattiBreadcrumbLabel: Record<string, { home: string; contatti: string }> = {
+  it: { home: "Home", contatti: "Contatti" },
+  en: { home: "Home", contatti: "Contact" },
+  de: { home: "Home", contatti: "Kontakt" },
+};
 
 export function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
@@ -40,9 +47,17 @@ export default async function ContattiPage({ params }: ContattiPageProps) {
   const { locale } = await params;
   const currentLocale = locale || "it";
   const waDigits = siteConfig.contacts.whatsapp.replace(/\D/g, "");
+  const baseUrl = siteConfig.url.replace(/\/$/, "");
+  const bc = contattiBreadcrumbLabel[currentLocale] ?? contattiBreadcrumbLabel.it;
 
   return (
     <div className="min-h-screen pt-20">
+      <BreadcrumbJsonLd
+        items={[
+          { name: bc.home, url: `${baseUrl}/${currentLocale}` },
+          { name: bc.contatti, url: `${baseUrl}/${currentLocale}/contatti` },
+        ]}
+      />
       {/* Hero Section */}
       <section className="bg-gradient-to-b from-secondary-50 to-white py-16">
         <Container>

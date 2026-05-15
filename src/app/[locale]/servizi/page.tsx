@@ -7,10 +7,18 @@ import ServiziHero from "@/src/components/servizi/ServiziHero";
 import ServiziGrid from "@/src/components/servizi/ServiziGrid";
 import PartnersSection from "@/src/components/partner/PartnersSection";
 import Newsletter from "@/src/components/sections/Newsletter";
+import BreadcrumbJsonLd from "@/src/components/ui/BreadcrumbJsonLd";
+import { siteConfig } from "@/src/config/site";
 import type { Metadata } from "next";
 import { locales } from "@/src/lib/i18n";
 import { pageAlternates } from "@/src/lib/seo";
 import { getPageMetadata } from "@/src/lib/page-metadata";
+
+const serviziBreadcrumbLabel: Record<string, { home: string; servizi: string }> = {
+  it: { home: "Home", servizi: "Servizi" },
+  en: { home: "Home", servizi: "Services" },
+  de: { home: "Home", servizi: "Service" },
+};
 
 export function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
@@ -39,9 +47,17 @@ interface ServicesPageProps {
 export default async function ServicesPage({ params }: ServicesPageProps) {
   const { locale } = await params;
   const currentLocale = locale || "it";
+  const baseUrl = siteConfig.url.replace(/\/$/, "");
+  const bc = serviziBreadcrumbLabel[currentLocale] ?? serviziBreadcrumbLabel.it;
 
   return (
     <div className="min-h-screen pt-20">
+      <BreadcrumbJsonLd
+        items={[
+          { name: bc.home, url: `${baseUrl}/${currentLocale}` },
+          { name: bc.servizi, url: `${baseUrl}/${currentLocale}/servizi` },
+        ]}
+      />
       <ServiziHero />
 
       <section className="border-b border-stone-200 bg-amber-50/40 py-8">

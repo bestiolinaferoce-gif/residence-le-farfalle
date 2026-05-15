@@ -7,10 +7,17 @@ import Card from "@/src/components/ui/Card";
 import TerritorioHero from "@/src/components/territorio/TerritorioHero";
 import TerritorioTabs from "@/src/components/territorio/TerritorioTabs";
 import Newsletter from "@/src/components/sections/Newsletter";
+import BreadcrumbJsonLd from "@/src/components/ui/BreadcrumbJsonLd";
 import type { Metadata } from "next";
 import { locales } from "@/src/lib/i18n";
 import { pageAlternates } from "@/src/lib/seo";
 import { getPageMetadata } from "@/src/lib/page-metadata";
+
+const territorioBreadcrumbLabel: Record<string, { home: string; territorio: string }> = {
+  it: { home: "Home", territorio: "Territorio" },
+  en: { home: "Home", territorio: "Area" },
+  de: { home: "Home", territorio: "Region" },
+};
 
 export function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
@@ -141,9 +148,17 @@ interface TerritorioPageProps {
 export default async function TerritorioPage({ params }: TerritorioPageProps) {
   const { locale } = await params;
   const currentLocale = locale || "it";
+  const baseUrl = siteConfig.url.replace(/\/$/, "");
+  const bc = territorioBreadcrumbLabel[currentLocale] ?? territorioBreadcrumbLabel.it;
 
   return (
     <div className="min-h-screen pt-20">
+      <BreadcrumbJsonLd
+        items={[
+          { name: bc.home, url: `${baseUrl}/${currentLocale}` },
+          { name: bc.territorio, url: `${baseUrl}/${currentLocale}/territorio` },
+        ]}
+      />
       <TerritorioHero />
 
       {/* Blocchi strutturati con tab */}

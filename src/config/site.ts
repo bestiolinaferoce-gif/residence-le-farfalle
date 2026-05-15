@@ -35,13 +35,19 @@ export const siteConfig = {
   },
   /** Social / OTA: valorizzare su Vercel o qui quando disponibili */
   social: {
+    // TODO: inserire URL reale — es. "https://www.facebook.com/residencelefarfalle"
     facebook: "",
+    // TODO: inserire URL reale — es. "https://www.instagram.com/residencelefarfalle"
     instagram: "",
+    // TODO: inserire URL reale — es. "https://www.tripadvisor.it/Hotel_Review-..."
     tripadvisor: "",
+    // TODO: inserire URL reale — es. "https://maps.google.com/?cid=..."
     google_business: "",
   },
   booking: {
+    // TODO: inserire URL reale — es. "https://www.airbnb.it/rooms/..."
     airbnb: "",
+    // TODO: inserire URL reale — es. "https://www.booking.com/hotel/..."
     booking_com: "",
   },
   /** Vuoto finché non imposti NEXT_PUBLIC_VAT_OR_CF su Vercel / .env.local */

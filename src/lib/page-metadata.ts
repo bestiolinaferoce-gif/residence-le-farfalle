@@ -301,6 +301,24 @@ export const pageMetadata = {
     },
   } satisfies Record<Locale, PageMeta>,
 
+  faq: {
+    it: {
+      title: `Domande frequenti — ${brand}`,
+      description:
+        `Risposte alle domande più comuni su camere, colazione, check-in, parcheggio e come raggiungere ${place}.`,
+    },
+    en: {
+      title: `FAQ — ${brand}`,
+      description:
+        `Answers to the most common questions about rooms, breakfast, check-in, parking and how to reach ${place}.`,
+    },
+    de: {
+      title: `Häufige Fragen — ${brand}`,
+      description:
+        `Antworten auf die häufigsten Fragen zu Zimmern, Frühstück, Check-in, Parkplatz und Anreise nach ${place}.`,
+    },
+  } satisfies Record<Locale, PageMeta>,
+
   termini: {
     it: {
       title: `Termini e condizioni - ${brand}`,
