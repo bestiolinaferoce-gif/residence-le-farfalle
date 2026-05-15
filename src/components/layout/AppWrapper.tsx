@@ -6,6 +6,7 @@ import Header from "@/src/components/layout/Header";
 import Footer from "@/src/components/layout/Footer";
 import CookieBanner from "@/src/components/gdpr/CookieBanner";
 import WhatsAppButton from "@/src/components/ui/WhatsAppButton";
+import BandieraBluTopBanner from "@/src/components/ui/BandieraBluTopBanner";
 import { usePathname } from "next/navigation";
 
 interface AppWrapperProps {
@@ -23,6 +24,7 @@ export default function AppWrapper({ children }: AppWrapperProps) {
 
   return (
     <ErrorBoundary>
+      <BandieraBluTopBanner />
       <Header />
       <main className="pt-20">{children}</main>
       <Footer locale={locale} />

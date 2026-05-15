@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 360" width="360" height="360" role="img" aria-label="Bandiera Blu 2026 — Isola di Capo Rizzuto">
+  <title>Bandiera Blu 2026 — Isola di Capo Rizzuto</title>
+  <desc>Badge informativo originale che segnala il riconoscimento Bandiera Blu 2026 per il comune di Isola di Capo Rizzuto, Calabria.</desc>
+
+  <defs>
+    <!-- Gradiente blu mare profondo (centro) → blu notte (bordo) -->
+    <radialGradient id="bbSeaGrad" cx="50%" cy="40%" r="70%">
+      <stop offset="0%" stop-color="#0e5a8a"/>
+      <stop offset="60%" stop-color="#0a3d62"/>
+      <stop offset="100%" stop-color="#062a44"/>
+    </radialGradient>
+
+    <!-- Anello dorato -->
+    <linearGradient id="bbGoldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f0c75a"/>
+      <stop offset="50%" stop-color="#d4a849"/>
+      <stop offset="100%" stop-color="#a87f2a"/>
+    </linearGradient>
+
+    <!-- Ombra esterna sottile -->
+    <filter id="bbShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="#000" flood-opacity="0.25"/>
+    </filter>
+
+    <!-- Path per testo curvo superiore (allineato a circonferenza interna) -->
+    <path id="bbArcTop" d="M 60 180 A 120 120 0 0 1 300 180" fill="none"/>
+    <!-- Path per testo curvo inferiore (specchiato) -->
+    <path id="bbArcBottom" d="M 70 192 A 110 110 0 0 0 290 192" fill="none"/>
+  </defs>
+
+  <!-- Anello esterno blu scuro -->
+  <circle cx="180" cy="180" r="170" fill="url(#bbSeaGrad)" filter="url(#bbShadow)"/>
+
+  <!-- Anello dorato sottile -->
+  <circle cx="180" cy="180" r="160" fill="none" stroke="url(#bbGoldGrad)" stroke-width="3"/>
+
+  <!-- Cerchio interno (campo centrale) -->
+  <circle cx="180" cy="180" r="142" fill="#0a4570" stroke="#ffffff" stroke-width="1.2" stroke-opacity="0.35"/>
+
+  <!-- Testo curvo superiore: BANDIERA BLU -->
+  <text font-family="Georgia, 'Times New Roman', serif" font-size="20" font-weight="700" fill="#f4d27a" letter-spacing="4">
+    <textPath href="#bbArcTop" startOffset="50%" text-anchor="middle">★  BANDIERA  BLU  ★</textPath>
+  </text>
+
+  <!-- Stelline ai lati centrali -->
+  <g fill="#f4d27a">
+    <polygon points="60,180 64,184 60,188 56,184" />
+    <polygon points="300,180 304,184 300,188 296,184" />
+  </g>
+
+  <!-- Anno 2026 centrale -->
+  <text x="180" y="178" font-family="Georgia, 'Times New Roman', serif" font-size="62" font-weight="800" fill="#ffffff" text-anchor="middle" letter-spacing="2">2026</text>
+
+  <!-- Sottotitolo "ZONA PREMIATA" -->
+  <text x="180" y="198" font-family="'Helvetica Neue', Arial, sans-serif" font-size="9" font-weight="700" fill="#f4d27a" text-anchor="middle" letter-spacing="3">ZONA PREMIATA</text>
+
+  <!-- Onde stilizzate -->
+  <g stroke="#f4d27a" stroke-width="2" fill="none" stroke-linecap="round">
+    <path d="M 130 218 q 12 -7 25 0 t 25 0 t 25 0 t 25 0" opacity="0.95"/>
+    <path d="M 138 230 q 10 -6 20 0 t 20 0 t 20 0 t 20 0" opacity="0.7"/>
+  </g>
+
+  <!-- Testo curvo inferiore: ISOLA DI CAPO RIZZUTO -->
+  <text font-family="Georgia, 'Times New Roman', serif" font-size="14" font-weight="700" fill="#ffffff" letter-spacing="3">
+    <textPath href="#bbArcBottom" startOffset="50%" text-anchor="middle">ISOLA  DI  CAPO  RIZZUTO  •  CALABRIA</textPath>
+  </text>
+</svg>

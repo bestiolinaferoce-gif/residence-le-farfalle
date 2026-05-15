@@ -11,6 +11,7 @@ const STATIC_SEGMENTS = [
   "/prenota",
   "/contatti",
   "/faq",
+  "/bandiera-blu-2026-capo-rizzuto",
   "/privacy",
   "/cookie",
   "/termini",

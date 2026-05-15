@@ -301,6 +301,43 @@ export const pageMetadata = {
     },
   } satisfies Record<Locale, PageMeta>,
 
+  blueFlag2026: {
+    it: {
+      title: `Bandiera Blu 2026 a ${place} | ${brand}`,
+      description:
+        `Soggiorni in zona Bandiera Blu 2026: ${brand}, 4 camere a ${place}, Comune premiato dalla FEE. Spiagge dell'Area Marina Protetta a pochi minuti a piedi.`,
+      keywords: [
+        "Bandiera Blu 2026",
+        `Bandiera Blu ${place}`,
+        "spiagge Bandiera Blu Calabria",
+        "Area Marina Protetta Capo Rizzuto",
+        `${brand}`,
+      ],
+    },
+    en: {
+      title: `Blue Flag 2026 in ${place} | ${brand}`,
+      description:
+        `Stay in a Blue Flag 2026 area: ${brand}, 4 rooms in ${place}, FEE-awarded municipality. Marine Protected Area beaches a few minutes' walk away.`,
+      keywords: [
+        "Blue Flag 2026",
+        `Blue Flag ${place}`,
+        "Calabria Blue Flag beaches",
+        "Capo Rizzuto Marine Protected Area",
+      ],
+    },
+    de: {
+      title: `Blaue Flagge 2026 in ${place} | ${brand}`,
+      description:
+        `Übernachten Sie in einer Blaue Flagge 2026 Zone: ${brand}, 4 Zimmer in ${place}, FEE-prämierte Gemeinde. Strände im Meeresschutzgebiet wenige Gehminuten entfernt.`,
+      keywords: [
+        "Blaue Flagge 2026",
+        `Blaue Flagge ${place}`,
+        "Kalabrien Blaue Flagge",
+        "Meeresschutzgebiet Capo Rizzuto",
+      ],
+    },
+  } satisfies Record<Locale, PageMeta>,
+
   faq: {
     it: {
       title: `Domande frequenti — ${brand}`,
