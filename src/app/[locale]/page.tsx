@@ -2,6 +2,7 @@ import React from "react";
 import type { Metadata } from "next";
 import Hero from "@/src/components/sections/Hero";
 import PercheLeFarfalle from "@/src/components/sections/PercheLeFarfalle";
+import StagioneInCorso from "@/src/components/sections/StagioneInCorso";
 import HomeRoomsPreview from "@/src/components/sections/HomeRoomsPreview";
 import Services from "@/src/components/sections/Services";
 import MareVicino from "@/src/components/sections/MareVicino";
@@ -63,6 +64,7 @@ export default async function HomePage({ params }: HomePageProps) {
       <Hero locale={currentLocale} />
       <PercheLeFarfalle />
       <HomeRoomsPreview locale={currentLocale} />
+      <StagioneInCorso locale={currentLocale} />
       <Services />
       <MareVicino />
       <Territorio60Secondi locale={currentLocale} />

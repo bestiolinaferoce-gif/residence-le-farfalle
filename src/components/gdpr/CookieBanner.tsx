@@ -37,8 +37,20 @@ export default function CookieBanner() {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(consent));
     setIsVisible(false);
     setShowPreferences(false);
-    if (consent.analytics && typeof window !== "undefined" && (window as unknown as { gtag?: unknown }).gtag) {
-      // GA caricato da parent - next/script
+
+    /*
+      Applica la scelta a Google Consent Mode. Prima il consenso veniva soltanto
+      memorizzato e questo ramo era vuoto: Analytics restava attivo anche dopo
+      "Solo necessari". Il default negato è impostato in app/layout.tsx.
+    */
+    const gtag = (window as unknown as { gtag?: (...args: unknown[]) => void }).gtag;
+    if (typeof gtag === "function") {
+      gtag("consent", "update", {
+        analytics_storage: consent.analytics ? "granted" : "denied",
+        ad_storage: consent.marketing ? "granted" : "denied",
+        ad_user_data: consent.marketing ? "granted" : "denied",
+        ad_personalization: consent.marketing ? "granted" : "denied",
+      });
     }
   };
 

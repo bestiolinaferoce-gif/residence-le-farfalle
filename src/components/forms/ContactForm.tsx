@@ -1,5 +1,7 @@
 "use client";
 
+import Link from "next/link";
+
 import React, { useState } from "react";
 import { CalendarRange, Clock, MessageSquare, Send, ShieldCheck, Sparkles } from "lucide-react";
 import { rooms } from "@/src/data/rooms/rooms";
@@ -149,6 +151,8 @@ export default function ContactForm({
 }: ContactFormProps) {
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [dateError, setDateError] = useState(false);
+  const [privacyConsent, setPrivacyConsent] = useState(false);
+  const [privacyError, setPrivacyError] = useState(false);
   const [form, setForm] = useState({
     name: "",
     email: "",
@@ -182,6 +186,12 @@ export default function ContactForm({
       return;
     }
     setDateError(false);
+    // Base giuridica esplicita: senza spunta la richiesta non parte.
+    if (!privacyConsent) {
+      setPrivacyError(true);
+      return;
+    }
+    setPrivacyError(false);
     setStatus("loading");
     try {
       const preferredLabel =
@@ -453,6 +463,41 @@ export default function ContactForm({
             </button>
           </div>
         )}
+
+        {/*
+          Consenso esplicito e non pre-spuntato. Prima l'informativa era solo
+          citata in un paragrafo, senza raccogliere alcuna manifestazione di volontà.
+        */}
+        <div>
+          <label className="flex items-start gap-2.5 text-left text-sm text-neutral-600">
+            <input
+              type="checkbox"
+              checked={privacyConsent}
+              onChange={(e) => {
+                setPrivacyConsent(e.target.checked);
+                if (e.target.checked) setPrivacyError(false);
+              }}
+              className="mt-1 h-4 w-4 shrink-0 rounded border-neutral-400 text-amber-600 focus:ring-amber-500"
+              aria-describedby={privacyError ? "cf-privacy-error" : undefined}
+            />
+            <span>
+              Ho letto l&apos;
+              <Link
+                href={`/${locale}/privacy`}
+                className="font-semibold underline underline-offset-2"
+              >
+                informativa privacy
+              </Link>{" "}
+              e acconsento al trattamento dei miei dati per rispondere a questa richiesta.
+              <span className="text-amber-700"> *</span>
+            </span>
+          </label>
+          {privacyError && (
+            <p id="cf-privacy-error" role="alert" className="mt-2 text-sm font-medium text-red-700">
+              Devi acconsentire al trattamento dei dati per inviare la richiesta.
+            </p>
+          )}
+        </div>
 
         <Button
           type="submit"

@@ -1,6 +1,8 @@
 "use client";
 
 import React, { useState } from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
 import { Mail, CheckCircle2 } from "lucide-react";
 import { useLocaleStrings } from "@/src/components/i18n/LocaleProvider";
@@ -17,11 +19,19 @@ export default function Newsletter({ variant = "light" }: NewsletterProps) {
   const [isLoading, setIsLoading] = useState(false);
 
   const [error, setError] = useState<string | null>(null);
+  const [consent, setConsent] = useState(false);
+  const pathname = usePathname();
+  const locale = pathname?.split("/")[1] || "it";
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const value = email.trim();
     if (!value) return;
+    // Il consenso marketing dev'essere esplicito: senza spunta non si invia nulla.
+    if (!consent) {
+      setError("Per iscriverti devi acconsentire al trattamento dei dati.");
+      return;
+    }
     setIsLoading(true);
     setError(null);
     try {
@@ -37,6 +47,7 @@ export default function Newsletter({ variant = "light" }: NewsletterProps) {
       }
       setIsSubmitted(true);
       setEmail("");
+      setConsent(false);
     } catch {
       setError("Errore di rete");
     } finally {
@@ -119,6 +130,34 @@ export default function Newsletter({ variant = "light" }: NewsletterProps) {
                   {isLoading ? t("loading") : t("submit")}
                 </button>
               </form>
+
+              {/*
+                Consenso esplicito e non pre-spuntato: l'iscrizione è un trattamento
+                per finalità di marketing e prima veniva raccolta la sola email,
+                senza alcuna base giuridica raccolta né informativa collegata.
+              */}
+              <label
+                className={`mt-3 flex items-start gap-2.5 text-left text-sm ${
+                  isDark ? "text-secondary-200" : "text-neutral-600"
+                }`}
+              >
+                <input
+                  type="checkbox"
+                  checked={consent}
+                  onChange={(e) => setConsent(e.target.checked)}
+                  className="mt-1 h-4 w-4 shrink-0 rounded border-neutral-400 text-secondary-500 focus:ring-secondary-500"
+                />
+                <span>
+                  Acconsento al trattamento dei miei dati per ricevere offerte e novità.
+                  Posso disiscrivermi in qualsiasi momento.{" "}
+                  <Link
+                    href={`/${locale}/privacy`}
+                    className="font-semibold underline underline-offset-2"
+                  >
+                    Informativa privacy
+                  </Link>
+                </span>
+              </label>
               {error ? (
                 <p
                   role="alert"

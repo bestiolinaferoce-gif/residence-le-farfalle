@@ -8,6 +8,7 @@ import { motion } from "framer-motion";
 import { useLocaleStrings } from "@/src/components/i18n/LocaleProvider";
 import AvailabilityWidget from "@/src/components/booking/AvailabilityWidget";
 import { siteConfig } from "@/src/config/site";
+import { getReviewStats } from "@/src/data/reviews/reviews";
 
 interface HeroProps {
   locale?: string;
@@ -17,8 +18,17 @@ export default function Hero({ locale = "it" }: HeroProps) {
   const { t } = useLocaleStrings("hero");
   const [scrolled, setScrolled] = useState(false);
 
+  /**
+   * Il punteggio reale vale più di un generico "Verificato": è la prova sociale
+   * più forte che abbiamo per convincere a prenotare qui invece che su un portale.
+   * Se un giorno non ci fossero recensioni reali, si torna all'etichetta neutra.
+   */
+  const reviewStats = getReviewStats();
+
   const trustBadges = [
-    { icon: Star, label: t("badgeVerified"), key: "verified" },
+    reviewStats
+      ? { icon: Star, label: `${reviewStats.average10}/10 · ${reviewStats.count} recensioni`, key: "rating" }
+      : { icon: Star, label: t("badgeVerified"), key: "verified" },
     { icon: Coffee, label: t("badgeBreakfast"), key: "breakfast" },
     { icon: Wind, label: t("badgeAc"), key: "ac" },
     { icon: Wifi, label: t("badgeWifi"), key: "wifi" },

@@ -43,3 +43,18 @@ export const getReviewStats = () => {
     count,
   };
 };
+
+/**
+ * Media di una singola fonte, normalizzata su 10.
+ * Serve dove il testo cita esplicitamente il portale ("Eccellente su Booking.com"):
+ * mostrare lì la media complessiva sarebbe un dato attribuito alla fonte sbagliata.
+ */
+export const getReviewStatsBySource = (source: Review["source"]) => {
+  const subset = realReviews.filter((r) => r.source === source);
+  if (subset.length === 0) return null;
+  const total = subset.reduce((sum, r) => sum + (r.source === "Google" ? r.rating * 2 : r.rating), 0);
+  return {
+    average10: Math.round((total / subset.length) * 10) / 10,
+    count: subset.length,
+  };
+};

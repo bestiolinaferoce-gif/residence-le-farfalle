@@ -98,9 +98,14 @@ const ReviewsSection: React.FC<ReviewsSectionProps> = ({ locale = "it", maxItems
           >
             Cosa Dicono i Nostri Ospiti
           </h2>
-          <div className="text-3xl md:text-4xl font-bold text-stone-900">
-            9.4 <span className="text-stone-500">/ 10</span> · <span className="text-amber-600">Eccellente</span>
-          </div>
+          {/* Calcolato dalle recensioni reali: prima era fisso a 9.4 e contraddiceva
+              il punteggio mostrato nell'hero, calcolato invece dai dati. */}
+          {stats ? (
+            <div className="text-3xl md:text-4xl font-bold text-stone-900">
+              {stats.average10} <span className="text-stone-500">/ 10</span> ·{" "}
+              <span className="text-amber-600">Eccellente</span>
+            </div>
+          ) : null}
           {stats ? (
             <div className="mt-2 text-sm text-stone-600">{stats.count} recensioni</div>
           ) : null}
