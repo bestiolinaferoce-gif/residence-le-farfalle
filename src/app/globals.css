@@ -3,6 +3,9 @@
 /* Smooth scroll behavior */
 html {
   scroll-behavior: smooth;
+  /* Vedi la nota su body: il clipping serve anche qui perché l'header è
+     position:fixed e si dimensiona sul blocco contenitore radice, non sul body. */
+  overflow-x: clip;
 }
 
 /* Custom scrollbar */
@@ -69,6 +72,14 @@ html {
 
 /* Base styles — canvas premium leggero (sezioni sovrascrivono con bg propri) */
 body {
+  /*
+     Le animazioni d'ingresso entrano da translateX positivo e, mentre scorrono,
+     sporgono oltre il bordo destro allargando il documento: su 375px la pagina
+     finiva a 389px e il browser rimpiccioliva tutto.
+     `clip` e non `hidden`: non crea un contenitore di scroll, quindi gli elementi
+     position:sticky continuano a funzionare.
+  */
+  overflow-x: clip;
   background-color: #faf8ff;
   background-image:
     radial-gradient(ellipse 100% 60% at 100% 0%, rgba(217, 70, 239, 0.07) 0%, transparent 55%),

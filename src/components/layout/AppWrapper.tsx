@@ -24,9 +24,17 @@ export default function AppWrapper({ children }: AppWrapperProps) {
 
   return (
     <ErrorBoundary>
-      <BandieraBluTopBanner />
-      <Header />
-      <main className="pt-20">{children}</main>
+      {/*
+        Banner e header in un unico stack sticky. Erano separati con l'header
+        `fixed`, che copriva completamente il banner Bandiera Blu lasciando al
+        suo posto una fascia vuota. In flusso non serve più compensare con
+        padding su <main>, che restava comunque disallineato.
+      */}
+      <div className="sticky top-0 z-50">
+        <BandieraBluTopBanner />
+        <Header />
+      </div>
+      <main>{children}</main>
       <Footer locale={locale} />
       <WhatsAppButton />
       <CookieBanner />

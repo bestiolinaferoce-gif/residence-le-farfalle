@@ -14,9 +14,22 @@ export default function WhatsAppButton() {
   const [visible, setVisible] = useState(false);
   const [hovered, setHovered] = useState(false);
 
+  /**
+   * Compare solo dopo l'hero.
+   * In cima alla pagina si sovrapponeva all'icona calendario del campo "Partenza"
+   * del widget disponibilità, cioè proprio al primo gesto di prenotazione. Nell'hero
+   * il contatto WhatsApp c'è già dentro il widget, quindi qui sarebbe un doppione.
+   */
   useEffect(() => {
-    const t = window.setTimeout(() => setVisible(true), 2000);
-    return () => window.clearTimeout(t);
+    const threshold = () => window.innerHeight * 0.85;
+    const update = () => setVisible(window.scrollY > threshold());
+    update();
+    window.addEventListener("scroll", update, { passive: true });
+    window.addEventListener("resize", update);
+    return () => {
+      window.removeEventListener("scroll", update);
+      window.removeEventListener("resize", update);
+    };
   }, []);
 
   const { href, valid } = useMemo(() => {

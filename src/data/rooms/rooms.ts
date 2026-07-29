@@ -5,6 +5,15 @@
 
 export const TOTAL_CAPACITY = 8;
 
+import { siteConfig } from "@/src/config/site";
+
+/**
+ * Tariffa minima pubblicata, unica per tutte le camere.
+ * Fonte singola in siteConfig.pricing: cambiarla lì aggiorna card, hero e dati
+ * strutturati insieme, senza rischio di annunciare prezzi diversi in giro.
+ */
+const BASE_PRICE_FROM = siteConfig.pricing.fromEur;
+
 export interface Room {
   id: number;
   slug: string;
@@ -38,7 +47,7 @@ export const rooms: Room[] = [
       "camera-generale.webp",
       "camera-2-letto.webp",
     ],
-    priceFrom: 70,
+    priceFrom: BASE_PRICE_FROM,
     highlights: ["Luce naturale", "Bagno privato", "WiFi superfast", "Colazione inclusa"],
   },
   {
@@ -61,7 +70,7 @@ export const rooms: Room[] = [
       "camera-2-interno.webp",
       "camera-2-bagno.webp",
     ],
-    priceFrom: 75,
+    priceFrom: BASE_PRICE_FROM,
     highlights: ["25 mq", "Box doccia", "Arredi curati", "Ideale per soggiorni lunghi"],
   },
   {
@@ -82,7 +91,7 @@ export const rooms: Room[] = [
       "camera-3-letto.webp",
       "camera-3-interno.webp",
     ],
-    priceFrom: 72,
+    priceFrom: BASE_PRICE_FROM,
     highlights: ["Camera luminosa", "Tende oscuranti", "Bagno privato", "Aria condizionata"],
   },
   {
@@ -103,7 +112,7 @@ export const rooms: Room[] = [
       "camera-4-interno.webp",
       "camera-5-interno.webp",
     ],
-    priceFrom: 80,
+    priceFrom: BASE_PRICE_FROM,
     highlights: ["Suite 30 mq", "TV LED", "Massimo comfort", "Colazione inclusa"],
   },
 ];
