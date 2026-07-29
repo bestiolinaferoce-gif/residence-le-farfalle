@@ -3,11 +3,11 @@
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { ChevronDown, MapPin, Star, Wifi, Coffee, Wind } from "lucide-react";
+import { ChevronDown, Coffee, MapPin, Star, Wifi, Wind } from "lucide-react";
 import { motion } from "framer-motion";
 import { useLocaleStrings } from "@/src/components/i18n/LocaleProvider";
+import AvailabilityWidget from "@/src/components/booking/AvailabilityWidget";
 import { siteConfig } from "@/src/config/site";
-import { GA_EVENTS } from "@/src/lib/analytics";
 
 interface HeroProps {
   locale?: string;
@@ -16,11 +16,6 @@ interface HeroProps {
 export default function Hero({ locale = "it" }: HeroProps) {
   const { t } = useLocaleStrings("hero");
   const [scrolled, setScrolled] = useState(false);
-  const whatsappDigits = siteConfig.contacts.whatsapp.replace(/\D/g, "");
-  const hasWhatsApp = whatsappDigits.length >= 10;
-  const whatsappUrl = hasWhatsApp
-    ? `https://wa.me/${whatsappDigits}?text=${encodeURIComponent(t("whatsappPrefill"))}`
-    : "#";
 
   const trustBadges = [
     { icon: Star, label: t("badgeVerified"), key: "verified" },
@@ -37,138 +32,92 @@ export default function Hero({ locale = "it" }: HeroProps) {
 
   return (
     <section
-      className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden bg-stone-900"
+      className="relative flex min-h-[100svh] flex-col justify-center overflow-hidden bg-stone-900 py-24"
       aria-label="Hero principale"
     >
       <div className="absolute inset-0 z-0">
         <Image
-          src="/images/rooms/le-farfalle-matrimoniale-03.png"
+          src="/images/rooms/camera-2-letto.webp"
           alt={t("imageAlt")}
           fill
           priority
-          quality={90}
-          className="object-cover opacity-[0.62]"
+          quality={85}
+          className="object-cover"
           sizes="100vw"
         />
-        {/* Velature colore brand + lettura titoli */}
-        <div className="absolute inset-0 bg-gradient-to-br from-stone-950/75 via-fuchsia-950/35 to-sky-950/55" />
-        <div className="absolute inset-0 bg-gradient-to-t from-stone-950/90 via-transparent to-stone-900/50" />
-        <div
-          className="pointer-events-none absolute -left-32 top-1/4 h-96 w-96 rounded-full bg-primary-500/25 blur-[100px]"
-          aria-hidden
-        />
-        <div
-          className="pointer-events-none absolute -right-20 bottom-1/4 h-80 w-80 rounded-full bg-secondary-400/20 blur-[90px]"
-          aria-hidden
-        />
+        {/*
+          Una sola velatura, più scura a sinistra dove sta il testo e leggera a destra:
+          la foto della camera resta riconoscibile invece di diventare uno sfondo grigio.
+        */}
+        <div className="absolute inset-0 bg-gradient-to-r from-stone-950/85 via-stone-950/55 to-stone-950/25" />
+        <div className="absolute inset-0 bg-gradient-to-t from-stone-950/70 via-transparent to-stone-950/40" />
       </div>
 
-      <motion.div
-        initial={{ opacity: 0, y: -12 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.7, ease: "easeOut" }}
-        className="absolute top-8 left-1/2 z-20 -translate-x-1/2"
-      >
-        <span className="inline-flex items-center gap-2 rounded-full border border-white/30 bg-white/12 px-5 py-2.5 text-sm font-medium tracking-wide text-white shadow-lg shadow-black/20 backdrop-blur-md">
-          <MapPin className="h-3.5 w-3.5 flex-shrink-0 text-amber-200" />
-          {t("locationPill")}
-        </span>
-      </motion.div>
+      <div className="relative z-10 mx-auto grid w-full max-w-6xl gap-10 px-6 lg:grid-cols-[1.05fr_.95fr] lg:items-center">
+        <div className="text-center lg:text-left">
+          {/* In flusso, non in overlay assoluto: su mobile non copre più il titolo. */}
+          <motion.span
+            initial={{ opacity: 0, y: -8 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="inline-flex items-center gap-2 rounded-full border border-white/25 bg-white/10 px-4 py-2 text-xs font-medium tracking-wide text-white backdrop-blur-md sm:text-sm"
+          >
+            <MapPin className="h-3.5 w-3.5 shrink-0 text-amber-300" aria-hidden />
+            {t("locationPill")}
+          </motion.span>
 
-      <div className="relative z-10 mx-auto w-full max-w-5xl px-6 text-center">
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.15 }}
-          className="mb-5 text-sm font-semibold uppercase tracking-[0.18em] text-amber-300"
-        >
-          {t("eyebrow")}
-        </motion.p>
+          <motion.h1
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+            className="mt-6 font-display text-4xl font-extrabold leading-[1.06] tracking-tight text-white sm:text-5xl lg:text-6xl"
+          >
+            {t("headline")}
+          </motion.h1>
 
-        <motion.h1
-          initial={{ opacity: 0, y: 28 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.75, delay: 0.25, ease: [0.22, 1, 0.36, 1] }}
-          className="mb-5 font-display text-5xl font-extrabold leading-[1.05] tracking-tight text-white md:text-6xl lg:text-7xl"
-        >
-          <span className="block">{t("headline")}</span>
-          <span className="mt-3 block bg-gradient-to-r from-amber-100 via-white to-fuchsia-100 bg-clip-text text-2xl font-semibold tracking-tight text-transparent sm:text-3xl md:text-4xl">
+          <motion.p
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="mt-4 max-w-xl text-lg leading-relaxed text-white/85 lg:text-xl"
+          >
             {t("headlineAccent")}
-          </span>
-        </motion.h1>
+          </motion.p>
 
-        <motion.p
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.32 }}
-          className="mb-5 text-sm font-medium text-white/90 md:text-base"
-        >
-          {t("trustLine")}
-        </motion.p>
-
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.65, delay: 0.38 }}
-          className="mx-auto mb-10 max-w-2xl text-lg font-normal leading-relaxed text-white/85 md:text-xl"
-        >
-          {t("tagline")}
-        </motion.p>
-
-        <motion.div
-          initial={{ opacity: 0, y: 18 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.5 }}
-          className="mb-14 flex flex-col justify-center gap-4 sm:flex-row"
-        >
-          {hasWhatsApp ? (
-            <>
-              <Link
-                href={`/${locale}/camere`}
-                onClick={() => GA_EVENTS.ctaClick("scopri_camere")}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.6, delay: 0.35 }}
+            className="mt-7 flex flex-wrap justify-center gap-2.5 lg:justify-start"
+          >
+            {trustBadges.map((b) => (
+              <span
+                key={b.key}
+                className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-3.5 py-1.5 text-sm font-medium text-white/85 backdrop-blur-sm"
               >
-                <span className="inline-flex cursor-pointer select-none items-center justify-center rounded-2xl bg-gradient-to-r from-amber-400 to-amber-500 px-9 py-4 text-base font-semibold tracking-wide text-stone-900 shadow-lg shadow-amber-500/25 transition-all duration-200 hover:-translate-y-0.5 hover:from-amber-300 hover:to-amber-400 hover:shadow-xl active:translate-y-0">
-                  {t("ctaRooms")}
-                </span>
-              </Link>
-              <Link
-                href={whatsappUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={() => GA_EVENTS.clickWhatsapp()}
-              >
-                <span className="inline-flex cursor-pointer select-none items-center justify-center rounded-xl bg-emerald-500 px-9 py-4 text-base font-semibold tracking-wide text-white transition-all duration-200 hover:-translate-y-0.5 hover:bg-emerald-400 hover:shadow-lg active:translate-y-0">
-                  {t("ctaWhatsapp")}
-                </span>
-              </Link>
-            </>
-          ) : (
-            <Link
-              href={`/${locale}/camere`}
-              onClick={() => GA_EVENTS.ctaClick("scopri_camere")}
-            >
-              <span className="inline-flex cursor-pointer select-none items-center justify-center rounded-2xl bg-gradient-to-r from-amber-400 to-amber-500 px-9 py-4 text-base font-semibold tracking-wide text-stone-900 shadow-lg shadow-amber-500/25 transition-all duration-200 hover:-translate-y-0.5 hover:from-amber-300 hover:to-amber-400 hover:shadow-xl active:translate-y-0">
-                {t("ctaRooms")}
+                <b.icon className="h-3.5 w-3.5 shrink-0 text-amber-300" aria-hidden />
+                {b.label}
               </span>
-            </Link>
-          )}
-        </motion.div>
+            ))}
+          </motion.div>
+        </div>
 
+        {/* Il primo gesto possibile è verificare le date, non leggere un paragrafo. */}
         <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.7, delay: 0.65 }}
-          className="flex flex-wrap justify-center gap-3"
+          initial={{ opacity: 0, y: 24 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.25, ease: [0.22, 1, 0.36, 1] }}
         >
-          {trustBadges.map((b) => (
-            <span
-              key={b.key}
-              className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-4 py-2 text-sm font-medium text-white/85 backdrop-blur-sm"
+          <AvailabilityWidget locale={locale} fromPrice={siteConfig.pricing.fromEur} />
+          <p className="mt-3 text-center text-sm text-white/70 lg:text-left">
+            Preferisci parlare con noi?{" "}
+            <Link
+              href={`/${locale}/contatti`}
+              className="font-semibold text-amber-300 underline-offset-4 hover:underline"
             >
-              <b.icon className="h-3.5 w-3.5 flex-shrink-0 text-amber-300" />
-              {b.label}
-            </span>
-          ))}
+              Contattaci
+            </Link>
+          </p>
         </motion.div>
       </div>
 
@@ -176,7 +125,7 @@ export default function Hero({ locale = "it" }: HeroProps) {
         initial={{ opacity: 0 }}
         animate={{ opacity: scrolled ? 0 : 1 }}
         transition={{ duration: 0.4 }}
-        className="absolute bottom-8 left-1/2 z-20 flex -translate-x-1/2 flex-col items-center gap-1.5 text-white/50"
+        className="pointer-events-none absolute bottom-6 left-1/2 z-20 hidden -translate-x-1/2 flex-col items-center gap-1.5 text-white/50 lg:flex"
         aria-hidden
       >
         <span className="text-xs uppercase tracking-widest">{t("scrollHint")}</span>

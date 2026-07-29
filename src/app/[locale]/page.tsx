@@ -40,10 +40,10 @@ export async function generateMetadata({
       description: m.description,
       images: [
         {
-          url: `${siteConfig.url}/images/rooms/le-farfalle-matrimoniale-03.png`,
+          url: `${siteConfig.url}/images/rooms/camera-2-letto.webp`,
           width: 1536,
           height: 1024,
-          alt: "Camera matrimoniale luminosa — Residence Le Farfalle, Isola di Capo Rizzuto",
+          alt: "Camera matrimoniale luminosa con bagno privato — Residence Le Farfalle, Isola di Capo Rizzuto",
         },
       ],
     },

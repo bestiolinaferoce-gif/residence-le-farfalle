@@ -106,8 +106,14 @@ const ReviewsSection: React.FC<ReviewsSectionProps> = ({ locale = "it", maxItems
           ) : null}
         </motion.div>
 
-        {/* Mobile carousel (drag) */}
-        <div className="md:hidden" ref={viewportRef}>
+        {/*
+          Mobile carousel (drag).
+          `overflow-hidden` è indispensabile: la traccia è più larga del viewport e
+          senza clipping allarga l'intero documento, che su 375px finiva a 1354px
+          rimpicciolendo tutta la pagina. Il trascinamento avviene via transform
+          dentro questa finestra.
+        */}
+        <div className="md:hidden overflow-hidden" ref={viewportRef}>
           <motion.div
             ref={trackRef}
             className="flex gap-4"

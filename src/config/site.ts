@@ -50,6 +50,15 @@ export const siteConfig = {
     // TODO: inserire URL reale — es. "https://www.booking.com/hotel/..."
     booking_com: "",
   },
+  /**
+   * Tariffa minima comunicata pubblicamente, in euro a notte.
+   * Unica fonte: usata nell'hero, nelle card camera e nei dati strutturati.
+   * Aggiornare qui e resta coerente ovunque, Google incluso.
+   */
+  pricing: {
+    fromEur: 90,
+    currency: "EUR",
+  },
   /** Vuoto finché non imposti NEXT_PUBLIC_VAT_OR_CF su Vercel / .env.local */
   vatOrCf,
 } as const;

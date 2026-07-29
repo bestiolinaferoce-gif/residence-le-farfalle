@@ -35,7 +35,9 @@ const Header: React.FC = () => {
   return (
     <header
       className={cn(
-        "fixed top-0 left-0 right-0 z-50 transition-all duration-300 border-b",
+        // Il posizionamento lo gestisce lo stack sticky in AppWrapper, che tiene
+        // insieme banner e header: fissare qui coprirebbe il banner sottostante.
+        "relative w-full transition-all duration-300 border-b",
         isScrolled
           ? "border-stone-200/80 bg-white/95 shadow-soft backdrop-blur-md"
           : "border-white/10 bg-stone-950/30 backdrop-blur-xl"

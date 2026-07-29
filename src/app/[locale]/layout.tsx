@@ -89,6 +89,11 @@ export default async function LocaleLayout({
   const amenityLabels = lodgingAmenityNames[descLang];
 
   const reviewStats = getReviewStats();
+  /**
+   * Solo su recensioni reali. Senza dati il campo viene omesso: dichiarare a Google
+   * un punteggio inventato viola le linee guida sui dati strutturati e ci espone a
+   * un'azione manuale, oltre a essere falso verso chi legge il risultato di ricerca.
+   */
   const aggregateRating =
     reviewStats != null
       ? {
@@ -98,13 +103,7 @@ export default async function LocaleLayout({
           bestRating: "10",
           worstRating: "1",
         }
-      : {
-          "@type": "AggregateRating" as const,
-          ratingValue: "9.7",
-          reviewCount: 6,
-          bestRating: "10",
-          worstRating: "1",
-        };
+      : undefined;
 
   // Structured Data (JSON-LD)
   const structuredData = {
@@ -112,7 +111,11 @@ export default async function LocaleLayout({
     "@type": "BedAndBreakfast",
     name: "Residence Le Farfalle",
     description: siteConfig.description[descLang],
-    image: [`${siteConfig.url.replace(/\/$/, "")}/images/rooms/le-farfalle-matrimoniale-03.png`],
+    image: [
+      `${siteConfig.url.replace(/\/$/, "")}/images/rooms/camera-2-letto.webp`,
+      `${siteConfig.url.replace(/\/$/, "")}/images/rooms/camera-2-interno.webp`,
+      `${siteConfig.url.replace(/\/$/, "")}/images/rooms/le-farfalle-matrimoniale-03.png`,
+    ],
     telephone: siteConfig.contacts.phone,
     email: siteConfig.contacts.email,
     address: {
@@ -136,8 +139,17 @@ export default async function LocaleLayout({
       name,
       value: true,
     })),
-    priceRange: "€€",
-    aggregateRating,
+    // Tariffa reale invece del generico "€€": nei risultati Google mostra il prezzo.
+    priceRange: `da €${siteConfig.pricing.fromEur}`,
+    makesOffer: {
+      "@type": "Offer" as const,
+      name: "Camera doppia con colazione inclusa",
+      price: String(siteConfig.pricing.fromEur),
+      priceCurrency: siteConfig.pricing.currency,
+      availability: "https://schema.org/InStock",
+      url: `${siteConfig.url.replace(/\/$/, "")}/${currentLocale}/prenota`,
+    },
+    ...(aggregateRating ? { aggregateRating } : {}),
   };
 
   return (
