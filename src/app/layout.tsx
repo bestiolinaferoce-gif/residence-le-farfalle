@@ -1,6 +1,7 @@
 import { Plus_Jakarta_Sans, Syne } from "next/font/google";
 import type { Metadata, Viewport } from "next";
 import Script from "next/script";
+import { Analytics } from "@vercel/analytics/next";
 import AppWrapper from "@/src/components/layout/AppWrapper";
 import "./globals.css";
 import { siteConfig } from "@/src/config/site";
@@ -69,6 +70,13 @@ export default function RootLayout({
     <html lang="it" className={`${jakarta.variable} ${syne.variable}`} suppressHydrationWarning>
       <body className="font-sans">
         <AppWrapper>{children}</AppWrapper>
+        {/*
+          Vercel Web Analytics: senza cookie e senza identificatori persistenti,
+          quindi non richiede consenso preventivo e resta fuori dal banner.
+          Copre il buco lasciato da Google Analytics, che in produzione girava
+          con un ID segnaposto e non ha mai raccolto un dato.
+        */}
+        <Analytics />
         {gaId ? (
           <>
             {/*

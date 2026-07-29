@@ -10,6 +10,7 @@
     "optimize-images": "tsx scripts/optimize-images.ts"
   },
   "dependencies": {
+    "@vercel/analytics": "^2.0.1",
     "clsx": "^2.1.1",
     "date-fns": "^3.0.0",
     "framer-motion": "^11.0.0",
