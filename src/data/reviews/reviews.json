@@ -1,23 +1,153 @@
 [
   {
-    "id": "booking-francesca-1",
+    "id": "booking-marasco-2026-08-23",
+    "source": "Booking.com",
+    "authorName": "Marasco",
+    "authorCountry": "Italia",
+    "rating": 10,
+    "date": "2026-08-23",
+    "text": "Camera davvero molto curata nei minimi dettagli con tutti i confort. Zona colazione ben organizzata con tutto quello che uno si possa aspettare, attenti alle esigenze degli ospiti. Posizione ottima per spostarsi con tutto a portata. Il personale cortese e sempre disponibile, una struttura davvero consigliata.",
+    "lang": "it"
+  },
+  {
+    "id": "booking-valentina-2026-08-17",
+    "source": "Booking.com",
+    "authorName": "Valentina",
+    "authorCountry": "Italia",
+    "rating": 10,
+    "date": "2026-08-17",
+    "text": "Il proprietario ha garantito una pulizia eccellente, comfort, ottima colazione e massima gentilezza.",
+    "lang": "it"
+  },
+  {
+    "id": "booking-martina-2026-08-09",
+    "source": "Booking.com",
+    "authorName": "Martina",
+    "authorCountry": "Italia",
+    "rating": 10,
+    "date": "2026-08-09",
+    "text": "Giovanni é una persona molto cordiale, un ottimo padrone di casa che ci ha accolti con gentilezza e garbo. Camere moderne e pulitissime, colazione con cornetti, torte, yogurt, frutta e qualsiasi bevanda calda si gradisca. Grazie!",
+    "lang": "it"
+  },
+  {
+    "id": "booking-cont-2026-08-07",
+    "source": "Booking.com",
+    "authorName": "Cont",
+    "authorCountry": "Italia",
+    "rating": 10,
+    "date": "2026-08-07",
+    "text": "Tutto meraviglioso: il Sig. Francesco molto gentile e disponibile, la camera pulitissima e con tutti gli accessori utili alla permanenza. Ci ha consigliato anche un ottimo ristorante di pesce fresco dove siamo tornati due volte. Tutto Top.",
+    "lang": "it"
+  },
+  {
+    "id": "booking-maria-2025-09-26",
+    "source": "Booking.com",
+    "authorName": "Maria",
+    "authorCountry": "Italia",
+    "rating": 10,
+    "date": "2025-09-26",
+    "text": "Stanza accogliente e pulita, ha rispecchiato ciò che avevamo prenotato. Il Sig. Giovanni attento e disponibile. La mattina colazione con cornetti caldi ed altri tipi di paste, abbondante e con buoni prodotti. Il B&B è in un posto strategico per arrivare alle spiagge più belle delle vicinanze. Ottimo!",
+    "lang": "it"
+  },
+  {
+    "id": "booking-elisa-2025-08-29",
+    "source": "Booking.com",
+    "authorName": "Elisa",
+    "authorCountry": "Italia",
+    "rating": 10,
+    "date": "2025-08-29",
+    "text": "Ci siamo trovati molto bene. Stanza pulitissima, check-in con il Sig. Giovanni veloce, preciso e cordiale. Comoda la posizione per visitare le spiagge della zona. Colazione convenzionata con una deliziosa pasticceria. Fantastica.",
+    "lang": "it"
+  },
+  {
+    "id": "booking-alessandra-2025-08-25",
+    "source": "Booking.com",
+    "authorName": "Alessandra",
+    "authorCountry": "Italia",
+    "rating": 10,
+    "date": "2025-08-25",
+    "text": "Sistemazione perfetta. Struttura nuova e molto curata, grande attenzione alla pulizia e colazione fenomenale. Estrema disponibilità dei proprietari.",
+    "lang": "it"
+  },
+  {
+    "id": "booking-francesco-2025-08-24",
+    "source": "Booking.com",
+    "authorName": "Francesco",
+    "authorCountry": "Italia",
+    "rating": 10,
+    "date": "2025-08-24",
+    "text": "Struttura nuova e molto pulita, buona posizione per Le Castella, zona tranquilla con posti auto esterni. Massima gentilezza e disponibilità del gestore. Soggiorno piacevole.",
+    "lang": "it"
+  },
+  {
+    "id": "booking-davide-2025-08-14",
+    "source": "Booking.com",
+    "authorName": "Davide",
+    "authorCountry": "Italia",
+    "rating": 10,
+    "date": "2025-08-14",
+    "text": "L'host Giovanni super accogliente e disponibile, la struttura completamente nuova, le camere pulite e spaziose. Sapendo che ci piacevano i fichi, ce li faceva trovare appena colti per colazione.",
+    "lang": "it"
+  },
+  {
+    "id": "booking-pagliaro-2025-08-02",
+    "source": "Booking.com",
+    "authorName": "Pagliaro",
+    "authorCountry": "Italia",
+    "rating": 10,
+    "date": "2025-08-02",
+    "text": "Le camere erano ampie e pulite, impeccabili. La colazione offriva ampia scelta tra brioche, torte e frutta. Staff cordiale ed estremamente disponibile.",
+    "lang": "it"
+  },
+  {
+    "id": "booking-andrea-2025-08-02",
+    "source": "Booking.com",
+    "authorName": "Andrea",
+    "authorCountry": "Italia",
+    "rating": 10,
+    "date": "2025-08-02",
+    "text": "Giovanni è stato molto disponibile in tutto, dall'accoglienza alla cura dei particolari, menzione speciale per la variegata colazione. La struttura era molto pulita e moderna. Ci siamo trovati benissimo!",
+    "lang": "it"
+  },
+  {
+    "id": "booking-antonietta-2025-09-09",
+    "source": "Booking.com",
+    "authorName": "Antonietta",
+    "authorCountry": "Italia",
+    "rating": 9,
+    "date": "2025-09-09",
+    "text": "La struttura molto accogliente e pulita, ottima posizione per potersi spostare e visitare i dintorni. Il Sig. Giovanni una persona squisita e molto disponibile, grazie di tutto.",
+    "lang": "it"
+  },
+  {
+    "id": "booking-francesca-2025-07-20",
     "source": "Booking.com",
     "authorName": "Francesca",
     "authorCountry": "Italia",
-    "rating": 10,
-    "date": "2024-06-15",
+    "rating": 9,
+    "date": "2025-07-20",
     "text": "Giovanni gentilissimo e pronto ad esaudire le nostre richieste. Camera pulita, tutto perfettamente funzionante.",
     "lang": "it"
   },
   {
-    "id": "booking-elisabetta-2",
+    "id": "booking-elisabetta-2025-06-23",
     "source": "Booking.com",
     "authorName": "Elisabetta",
     "authorCountry": "Italia",
     "rating": 10,
-    "date": "2024-07-20",
-    "text": "La struttura ottima e pulita. Host cordiale e disponibile. Tutto perfetto!!! Consiglio",
+    "date": "2025-06-23",
+    "text": "La struttura ottima e pulita. Host cordiale e disponibile. Tutto perfetto!!! Consiglio.",
     "lang": "it"
+  },
+  {
+    "id": "booking-jenny-2025-08-24",
+    "source": "Booking.com",
+    "authorName": "Jenny",
+    "authorCountry": "Regno Unito",
+    "rating": 8,
+    "date": "2025-08-24",
+    "text": "Hospitality of the staff was superb, very helpful, warm and friendly. They waited for us for a late check in. Breakfast is full of delicious things, including fresh seasonal fruit and homemade cakes. Air conditioning was very appreciated and the rooms are newly renovated. Great value for money.",
+    "lang": "en"
   },
   {
     "id": "google-marco-3",
@@ -30,16 +160,6 @@
     "lang": "it"
   },
   {
-    "id": "booking-anna-4",
-    "source": "Booking.com",
-    "authorName": "Anna",
-    "authorCountry": "Germania",
-    "rating": 9,
-    "date": "2024-08-25",
-    "text": "Sehr sauber, freundlicher Gastgeber. Frühstück sehr gut. Gute Lage für Strandausflüge.",
-    "lang": "de"
-  },
-  {
     "id": "google-luigi-5",
     "source": "Google",
     "authorName": "Luigi",
@@ -48,15 +168,5 @@
     "date": "2024-09-05",
     "text": "Ottima posizione, camera spaziosa e pulita. Colazione abbondante e deliziosa. Lo consiglio vivamente.",
     "lang": "it"
-  },
-  {
-    "id": "booking-sophie-6",
-    "source": "Booking.com",
-    "authorName": "Sophie",
-    "authorCountry": "Francia",
-    "rating": 9,
-    "date": "2024-07-30",
-    "text": "Très bon séjour. Hôte chaleureux, chambre propre et confortable. Le petit-déjeuner est délicieux.",
-    "lang": "fr"
   }
 ]
