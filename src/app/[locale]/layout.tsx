@@ -105,6 +105,19 @@ export default async function LocaleLayout({
         }
       : undefined;
 
+  /**
+   * `sameAs`: collega l'entità ai profili pubblici (Booking, social). Rafforza
+   * E-E-A-T e associa a Google le recensioni verificate. Solo URL valorizzati.
+   */
+  const sameAs: string[] = [
+    siteConfig.booking.booking_com,
+    siteConfig.booking.airbnb,
+    siteConfig.social.facebook,
+    siteConfig.social.instagram,
+    siteConfig.social.tripadvisor,
+    siteConfig.social.google_business,
+  ].filter((u) => u.length > 0);
+
   // Structured Data (JSON-LD)
   const structuredData = {
     "@context": "https://schema.org",
@@ -150,6 +163,7 @@ export default async function LocaleLayout({
       url: `${siteConfig.url.replace(/\/$/, "")}/${currentLocale}/prenota`,
     },
     ...(aggregateRating ? { aggregateRating } : {}),
+    ...(sameAs.length ? { sameAs } : {}),
   };
 
   return (

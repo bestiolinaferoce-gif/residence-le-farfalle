@@ -47,8 +47,9 @@ export const siteConfig = {
   booking: {
     // TODO: inserire URL reale — es. "https://www.airbnb.it/rooms/..."
     airbnb: "",
-    // TODO: inserire URL reale — es. "https://www.booking.com/hotel/..."
-    booking_com: "",
+    // Listing ufficiale verificato (recensioni pubbliche 9,4/10).
+    booking_com:
+      "https://www.booking.com/hotel/it/residence-le-farfalle-isola-di-capo-rizzuto.it.html",
   },
   /**
    * Tariffa minima comunicata pubblicamente, in euro a notte.
