@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useSyncExternalStore } from "react";
 import { usePathname } from "next/navigation";
 
 /**
@@ -39,31 +39,54 @@ function detectLocale(pathname: string): Locale {
   return "it";
 }
 
+/**
+ * Store esterno per lo stato "dismissed": evita setState sincrono in useEffect
+ * (cascading render) leggendo localStorage via useSyncExternalStore, SSR-safe.
+ */
+const dismissListeners = new Set<() => void>();
+
+function subscribeDismiss(cb: () => void): () => void {
+  dismissListeners.add(cb);
+  window.addEventListener("storage", cb);
+  return () => {
+    dismissListeners.delete(cb);
+    window.removeEventListener("storage", cb);
+  };
+}
+
+function getDismissSnapshot(): boolean {
+  try {
+    return window.localStorage.getItem(STORAGE_KEY) != null;
+  } catch {
+    return false;
+  }
+}
+
+// Sul server nascondiamo (true): niente flash del banner poi rimosso in idratazione.
+function getDismissServerSnapshot(): boolean {
+  return true;
+}
+
+function dismiss(): void {
+  try {
+    window.localStorage.setItem(STORAGE_KEY, new Date().toISOString());
+  } catch {
+    // ignore
+  }
+  dismissListeners.forEach((l) => l());
+}
+
 export function BandieraBluTopBanner() {
-  const [hidden, setHidden] = useState(true);
   const pathname = usePathname() || "/it";
   const locale = detectLocale(pathname);
   const t = COPY[locale];
+  const dismissed = useSyncExternalStore(
+    subscribeDismiss,
+    getDismissSnapshot,
+    getDismissServerSnapshot
+  );
 
-  useEffect(() => {
-    try {
-      const dismissed = window.localStorage.getItem(STORAGE_KEY);
-      if (!dismissed) setHidden(false);
-    } catch {
-      setHidden(false);
-    }
-  }, []);
-
-  function dismiss() {
-    setHidden(true);
-    try {
-      window.localStorage.setItem(STORAGE_KEY, new Date().toISOString());
-    } catch {
-      // ignore
-    }
-  }
-
-  if (hidden) return null;
+  if (dismissed) return null;
 
   return (
     <div

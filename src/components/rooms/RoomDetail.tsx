@@ -14,13 +14,11 @@ import {
   Car,
   ChevronLeft,
   ArrowRight,
-  Users,
 } from "lucide-react";
 import { rooms, Room, amenityLabels } from "@/src/data/rooms/rooms";
 import { siteConfig } from "@/src/config/site";
 import Container from "@/src/components/ui/Container";
 import Card from "@/src/components/ui/Card";
-import Button from "@/src/components/ui/Button";
 import PreventivoForm from "@/src/components/rooms/PreventivoForm";
 import ImageGallery from "@/src/components/ui/ImageGallery";
 

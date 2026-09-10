@@ -10,7 +10,7 @@ interface PreventivoFormProps {
   roomName: string;
 }
 
-export default function PreventivoForm({ locale, roomId, roomName }: PreventivoFormProps) {
+export default function PreventivoForm({ roomId }: PreventivoFormProps) {
   const [formData, setFormData] = useState({
     checkIn: "",
     checkOut: "",

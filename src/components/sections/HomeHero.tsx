@@ -10,7 +10,6 @@ import Button from "@/src/components/ui/Button";
 import Container from "@/src/components/ui/Container";
 import FloatingButterflies from "@/src/components/home/FloatingButterflies";
 import { heroPhotos } from "@/src/data/lefarfalle/photos";
-import { siteConfig } from "@/src/config/site";
 
 interface HomeHeroProps {
   locale?: string;
@@ -47,10 +46,6 @@ export default function HomeHero({ locale = "it" }: HomeHeroProps) {
     () => setCurrentIndex((prev) => (prev + 1) % heroPhotos.length),
     []
   );
-
-  const whatsappDigits = siteConfig.contacts.whatsapp.replace(/\D/g, "");
-  const hasWhatsApp = whatsappDigits.length >= 10;
-  const whatsappUrl = hasWhatsApp ? `https://wa.me/${whatsappDigits}` : "#";
 
   return (
     <section

@@ -2,7 +2,6 @@
 
 import React from "react";
 import { motion } from "framer-motion";
-import Link from "next/link";
 import { BedDouble, Users, Sparkles } from "lucide-react";
 import Container from "@/src/components/ui/Container";
 
