@@ -2,12 +2,15 @@ import { MetadataRoute } from "next";
 import { siteConfig } from "@/src/config/site";
 import { locales } from "@/src/lib/i18n";
 import { rooms } from "@/src/data/rooms/rooms";
+import { guideSlugs } from "@/src/data/guide/guides";
 
 const STATIC_SEGMENTS = [
   "",
   "/camere",
   "/servizi",
+  "/servizi/transfer-aeroporto-crotone",
   "/territorio",
+  "/guida",
   "/prenota",
   "/contatti",
   "/faq",
@@ -39,6 +42,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
         lastModified: new Date(),
         changeFrequency: "weekly",
         priority: 0.75,
+      });
+    }
+
+    for (const slug of guideSlugs) {
+      sitemapEntries.push({
+        url: `${baseUrl}/${locale}/guida/${slug}`,
+        lastModified: new Date(),
+        changeFrequency: "monthly",
+        priority: 0.7,
       });
     }
   }

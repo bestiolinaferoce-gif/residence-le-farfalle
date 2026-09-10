@@ -74,6 +74,36 @@ export default async function ServicesPage({ params }: ServicesPageProps) {
 
       <ServiziGrid locale={currentLocale} />
 
+      <section className="py-10">
+        <Container>
+          <Link
+            href={`/${currentLocale}/servizi/transfer-aeroporto-crotone`}
+            className="group flex flex-col items-start justify-between gap-4 rounded-2xl border border-stone-200 bg-white p-6 transition-shadow hover:shadow-lg sm:flex-row sm:items-center"
+          >
+            <div>
+              <h2 className="font-display text-xl font-bold text-stone-900">
+                {currentLocale === "en"
+                  ? "Crotone (Sant'Anna) airport transfer"
+                  : currentLocale === "de"
+                    ? "Transfer Flughafen Crotone (Sant'Anna)"
+                    : "Transfer aeroporto di Crotone (Sant'Anna)"}
+              </h2>
+              <p className="mt-1 text-sm text-stone-600">
+                {currentLocale === "en"
+                  ? "Private transfer to and from the airport, about 25 minutes away. On request."
+                  : currentLocale === "de"
+                    ? "Privater Transfer vom und zum Flughafen, ca. 25 Minuten entfernt. Auf Anfrage."
+                    : "Transfer privato da e per l'aeroporto, a circa 25 minuti. Su richiesta."}
+              </p>
+            </div>
+            <span className="inline-flex shrink-0 items-center gap-2 font-semibold text-amber-700">
+              {currentLocale === "en" ? "Learn more" : currentLocale === "de" ? "Mehr erfahren" : "Scopri di più"}
+              <ArrowRight className="h-4 w-4" aria-hidden />
+            </span>
+          </Link>
+        </Container>
+      </section>
+
       <PartnersSection locale={currentLocale} id="partner" />
 
       {/* CTA Premium */}

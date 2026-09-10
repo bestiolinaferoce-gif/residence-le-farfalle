@@ -9,6 +9,7 @@ export const navigation = {
     { name: { it: "Home", en: "Home", de: "Home" }, href: "/" },
     { name: { it: "Camere", en: "Rooms", de: "Zimmer" }, href: "/camere" },
     { name: { it: "Territorio", en: "Area", de: "Region" }, href: "/territorio" },
+    { name: { it: "Guide", en: "Guides", de: "Guides" }, href: "/guida" },
     {
       name: { it: "Servizi & Partner", en: "Services & Partners", de: "Service & Partner" },
       href: "/servizi",

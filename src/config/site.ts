@@ -59,6 +59,19 @@ export const siteConfig = {
     fromEur: 90,
     currency: "EUR",
   },
+  /**
+   * Transfer da/per aeroporto di Crotone (Sant'Anna).
+   * `priceEur`: prezzo fisso a tratta. Lasciare `null` finché non confermato:
+   * la pagina mostra "su richiesta" invece di un prezzo inventato.
+   */
+  transfer: {
+    enabled: true,
+    airportName: "Aeroporto di Crotone (Sant'Anna)",
+    priceEur: null as number | null,
+    priceIsRoundTrip: false,
+    /** Minuti indicativi tratta struttura ↔ aeroporto Crotone */
+    durationMin: 25,
+  },
   /** Vuoto finché non imposti NEXT_PUBLIC_VAT_OR_CF su Vercel / .env.local */
   vatOrCf,
 } as const;
