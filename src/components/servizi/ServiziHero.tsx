@@ -9,7 +9,33 @@ import Container from "@/src/components/ui/Container";
  * Hero animato per la pagina Servizi - stile premium
  * Gradiente azzurro/teal (comfort, mare, pulizia)
  */
-export default function ServiziHero() {
+const heroCopy = {
+  it: {
+    title: "I nostri servizi",
+    subtitle: "Tutto ciò di cui hai bisogno per un soggiorno indimenticabile in Calabria",
+    breakfast: "Colazione inclusa",
+    wifi: "WiFi superfast",
+  },
+  en: {
+    title: "Our services",
+    subtitle: "Everything you need for an unforgettable stay in Calabria",
+    breakfast: "Breakfast included",
+    wifi: "Superfast Wi-Fi",
+  },
+  de: {
+    title: "Unsere Leistungen",
+    subtitle: "Alles, was Sie für einen unvergesslichen Aufenthalt in Kalabrien brauchen",
+    breakfast: "Frühstück inklusive",
+    wifi: "Superschnelles WLAN",
+  },
+} as const;
+
+interface ServiziHeroProps {
+  locale?: string;
+}
+
+export default function ServiziHero({ locale = "it" }: ServiziHeroProps) {
+  const c = heroCopy[locale as keyof typeof heroCopy] ?? heroCopy.it;
   return (
     <section
       className="relative min-h-[55vh] flex items-center justify-center overflow-hidden py-24"
@@ -91,7 +117,7 @@ export default function ServiziHero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
           >
-            I Nostri Servizi
+            {c.title}
           </motion.h1>
           <motion.p
             className="text-xl md:text-2xl text-white/95 font-medium leading-relaxed drop-shadow-md max-w-2xl mx-auto"
@@ -99,7 +125,7 @@ export default function ServiziHero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
           >
-            Tutto ciò di cui hai bisogno per un soggiorno indimenticabile in Calabria
+            {c.subtitle}
           </motion.p>
           <motion.div
             className="flex flex-wrap justify-center gap-4 mt-10"
@@ -108,12 +134,12 @@ export default function ServiziHero() {
             transition={{ duration: 0.6, delay: 0.4 }}
           >
             <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/15 backdrop-blur-sm text-white text-sm font-medium border border-white/25">
-              <Coffee className="h-4 w-4" />
-              Colazione inclusa
+              <Coffee className="h-4 w-4" aria-hidden />
+              {c.breakfast}
             </span>
             <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/15 backdrop-blur-sm text-white text-sm font-medium border border-white/25">
-              <Wifi className="h-4 w-4" />
-              WiFi superfast
+              <Wifi className="h-4 w-4" aria-hidden />
+              {c.wifi}
             </span>
           </motion.div>
         </div>

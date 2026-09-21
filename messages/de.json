@@ -17,10 +17,10 @@
   },
   "hero": {
     "imageAlt": "Zimmer in der Residence Le Farfalle — Isola di Capo Rizzuto, Kalabrien",
-    "locationPill": "Ortsmitte Isola di Capo Rizzuto · strategische Lage",
+    "locationPill": "Ortszentrum Isola di Capo Rizzuto · Meer ca. 6 km",
     "eyebrow": "Residence & Bed and Breakfast",
     "headline": "Residence Le Farfalle",
-    "headlineAccent": "Design-B&B im Dorfkern — nah an allem",
+    "headlineAccent": "Vier Doppelzimmer mit eigenem Bad und Frühstück inklusive. Die Strände des Meeresschutzgebiets liegen ca. 6 km entfernt: 10–15 Minuten mit dem Auto.",
     "trustLine": "4 Suiten · liebevolle Einrichtung · reichhaltiges Frühstück · Service auf Wunsch",
     "tagline": "Geräumige, helle Zimmer mit eigenem Bad, Komfort auf Boutique-Niveau und familiäre Gastfreundschaft. Frisches Frühstück jeden Morgen, superschnelles WLAN und alles, was Sie brauchen, um das Beste der ionischen Küste zu genießen — ohne auf die Ortsmitte zu verzichten.",
     "ctaRooms": "Zimmer entdecken",
@@ -30,7 +30,12 @@
     "badgeBreakfast": "Frühstück inklusive",
     "badgeAc": "Klimaanlage",
     "badgeWifi": "Superschnelles WLAN",
-    "whatsappPrefill": "Hallo! Ich möchte Informationen zur Residence Le Farfalle"
+    "whatsappPrefill": "Hallo! Ich möchte Informationen zur Residence Le Farfalle",
+    "headlineSub": "Zimmer mit Frühstück im Zentrum von Isola di Capo Rizzuto",
+    "ratingBadge": "{score}/10 auf Booking.com · {count} Bewertungen",
+    "preferTalk": "Lieber persönlich sprechen?",
+    "contactUs": "Kontakt",
+    "heroRegion": "Einleitung"
   },
   "homeRooms": {
     "kicker": "Gut schlafen, besser aufwachen",
@@ -52,8 +57,8 @@
     "sub": "Mehr als eine Übernachtung: eine elegante Basis im Zentrum von Isola di Capo Rizzuto, mit einem Frühstück, das die Reise lohnt, und dem Meer nur eine kurze Fahrt entfernt.",
     "items": [
       {
-        "title": "Kurz zu den Stränden des Meeresschutzgebiets",
-        "description": "Das Meer ist nah und leicht erreichbar."
+        "title": "Strände ca. 6 km entfernt, 10–15 Autominuten",
+        "description": "Wir liegen im Ort, nicht am Meer: Mit dem Auto erreichen Sie schnell die Spiagge Rosse und die Buchten des Meeresschutzgebiets."
       },
       {
         "title": "Frühstück inklusive — immer reichhaltig",
@@ -72,8 +77,8 @@
         "description": "Praktisch und stressfrei."
       },
       {
-        "title": "9,5/10 · Ausgezeichnet auf Booking.com",
-        "description": "Eine Bewertung, die für sich spricht."
+        "title": "{score}/10 auf Booking.com",
+        "description": "Offizielle Bewertung aus {count} verifizierten Bewertungen."
       }
     ]
   },
@@ -117,11 +122,11 @@
   "mareVicino": {
     "kicker": "Isola di Capo Rizzuto",
     "title": "Meer und Dörfer ohne die Ortsmitte zu verlassen",
-    "intro": "Wer im Zentrum wohnt, hat Bars, Märkte und Restaurants vor der Tür — und erreicht trotzdem in wenigen Minuten die ikonischen Strände des Schutzgebiets und Ziele wie Le Castella.",
+    "intro": "Im Zentrum haben Sie Bars, Läden und Restaurants vor der Tür. Das Meer liegt nicht direkt vor dem Haus: Die Strände des Meeresschutzgebiets sind ca. 6 km entfernt (10–15 Autominuten), Le Castella ca. 11 km.",
     "highlights": [
       {
         "title": "Strände mit dem Auto",
-        "desc": "Strände des Schutzgebiats liegen 5–15 Autominuten entfernt."
+        "desc": "Die nächsten Strände des Meeresschutzgebiets liegen ca. 6 km entfernt: 10–15 Minuten mit dem Auto."
       },
       {
         "title": "Meeresschutzgebiet",
@@ -137,8 +142,8 @@
       }
     ],
     "stripTitle": "Meeresschutzgebiet Capo Rizzuto",
-    "stripSub": "Eines der größten Meeresschutzgebiete Italiens. Schnorcheln und Tauchen.",
-    "stripTime": "5–15 Min. mit dem Auto"
+    "stripSub": "Eines der größten Meeresschutzgebiete Italiens: klares Wasser, Schnorcheln und Tauchen.",
+    "stripTime": "10–15 Autominuten · ca. 6 km"
   },
   "territorio60": {
     "kicker": "Ionisches Kalabrien",
@@ -180,25 +185,25 @@
     "attractions": [
       {
         "name": "Meeresschutzgebiet Capo Rizzuto",
-        "distance": "2 km",
-        "time": "5 Min.",
-        "description": "Marine Reserve mit klarem Wasser"
+        "distance": "ca. 6 km",
+        "time": "10–15 Min.",
+        "description": "Spiagge Rosse und die Buchten des Schutzgebiets"
       },
       {
-        "name": "Strände Le Castella",
-        "distance": "8 km",
+        "name": "Le Castella",
+        "distance": "ca. 11 km",
         "time": "15 Min.",
-        "description": "Goldener Sand und türkises Meer"
+        "description": "Ort und Aragonesenburg am Meer"
       },
       {
         "name": "Crotone Altstadt",
-        "distance": "12 km",
-        "time": "20 Min.",
-        "description": "Antike Stadt, jahrtausendealte Geschichte"
+        "distance": "ca. 18 km",
+        "time": "20–25 Min.",
+        "description": "Antike Stadt mit archäologischem Museum"
       },
       {
         "name": "Archäologischer Park Capo Colonna",
-        "distance": "15 km",
+        "distance": "ca. 15 km",
         "time": "25 Min.",
         "description": "Tempel der Hera Lacinia"
       }
@@ -221,7 +226,7 @@
     "submit": "Anmelden"
   },
   "homeFooter": {
-    "tagline": "B&B-Residence im Zentrum von Isola di Capo Rizzuto: gepflegte Zimmer, großzügiges Frühstück, voller Service — und die Strände des Schutzgebiats nur eine kurze Fahrt entfernt.",
+    "tagline": "B&B im Zentrum von Isola di Capo Rizzuto: gepflegte Zimmer, Frühstück inklusive und die Strände des Meeresschutzgebiets ca. 6 km mit dem Auto.",
     "faqTitle": "Häufige Fragen",
     "bookNow": "Jetzt buchen",
     "contact": "Kontakt",
@@ -229,7 +234,7 @@
     "faq": [
       {
         "q": "Check-in / Check-out",
-        "a": "Check-in ab 14:00, Check-out bis 10:00. Flexibel auf Anfrage."
+        "a": "Check-in ab 14:00, Check-out bis 11:00. Flexibel auf Anfrage."
       },
       {
         "q": "Parkplatz",

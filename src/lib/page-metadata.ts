@@ -22,9 +22,9 @@ const place = "Isola di Capo Rizzuto";
 export const pageMetadata = {
   home: {
     it: {
-      title: `${brand} - ${place}, Calabria`,
+      title: `${brand}: B&B con colazione a ${place} (KR)`,
       description:
-        "4 camere con bagno privato nel cuore di Isola di Capo Rizzuto, a pochi minuti dalle spiagge dell'Area Marina Protetta. Colazione inclusa, WiFi superfast, aria condizionata.",
+        "4 camere matrimoniali con bagno privato nel centro di Isola di Capo Rizzuto, a circa 6 km dalle spiagge dell'Area Marina Protetta. Colazione inclusa.",
       keywords: [
         "residence Isola di Capo Rizzuto",
         "camere Crotone",
@@ -35,9 +35,9 @@ export const pageMetadata = {
       ],
     },
     en: {
-      title: `${brand} - ${place}, Calabria`,
+      title: `${brand}: B&B with breakfast, ${place}`,
       description:
-        "Four rooms with private bathroom in Isola di Capo Rizzuto, minutes from beaches in the Marine Protected Area. Breakfast included, superfast WiFi, air conditioning.",
+        "Four double rooms with private bathroom in the centre of Isola di Capo Rizzuto, about 6 km from the Marine Protected Area beaches. Breakfast, air conditioning, WiFi.",
       keywords: [
         "guesthouse Isola di Capo Rizzuto",
         "rooms Crotone Calabria",
@@ -47,9 +47,9 @@ export const pageMetadata = {
       ],
     },
     de: {
-      title: `${brand} - ${place}, Kalabrien`,
+      title: `${brand}: Zimmer & Frühstück, ${place}`,
       description:
-        "Vier Zimmer mit eigenem Bad in Isola di Capo Rizzuto, wenige Minuten zu den Stränden des Meeresschutzgebiets. Frühstück inklusive, superschnelles WLAN, Klimaanlage.",
+        "Vier Doppelzimmer mit eigenem Bad im Zentrum von Isola di Capo Rizzuto, ca. 6 km von den Stränden des Meeresschutzgebiets. Frühstück, Klimaanlage, WLAN.",
       keywords: [
         "Unterkunft Isola di Capo Rizzuto",
         "Zimmer Crotone Kalabrien",
@@ -61,7 +61,7 @@ export const pageMetadata = {
 
   camere: {
     it: {
-      title: `Le nostre camere - ${brand} ${place}`,
+      title: `Camere matrimoniali a ${place} | ${brand}`,
       description:
         "4 camere indipendenti (8 posti totali, 2 ospiti per camera) con bagno privato, aria condizionata, WiFi e colazione inclusa. Isola di Capo Rizzuto, Calabria.",
       keywords: [
@@ -73,7 +73,7 @@ export const pageMetadata = {
       ],
     },
     en: {
-      title: `Our rooms - ${brand}, ${place}`,
+      title: `Double rooms in ${place} | ${brand}`,
       description:
         "Four independent rooms (eight guests total, two per room) with private bathroom, A/C, WiFi and breakfast included. Isola di Capo Rizzuto, Calabria.",
       keywords: [
@@ -84,7 +84,7 @@ export const pageMetadata = {
       ],
     },
     de: {
-      title: `Unsere Zimmer - ${brand}, ${place}`,
+      title: `Doppelzimmer in ${place} | ${brand}`,
       description:
         "Vier separate Zimmer (8 Gäste gesamt, 2 pro Zimmer) mit eigenem Bad, Klimaanlage, WLAN und Frühstück inklusive. Isola di Capo Rizzuto, Kalabrien.",
       keywords: [
@@ -203,9 +203,9 @@ export const pageMetadata = {
 
   prenota: {
     it: {
-      title: `Richiedi preventivo - ${brand}`,
+      title: `Richiedi disponibilità e prezzo | ${brand}`,
       description:
-        `Preventivo personalizzato per il soggiorno a ${place}. Rispondiamo in genere entro 24 ore: email, telefono o WhatsApp.`,
+        `Chiedi disponibilità e prezzo per 1–4 camere (fino a 8 ospiti) a ${place}, senza impegno. Rispondiamo in genere entro 24 ore: email, telefono o WhatsApp.`,
       keywords: [
         `prenotazioni ${place}`,
         "preventivo residence Calabria",
@@ -213,9 +213,9 @@ export const pageMetadata = {
       ],
     },
     en: {
-      title: `Request a quote - ${brand}`,
+      title: `Check availability and price | ${brand}`,
       description:
-        `Personalised quote for your stay in ${place}. We usually reply within 24 hours by email, phone or WhatsApp.`,
+        `Ask for availability and price for 1–4 rooms (up to 8 guests) in ${place}, no obligation. We usually reply within 24 hours by email, phone or WhatsApp.`,
       keywords: [
         "book Isola di Capo Rizzuto",
         "quote guesthouse Calabria",
@@ -223,9 +223,9 @@ export const pageMetadata = {
       ],
     },
     de: {
-      title: `Angebot anfragen - ${brand}`,
+      title: `Verfügbarkeit und Preis anfragen | ${brand}`,
       description:
-        `Individuelles Angebot für Ihren Aufenthalt in ${place}. Wir antworten in der Regel innerhalb von 24 Stunden per E-Mail, Telefon oder WhatsApp.`,
+        `Verfügbarkeit und Preis für 1–4 Zimmer (bis 8 Gäste) in ${place} anfragen, unverbindlich. Antwort meist innerhalb von 24 Stunden.`,
       keywords: [
         "Buchung Isola di Capo Rizzuto",
         "Angebot Pension Kalabrien",
@@ -305,7 +305,7 @@ export const pageMetadata = {
     it: {
       title: `Bandiera Blu 2026 a ${place} | ${brand}`,
       description:
-        `Soggiorni in zona Bandiera Blu 2026: ${brand}, 4 camere a ${place}, Comune premiato dalla FEE. Spiagge dell'Area Marina Protetta a pochi minuti a piedi.`,
+        `${place} è Bandiera Blu 2026. ${brand}: 4 camere in paese, a circa 6 km (10–15 minuti in auto) dalle spiagge dell'Area Marina Protetta.`,
       keywords: [
         "Bandiera Blu 2026",
         `Bandiera Blu ${place}`,
@@ -317,7 +317,7 @@ export const pageMetadata = {
     en: {
       title: `Blue Flag 2026 in ${place} | ${brand}`,
       description:
-        `Stay in a Blue Flag 2026 area: ${brand}, 4 rooms in ${place}, FEE-awarded municipality. Marine Protected Area beaches a few minutes' walk away.`,
+        `${place} is a Blue Flag 2026 municipality. ${brand}: 4 rooms in town, about 6 km (10–15 min by car) from the Marine Protected Area beaches.`,
       keywords: [
         "Blue Flag 2026",
         `Blue Flag ${place}`,
@@ -328,7 +328,7 @@ export const pageMetadata = {
     de: {
       title: `Blaue Flagge 2026 in ${place} | ${brand}`,
       description:
-        `Übernachten Sie in einer Blaue Flagge 2026 Zone: ${brand}, 4 Zimmer in ${place}, FEE-prämierte Gemeinde. Strände im Meeresschutzgebiet wenige Gehminuten entfernt.`,
+        `${place} trägt die Blaue Flagge 2026. ${brand}: 4 Zimmer im Ort, ca. 6 km (10–15 Autominuten) von den Stränden des Schutzgebiets.`,
       keywords: [
         "Blaue Flagge 2026",
         `Blaue Flagge ${place}`,

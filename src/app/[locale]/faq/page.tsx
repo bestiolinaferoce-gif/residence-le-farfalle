@@ -35,7 +35,7 @@ const faqs: Record<Loc, { q: string; a: string }[]> = {
   it: [
     {
       q: "Qual è la distanza dal mare?",
-      a: "Le spiagge dell'Area Marina Protetta di Capo Rizzuto distano 5–15 minuti a piedi dalla struttura.",
+      a: "La struttura è nel centro di Isola di Capo Rizzuto, non sul mare. Le spiagge più vicine dell'Area Marina Protetta (Spiagge Rosse e calette verso Capo Rizzuto) sono a circa 6 km: 10–15 minuti in auto.",
     },
     {
       q: "La colazione è inclusa nel prezzo?",
@@ -63,7 +63,7 @@ const faqs: Record<Loc, { q: string; a: string }[]> = {
     },
     {
       q: "Come si arriva da Crotone?",
-      a: "Da Crotone in auto: circa 20 minuti (SS106). Da Crotone aeroporto: circa 25 minuti.",
+      a: "Da Crotone centro in auto: circa 20–25 minuti (circa 18 km). Dall'aeroporto di Crotone (circa 4,5 km): 5–10 minuti.",
     },
     {
       q: "Il WiFi è gratuito?",
@@ -77,7 +77,7 @@ const faqs: Record<Loc, { q: string; a: string }[]> = {
   en: [
     {
       q: "How far is the sea?",
-      a: "Beaches in the Capo Rizzuto Marine Protected Area are about a 5–15 minute walk from the property.",
+      a: "The property is in the centre of Isola di Capo Rizzuto, not on the sea. The nearest Marine Protected Area beaches (Spiagge Rosse and the coves towards Capo Rizzuto) are about 6 km away: 10–15 minutes by car.",
     },
     {
       q: "Is breakfast included?",
@@ -105,7 +105,7 @@ const faqs: Record<Loc, { q: string; a: string }[]> = {
     },
     {
       q: "How do I get there from Crotone?",
-      a: "By car from Crotone: about 20 minutes (SS106). From Crotone airport: about 25 minutes.",
+      a: "By car from Crotone centre: about 20–25 minutes (about 18 km). From Crotone airport (about 4.5 km): 5–10 minutes.",
     },
     {
       q: "Is WiFi free?",
@@ -119,7 +119,7 @@ const faqs: Record<Loc, { q: string; a: string }[]> = {
   de: [
     {
       q: "Wie weit ist das Meer?",
-      a: "Die Strände im Meeresschutzgebiet Capo Rizzuto sind in etwa 5–15 Gehminuten von der Unterkunft entfernt.",
+      a: "Die Unterkunft liegt im Zentrum von Isola di Capo Rizzuto, nicht direkt am Meer. Die nächsten Strände des Meeresschutzgebiets (Spiagge Rosse und Buchten Richtung Capo Rizzuto) sind ca. 6 km entfernt: 10–15 Minuten mit dem Auto.",
     },
     {
       q: "Ist das Frühstück im Preis inbegriffen?",
@@ -147,7 +147,7 @@ const faqs: Record<Loc, { q: string; a: string }[]> = {
     },
     {
       q: "Wie komme ich von Crotone aus?",
-      a: "Mit dem Auto von Crotone: ca. 20 Minuten (SS106). Vom Flughafen Crotone: ca. 25 Minuten.",
+      a: "Mit dem Auto vom Zentrum Crotone: ca. 20–25 Minuten (ca. 18 km). Vom Flughafen Crotone (ca. 4,5 km): 5–10 Minuten.",
     },
     {
       q: "Ist WLAN kostenlos?",

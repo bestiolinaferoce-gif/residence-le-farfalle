@@ -7,6 +7,7 @@ import { cn } from "@/src/lib/utils";
 import Card from "@/src/components/ui/Card";
 import {
   getPartnerBadgeLabel,
+  localizePartnerText,
   type Partner,
   type PartnerBadge,
 } from "@/src/data/partners";
@@ -32,9 +33,12 @@ interface PartnerCardProps {
 }
 
 export default function PartnerCard({ partner, categoryLabel, locale = "it" }: PartnerCardProps) {
-  const initial = partner.name.trim().charAt(0).toUpperCase();
   const loc = locale === "en" || locale === "de" ? locale : "it";
   const ui = cardUi[loc];
+  const name = localizePartnerText(partner.name, loc);
+  const description = localizePartnerText(partner.description, loc);
+  const address = partner.address ? localizePartnerText(partner.address, loc) : undefined;
+  const initial = name.trim().charAt(0).toUpperCase();
 
   return (
     <Card
@@ -52,7 +56,7 @@ export default function PartnerCard({ partner, categoryLabel, locale = "it" }: P
           {partner.logoSrc ? (
             <Image
               src={partner.logoSrc}
-              alt={partner.logoAlt ?? partner.name}
+              alt={partner.logoAlt ? localizePartnerText(partner.logoAlt, loc) : name}
               width={56}
               height={56}
               className="object-contain p-1.5"
@@ -78,18 +82,18 @@ export default function PartnerCard({ partner, categoryLabel, locale = "it" }: P
             )}
           </div>
           <h3 className="mt-1 font-display text-lg font-bold text-neutral-900">
-            {partner.name}
+            {name}
           </h3>
         </div>
       </div>
 
       <div className="flex flex-1 flex-col p-5 pt-3">
-        <p className="text-sm leading-relaxed text-neutral-600">{partner.description}</p>
+        <p className="text-sm leading-relaxed text-neutral-600">{description}</p>
 
-        {partner.address && (
+        {address && (
           <p className="mt-3 flex items-start gap-2 text-xs text-neutral-500">
             <MapPin className="mt-0.5 h-3.5 w-3.5 shrink-0 text-neutral-400" />
-            {partner.address}
+            {address}
           </p>
         )}
 

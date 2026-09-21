@@ -1,24 +1,17 @@
 /**
- * Configurazione navigazione del sito (etichette IT / EN / DE)
+ * Navigazione principale (etichette IT / EN / DE).
+ * "Richiedi preventivo" non è più una voce di menu: è la CTA fissa dell'header.
  */
 
 export type NavLocale = "it" | "en" | "de";
 
 export const navigation = {
   main: [
-    { name: { it: "Home", en: "Home", de: "Home" }, href: "/" },
     { name: { it: "Camere", en: "Rooms", de: "Zimmer" }, href: "/camere" },
-    { name: { it: "Territorio", en: "Area", de: "Region" }, href: "/territorio" },
-    { name: { it: "Guide", en: "Guides", de: "Guides" }, href: "/guida" },
-    {
-      name: { it: "Servizi & Partner", en: "Services & Partners", de: "Service & Partner" },
-      href: "/servizi",
-    },
-    {
-      name: { it: "Richiedi Preventivo", en: "Request a quote", de: "Angebot anfragen" },
-      href: "/prenota",
-    },
-    { name: { it: "Contatti", en: "Contact", de: "Kontakt" }, href: "/contatti" },
+    { name: { it: "Servizi", en: "Services", de: "Leistungen" }, href: "/servizi" },
+    { name: { it: "Territorio", en: "The area", de: "Region" }, href: "/territorio" },
+    { name: { it: "Guide", en: "Guides", de: "Reiseführer" }, href: "/guida" },
     { name: { it: "FAQ", en: "FAQ", de: "FAQ" }, href: "/faq" },
+    { name: { it: "Contatti", en: "Contact", de: "Kontakt" }, href: "/contatti" },
   ],
 } as const;

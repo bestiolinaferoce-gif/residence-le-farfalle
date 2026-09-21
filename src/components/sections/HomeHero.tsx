@@ -115,12 +115,12 @@ export default function HomeHero({ locale = "it" }: HomeHeroProps) {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-10">
             <Link href={`/${locale}/camere`}>
-              <Button variant="secondary" size="lg">
+              <Button asSpan variant="secondary" size="lg">
                 Vedi Camere
               </Button>
             </Link>
             <Link href={`/${locale}/prenota`}>
-              <Button
+              <Button asSpan
                 variant="outline"
                 size="lg"
                 className="bg-white/10 border-white/40 text-white hover:bg-white/20"

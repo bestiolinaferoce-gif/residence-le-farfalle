@@ -28,8 +28,10 @@ export async function POST(req: NextRequest) {
       process.env.RESEND_FROM || "Residence Le Farfalle <onboarding@resend.dev>";
 
     if (!apiKey) {
-      console.log("[newsletter] Nuova iscrizione (no RESEND_API_KEY):", email);
-      return NextResponse.json({ success: true });
+      // Nessun canale configurato: non confermiamo un'iscrizione che non avviene
+      // e non scriviamo l'indirizzo nei log.
+      console.error("[newsletter] RESEND_API_KEY non configurata");
+      return NextResponse.json({ error: "not_configured" }, { status: 503 });
     }
 
     const { Resend } = await import("resend");
@@ -47,7 +49,7 @@ export async function POST(req: NextRequest) {
       }
     } else {
       const safeEmail = escapeHtml(email);
-      await resend.emails.send({
+      const { error } = await resend.emails.send({
         from: fromAddress,
         to: hostEmail,
         subject: `📬 Nuova iscrizione newsletter — ${email}`,
@@ -63,6 +65,10 @@ export async function POST(req: NextRequest) {
           </div>
         `,
       });
+      if (error) {
+        console.error("[newsletter][resend]", error.name);
+        return NextResponse.json({ error: "delivery_failed" }, { status: 502 });
+      }
     }
 
     return NextResponse.json({ success: true });

@@ -154,13 +154,13 @@ const HeroSlider: React.FC<HeroSliderProps> = ({ locale = "it" }) => {
               className="flex flex-col sm:flex-row gap-4 justify-center items-center"
             >
               <Link href={`/${locale}/prenota`}>
-                <Button variant="secondary" size="lg">
+                <Button asSpan variant="secondary" size="lg">
                   Verifica disponibilità
                 </Button>
               </Link>
               {hasValidWhatsApp && (
                 <Link href={whatsappUrl} target="_blank" rel="noopener noreferrer">
-                  <Button
+                  <Button asSpan
                     variant="outline"
                     size="lg"
                     className="bg-white/10 border-white/30 text-white hover:bg-white/20"

@@ -28,33 +28,9 @@ export const reviews: Review[] = reviewsData as Review[];
 // Filtra solo recensioni reali (non placeholder)
 export const realReviews = reviews.filter((r) => !r.isPlaceholder);
 
-// Calcola statistiche solo se ci sono recensioni reali
-export const getReviewStats = () => {
-  const real = realReviews;
-  if (real.length === 0) return null;
-
-  const average10 =
-    real.reduce((sum, r) => sum + (r.source === "Google" ? r.rating * 2 : r.rating), 0) /
-    real.length;
-  const count = real.length;
-
-  return {
-    average10: Math.round(average10 * 10) / 10, // 1 decimale
-    count,
-  };
-};
-
-/**
- * Media di una singola fonte, normalizzata su 10.
- * Serve dove il testo cita esplicitamente il portale ("Eccellente su Booking.com"):
- * mostrare lì la media complessiva sarebbe un dato attribuito alla fonte sbagliata.
+/*
+ * Nessuna media calcolata qui. Le recensioni di questo file sono una selezione
+ * (Booking.com 1–10 e Google 1–5): una media su di esse non corrisponde al
+ * punteggio ufficiale e produceva il "9,8 su 17 recensioni" in homepage, mentre
+ * Booking.com mostrava 9,4 su 44. Il punteggio pubblico è in siteConfig.bookingScore.
  */
-export const getReviewStatsBySource = (source: Review["source"]) => {
-  const subset = realReviews.filter((r) => r.source === source);
-  if (subset.length === 0) return null;
-  const total = subset.reduce((sum, r) => sum + (r.source === "Google" ? r.rating * 2 : r.rating), 0);
-  return {
-    average10: Math.round((total / subset.length) * 10) / 10,
-    count: subset.length,
-  };
-};

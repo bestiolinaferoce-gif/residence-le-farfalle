@@ -110,7 +110,7 @@ export default function HomeRoomsPreview({ locale = "it" }: HomeRoomsPreviewProp
           className="text-center"
         >
           <Link href={`/${locale}/camere`}>
-            <Button variant="primary" size="lg">
+            <Button asSpan variant="primary" size="lg">
               {t("cta")}
               <Maximize2 className="ml-2 h-5 w-5" aria-hidden />
             </Button>

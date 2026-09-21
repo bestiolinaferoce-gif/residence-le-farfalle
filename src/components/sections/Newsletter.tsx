@@ -8,6 +8,30 @@ import { Mail, CheckCircle2 } from "lucide-react";
 import { useLocaleStrings } from "@/src/components/i18n/LocaleProvider";
 import Container from "@/src/components/ui/Container";
 
+const nlCopy = {
+  it: {
+    consentRequired: "Per iscriverti serve il consenso al trattamento dei dati.",
+    failed: "Iscrizione non riuscita. Riprova più tardi.",
+    network: "Errore di rete. Riprova.",
+    consent: "Acconsento al trattamento dei miei dati per ricevere offerte e novità. Posso disiscrivermi in qualsiasi momento.",
+    privacy: "Informativa privacy",
+  },
+  en: {
+    consentRequired: "Please consent to data processing to subscribe.",
+    failed: "Subscription failed. Please try again later.",
+    network: "Network error. Please try again.",
+    consent: "I agree to my data being processed to receive offers and news. I can unsubscribe at any time.",
+    privacy: "Privacy policy",
+  },
+  de: {
+    consentRequired: "Für die Anmeldung ist Ihre Einwilligung zur Datenverarbeitung nötig.",
+    failed: "Anmeldung fehlgeschlagen. Bitte später erneut versuchen.",
+    network: "Netzwerkfehler. Bitte erneut versuchen.",
+    consent: "Ich willige ein, dass meine Daten für Angebote und Neuigkeiten verarbeitet werden. Abmeldung jederzeit möglich.",
+    privacy: "Datenschutzerklärung",
+  },
+} as const;
+
 interface NewsletterProps {
   variant?: "light" | "dark";
 }
@@ -22,6 +46,7 @@ export default function Newsletter({ variant = "light" }: NewsletterProps) {
   const [consent, setConsent] = useState(false);
   const pathname = usePathname();
   const locale = pathname?.split("/")[1] || "it";
+  const c = nlCopy[locale as keyof typeof nlCopy] ?? nlCopy.it;
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -29,7 +54,7 @@ export default function Newsletter({ variant = "light" }: NewsletterProps) {
     if (!value) return;
     // Il consenso marketing dev'essere esplicito: senza spunta non si invia nulla.
     if (!consent) {
-      setError("Per iscriverti devi acconsentire al trattamento dei dati.");
+      setError(c.consentRequired);
       return;
     }
     setIsLoading(true);
@@ -41,15 +66,14 @@ export default function Newsletter({ variant = "light" }: NewsletterProps) {
         body: JSON.stringify({ email: value }),
       });
       if (!res.ok) {
-        const data = (await res.json().catch(() => ({}))) as { error?: string };
-        setError(data.error ?? "Errore iscrizione");
+        setError(c.failed);
         return;
       }
       setIsSubmitted(true);
       setEmail("");
       setConsent(false);
     } catch {
-      setError("Errore di rete");
+      setError(c.network);
     } finally {
       setIsLoading(false);
     }
@@ -83,7 +107,7 @@ export default function Newsletter({ variant = "light" }: NewsletterProps) {
                 {t("thanksTitle")}
               </h3>
               <p
-                className={`text-sm ${isDark ? "text-secondary-200" : "text-neutral-600"}`}
+                className={`text-sm ${isDark ? "text-secondary-100" : "text-neutral-700"}`}
               >
                 {t("thanksSub")}
               </p>
@@ -98,7 +122,7 @@ export default function Newsletter({ variant = "light" }: NewsletterProps) {
                 {t("title")}
               </h3>
               <p
-                className={`mb-6 text-sm ${isDark ? "text-secondary-200" : "text-neutral-600"}`}
+                className={`mb-6 text-sm ${isDark ? "text-secondary-100" : "text-neutral-700"}`}
               >
                 {t("sub")}
               </p>
@@ -138,7 +162,7 @@ export default function Newsletter({ variant = "light" }: NewsletterProps) {
               */}
               <label
                 className={`mt-3 flex items-start gap-2.5 text-left text-sm ${
-                  isDark ? "text-secondary-200" : "text-neutral-600"
+                  isDark ? "text-secondary-100" : "text-neutral-700"
                 }`}
               >
                 <input
@@ -148,13 +172,12 @@ export default function Newsletter({ variant = "light" }: NewsletterProps) {
                   className="mt-1 h-4 w-4 shrink-0 rounded border-neutral-400 text-secondary-500 focus:ring-secondary-500"
                 />
                 <span>
-                  Acconsento al trattamento dei miei dati per ricevere offerte e novità.
-                  Posso disiscrivermi in qualsiasi momento.{" "}
+                  {c.consent}{" "}
                   <Link
                     href={`/${locale}/privacy`}
                     className="font-semibold underline underline-offset-2"
                   >
-                    Informativa privacy
+                    {c.privacy}
                   </Link>
                 </span>
               </label>

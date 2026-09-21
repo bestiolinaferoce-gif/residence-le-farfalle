@@ -14,6 +14,24 @@ import { locales } from "@/src/lib/i18n";
 import { pageAlternates } from "@/src/lib/seo";
 import { getPageMetadata } from "@/src/lib/page-metadata";
 
+const ctaCopy = {
+  it: {
+    title: "Pronto per il tuo soggiorno?",
+    body: "Prenota la tua camera e goditi tutti i nostri servizi inclusi",
+    button: "Vai alla prenotazione",
+  },
+  en: {
+    title: "Ready for your stay?",
+    body: "Book your room and enjoy all our included services",
+    button: "Go to booking",
+  },
+  de: {
+    title: "Bereit für Ihren Aufenthalt?",
+    body: "Buchen Sie Ihr Zimmer und genießen Sie alle inklusiven Leistungen",
+    button: "Zur Buchung",
+  },
+} as const;
+
 const serviziBreadcrumbLabel: Record<string, { home: string; servizi: string }> = {
   it: { home: "Home", servizi: "Servizi" },
   en: { home: "Home", servizi: "Services" },
@@ -49,6 +67,7 @@ export default async function ServicesPage({ params }: ServicesPageProps) {
   const currentLocale = locale || "it";
   const baseUrl = siteConfig.url.replace(/\/$/, "");
   const bc = serviziBreadcrumbLabel[currentLocale] ?? serviziBreadcrumbLabel.it;
+  const cta = ctaCopy[currentLocale as keyof typeof ctaCopy] ?? ctaCopy.it;
 
   return (
     <div className="min-h-screen pt-20">
@@ -58,7 +77,7 @@ export default async function ServicesPage({ params }: ServicesPageProps) {
           { name: bc.servizi, url: `${baseUrl}/${currentLocale}/servizi` },
         ]}
       />
-      <ServiziHero />
+      <ServiziHero locale={currentLocale} />
 
       <section className="border-b border-stone-200 bg-amber-50/40 py-8">
         <Container>
@@ -90,10 +109,10 @@ export default async function ServicesPage({ params }: ServicesPageProps) {
               </h2>
               <p className="mt-1 text-sm text-stone-600">
                 {currentLocale === "en"
-                  ? "Private transfer to and from the airport, about 25 minutes away. On request."
+                  ? "Private transfer to and from the airport, about 4.5 km (5–10 minutes) away. On request."
                   : currentLocale === "de"
-                    ? "Privater Transfer vom und zum Flughafen, ca. 25 Minuten entfernt. Auf Anfrage."
-                    : "Transfer privato da e per l'aeroporto, a circa 25 minuti. Su richiesta."}
+                    ? "Privater Transfer vom und zum Flughafen, ca. 4,5 km (5–10 Minuten) entfernt. Auf Anfrage."
+                    : "Transfer privato da e per l'aeroporto, a circa 4,5 km (5–10 minuti). Su richiesta."}
               </p>
             </div>
             <span className="inline-flex shrink-0 items-center gap-2 font-semibold text-amber-700">
@@ -116,18 +135,16 @@ export default async function ServicesPage({ params }: ServicesPageProps) {
         <Container className="relative z-10">
           <div className="text-center max-w-2xl mx-auto">
             <h2 className="font-display text-display-sm mb-4 text-white">
-              Pronto per il tuo soggiorno?
+              {cta.title}
             </h2>
-            <p className="text-lg text-white/90 mb-8">
-              Prenota la tua camera e goditi tutti i nostri servizi inclusi
-            </p>
+            <p className="text-lg text-white/90 mb-8">{cta.body}</p>
             <Link href={`/${currentLocale}/prenota`}>
-              <Button
+              <Button asSpan
                 variant="secondary"
                 size="lg"
                 className="bg-white text-secondary-700 hover:bg-white/95 shadow-hard"
               >
-                Vai alla prenotazione
+                {cta.button}
                 <ArrowRight className="h-5 w-5 ml-2" aria-hidden />
               </Button>
             </Link>

@@ -4,7 +4,12 @@ import React from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
-import { partners, getPartnerCategoryLabel, getPartnerSectionCopy } from "@/src/data/partners";
+import {
+  partners,
+  getPartnerCategoryLabel,
+  getPartnerSectionCopy,
+  localizePartnerText,
+} from "@/src/data/partners";
 import Container from "@/src/components/ui/Container";
 import Card from "@/src/components/ui/Card";
 import Button from "@/src/components/ui/Button";
@@ -49,9 +54,9 @@ export default function PartnersPreview({ locale = "it" }: PartnersPreviewProps)
                   {getPartnerCategoryLabel(partner.category, locale)}
                 </span>
                 <h3 className="mt-1 mb-2 text-lg font-semibold text-neutral-900">
-                  {partner.name}
+                  {localizePartnerText(partner.name, locale)}
                 </h3>
-                <p className="mb-4 text-sm text-neutral-600">{partner.description}</p>
+                <p className="mb-4 text-sm text-neutral-600">{localizePartnerText(partner.description, locale)}</p>
                 {partner.phone && !partner.comingSoon && (
                   <a
                     href={`tel:${partner.phone}`}
@@ -72,7 +77,7 @@ export default function PartnersPreview({ locale = "it" }: PartnersPreviewProps)
           className="text-center"
         >
           <Link href={`/${locale}/servizi#partner`}>
-            <Button variant="primary" size="lg">
+            <Button asSpan variant="primary" size="lg">
               {copy.seeAll}
               <ArrowRight className="ml-2 h-5 w-5" />
             </Button>

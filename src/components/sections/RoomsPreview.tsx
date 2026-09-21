@@ -101,7 +101,7 @@ const RoomsPreview: React.FC<RoomsPreviewProps> = ({ locale = "it" }) => {
           className="text-center"
         >
           <Link href={`/${locale}/camere`}>
-            <Button variant="primary" size="lg">
+            <Button asSpan variant="primary" size="lg">
               Vedi tutte le camere
               <Maximize2 className="h-5 w-5 ml-2" aria-hidden />
             </Button>

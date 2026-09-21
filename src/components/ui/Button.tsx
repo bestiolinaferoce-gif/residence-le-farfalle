@@ -11,6 +11,11 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
   loading?: boolean;
   icon?: React.ReactNode;
   children: React.ReactNode;
+  /**
+   * Solo aspetto da pulsante, dentro un <Link>/<a>: evita un <button> annidato
+   * in un link (HTML non valido e doppio stop con il tasto Tab).
+   */
+  asSpan?: boolean;
 }
 
 const variantClasses = {
@@ -73,15 +78,32 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       className,
       disabled,
       children,
+      asSpan = false,
       ...props
     },
     ref
   ) => {
+    if (asSpan) {
+      return (
+        <span
+          className={cn(
+            "inline-flex items-center justify-center",
+            variantClasses[variant],
+            sizeClasses[size],
+            fullWidth && "w-full",
+            className
+          )}
+        >
+          {icon && <span className="mr-2">{icon}</span>}
+          {children}
+        </span>
+      );
+    }
     return (
       <button
         ref={ref}
         className={cn(
-          "inline-flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed",
+          "inline-flex items-center justify-center focus-visible:ring-2 focus-visible:ring-amber-700 focus-visible:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed",
           variantClasses[variant],
           sizeClasses[size],
           fullWidth && "w-full",

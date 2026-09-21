@@ -5,12 +5,15 @@ import { motion, AnimatePresence } from "framer-motion";
 import { MessageCircle } from "lucide-react";
 import { siteConfig } from "@/src/config/site";
 import { GA_EVENTS } from "@/src/lib/analytics";
+import { uiCopy } from "@/src/config/ui-copy";
+import type { Locale } from "@/src/lib/i18n";
 
 function digitsOnly(input: string) {
   return input.replace(/\D/g, "");
 }
 
-export default function WhatsAppButton() {
+export default function WhatsAppButton({ locale }: { locale: Locale }) {
+  const t = uiCopy[locale];
   const [visible, setVisible] = useState(false);
   const [hovered, setHovered] = useState(false);
 
@@ -35,12 +38,12 @@ export default function WhatsAppButton() {
   const { href, valid } = useMemo(() => {
     const digits = digitsOnly(siteConfig.contacts.whatsapp || "");
     const isValid = digits.length >= 10;
-    const text = encodeURIComponent("Ciao! Vorrei informazioni su Residence Le Farfalle");
+    const text = encodeURIComponent(t.whatsappPrefill);
     return {
       valid: isValid,
       href: isValid ? `https://wa.me/${digits}?text=${text}` : "",
     };
-  }, []);
+  }, [t.whatsappPrefill]);
 
   if (!valid) return null;
 
@@ -51,17 +54,17 @@ export default function WhatsAppButton() {
           href={href}
           target="_blank"
           rel="noreferrer"
-          onClick={() => GA_EVENTS.clickWhatsapp()}
+          onClick={() => GA_EVENTS.clickWhatsapp("floating")}
           initial={{ opacity: 0, y: 10, scale: 0.98 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
           exit={{ opacity: 0, y: 10, scale: 0.98 }}
           onHoverStart={() => setHovered(true)}
           onHoverEnd={() => setHovered(false)}
-          className="group fixed bottom-6 right-6 z-50 inline-flex items-center gap-3 rounded-full bg-emerald-500 px-4 py-3 text-white shadow-soft ring-1 ring-emerald-400/40 transition hover:bg-emerald-400 focus:outline-none focus:ring-2 focus:ring-emerald-200"
-          aria-label="Scrivici su WhatsApp"
+          className="group fixed bottom-6 right-6 z-50 inline-flex items-center gap-3 rounded-full bg-emerald-700 px-3 py-3 text-white shadow-soft ring-1 ring-emerald-600/40 transition hover:bg-emerald-800"
+          aria-label={t.whatsappLabel}
         >
           <span className="grid h-10 w-10 place-items-center rounded-full bg-white/15">
-            <MessageCircle className="h-5 w-5" />
+            <MessageCircle className="h-5 w-5" aria-hidden />
           </span>
           <div className="hidden overflow-hidden whitespace-nowrap font-semibold md:block">
             <motion.span
@@ -70,7 +73,7 @@ export default function WhatsAppButton() {
               transition={{ type: "spring", stiffness: 260, damping: 24 }}
               className="block"
             >
-              Scrivici
+              {t.whatsappShort}
             </motion.span>
           </div>
         </motion.a>

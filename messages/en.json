@@ -17,10 +17,10 @@
   },
   "hero": {
     "imageAlt": "Guest room at Residence Le Farfalle — Isola di Capo Rizzuto, Calabria",
-    "locationPill": "Town centre Isola di Capo Rizzuto · strategic location",
+    "locationPill": "Isola di Capo Rizzuto town centre · sea about 6 km away",
     "eyebrow": "Residence & Bed and Breakfast",
     "headline": "Residence Le Farfalle",
-    "headlineAccent": "Design B&B in the village heart — close to everything",
+    "headlineAccent": "Four double rooms with private bathroom and breakfast included. The beaches of the Marine Protected Area are about 6 km away: 10–15 minutes by car.",
     "trustLine": "4 private suites · curated interiors · generous breakfast · tailored services",
     "tagline": "Spacious, bright rooms with private bathrooms, boutique-level comfort and a warm welcome. Fresh breakfast every morning, superfast WiFi and everything you need to enjoy the best of the Ionian coast without giving up the town centre.",
     "ctaRooms": "Discover the rooms",
@@ -30,7 +30,12 @@
     "badgeBreakfast": "Breakfast included",
     "badgeAc": "Air conditioning",
     "badgeWifi": "Superfast WiFi",
-    "whatsappPrefill": "Hello! I would like information about Residence Le Farfalle"
+    "whatsappPrefill": "Hello! I would like information about Residence Le Farfalle",
+    "headlineSub": "B&B rooms with breakfast in the centre of Isola di Capo Rizzuto",
+    "ratingBadge": "{score}/10 on Booking.com · {count} reviews",
+    "preferTalk": "Prefer to talk to us?",
+    "contactUs": "Contact us",
+    "heroRegion": "Introduction"
   },
   "homeRooms": {
     "kicker": "Sleep well, wake up happy",
@@ -52,8 +57,8 @@
     "sub": "More than a place to sleep: an elegant base in the centre of Isola di Capo Rizzuto, with a breakfast worth the trip and the sea a short drive away.",
     "items": [
       {
-        "title": "Minutes from Marine Protected Area beaches",
-        "description": "The sea is close and easy to reach — perfect for relaxed days."
+        "title": "Beaches about 6 km away, 10–15 minutes by car",
+        "description": "We're in town, not on the sea: by car you quickly reach Spiagge Rosse and the coves of the Marine Protected Area."
       },
       {
         "title": "Breakfast included — always generous",
@@ -72,8 +77,8 @@
         "description": "Convenient and close, stress-free."
       },
       {
-        "title": "9.5/10 · Excellent on Booking.com",
-        "description": "A score that speaks for itself."
+        "title": "{score}/10 on Booking.com",
+        "description": "Official score from {count} verified reviews."
       }
     ]
   },
@@ -117,11 +122,11 @@
   "mareVicino": {
     "kicker": "Isola di Capo Rizzuto",
     "title": "Sea and villages without leaving the centre",
-    "intro": "Staying downtown means bars, shops and restaurants on your doorstep — and still reaching iconic MPA beaches and Le Castella in just a few minutes by car.",
+    "intro": "Staying in the centre means bars, shops and restaurants on your doorstep. The sea isn't right outside: the Marine Protected Area beaches are about 6 km away (10–15 minutes by car), Le Castella about 11 km.",
     "highlights": [
       {
         "title": "Beaches by car",
-        "desc": "MPA beaches are 5–15 minutes away by car from us."
+        "desc": "The nearest Marine Protected Area beaches are about 6 km away: 10–15 minutes by car."
       },
       {
         "title": "Marine Protected Area",
@@ -137,8 +142,8 @@
       }
     ],
     "stripTitle": "Capo Rizzuto Marine Protected Area",
-    "stripSub": "One of Italy’s largest marine reserves. Clear water, snorkelling and diving.",
-    "stripTime": "5–15 min by car"
+    "stripSub": "One of the largest marine protected areas in Italy: clear water, snorkelling and diving.",
+    "stripTime": "10–15 min by car · about 6 km"
   },
   "territorio60": {
     "kicker": "Ionian Calabria",
@@ -180,25 +185,25 @@
     "attractions": [
       {
         "name": "Capo Rizzuto Marine Protected Area",
-        "distance": "2 km",
-        "time": "5 min",
-        "description": "Marine reserve with crystal-clear water"
+        "distance": "about 6 km",
+        "time": "10–15 min",
+        "description": "Spiagge Rosse and the coves of the protected area"
       },
       {
-        "name": "Le Castella beaches",
-        "distance": "8 km",
+        "name": "Le Castella",
+        "distance": "about 11 km",
         "time": "15 min",
-        "description": "Golden sand and turquoise sea"
+        "description": "Village and Aragonese castle on the sea"
       },
       {
         "name": "Crotone old town",
-        "distance": "12 km",
-        "time": "20 min",
-        "description": "Ancient city, millennia of history"
+        "distance": "about 18 km",
+        "time": "20–25 min",
+        "description": "Ancient city with an archaeological museum"
       },
       {
         "name": "Capo Colonna archaeological park",
-        "distance": "15 km",
+        "distance": "about 15 km",
         "time": "25 min",
         "description": "Temple of Hera Lacinia"
       }
@@ -221,7 +226,7 @@
     "submit": "Subscribe"
   },
   "homeFooter": {
-    "tagline": "B&B residence in the centre of Isola di Capo Rizzuto: curated rooms, generous breakfast, full services — and the Marine Protected Area beaches a short drive away.",
+    "tagline": "B&B in the centre of Isola di Capo Rizzuto: well-kept rooms, breakfast included and the Marine Protected Area beaches about 6 km away by car.",
     "faqTitle": "FAQ",
     "bookNow": "Book now",
     "contact": "Contact us",
@@ -229,7 +234,7 @@
     "faq": [
       {
         "q": "Check-in / check-out",
-        "a": "Check-in from 14:00, check-out by 10:00. Flexible times on request."
+        "a": "Check-in from 14:00, check-out by 11:00. Flexible times on request."
       },
       {
         "q": "Parking",

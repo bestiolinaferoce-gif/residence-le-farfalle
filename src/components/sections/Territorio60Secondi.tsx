@@ -95,7 +95,7 @@ export default function Territorio60Secondi({ locale = "it" }: Territorio60Secon
           className="text-center"
         >
           <Link href={`/${locale}/territorio`}>
-            <Button variant="primary" size="lg">
+            <Button asSpan variant="primary" size="lg">
               {t("cta")}
             </Button>
           </Link>

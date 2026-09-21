@@ -8,9 +8,19 @@ import { AnimatePresence, motion } from "framer-motion";
 type Props = {
   images: string[];
   alt: string;
+  /** `open` contiene {n} per il numero della foto (stringa: arriva da un server component). */
+  labels?: { open: string; close: string; prev: string; next: string; dialog: string };
 };
 
-export default function ImageGallery({ images, alt }: Props) {
+const defaultLabels = {
+  open: "Apri immagine {n}",
+  close: "Chiudi",
+  prev: "Precedente",
+  next: "Successiva",
+  dialog: "Galleria immagini",
+};
+
+export default function ImageGallery({ images, alt, labels = defaultLabels }: Props) {
   const normalized = useMemo(() => images.filter(Boolean), [images]);
   const [open, setOpen] = useState(false);
   const [index, setIndex] = useState(0);
@@ -49,11 +59,11 @@ export default function ImageGallery({ images, alt }: Props) {
             type="button"
             onClick={() => openAt(i)}
             className="relative aspect-video overflow-hidden rounded-xl bg-stone-100"
-            aria-label={`Apri immagine ${i + 1}`}
+            aria-label={labels.open.replace("{n}", String(i + 1))}
           >
             <Image
               src={src}
-              alt={alt}
+              alt={`${alt} (${i + 1}/${count})`}
               fill
               sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
               className="object-cover transition-transform duration-300 hover:scale-105"
@@ -74,6 +84,7 @@ export default function ImageGallery({ images, alt }: Props) {
             onClick={close}
             role="dialog"
             aria-modal="true"
+            aria-label={labels.dialog}
           >
             <div className="absolute top-4 right-4 z-[61] flex items-center gap-3">
               <div className="rounded-full bg-white/10 px-3 py-1.5 text-sm text-white">
@@ -86,7 +97,7 @@ export default function ImageGallery({ images, alt }: Props) {
                   close();
                 }}
                 className="grid h-10 w-10 place-items-center rounded-full bg-white/10 text-white hover:bg-white/20"
-                aria-label="Chiudi"
+                aria-label={labels.close}
               >
                 <X className="h-5 w-5" />
               </button>
@@ -99,7 +110,7 @@ export default function ImageGallery({ images, alt }: Props) {
                 prev();
               }}
               className="absolute left-4 top-1/2 z-[61] -translate-y-1/2 grid h-12 w-12 place-items-center rounded-full bg-white/10 text-white hover:bg-white/20"
-              aria-label="Precedente"
+              aria-label={labels.prev}
             >
               <ChevronLeft className="h-6 w-6" />
             </button>
@@ -110,7 +121,7 @@ export default function ImageGallery({ images, alt }: Props) {
                 next();
               }}
               className="absolute right-4 top-1/2 z-[61] -translate-y-1/2 grid h-12 w-12 place-items-center rounded-full bg-white/10 text-white hover:bg-white/20"
-              aria-label="Successiva"
+              aria-label={labels.next}
             >
               <ChevronRight className="h-6 w-6" />
             </button>

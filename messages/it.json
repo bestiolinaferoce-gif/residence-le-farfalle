@@ -17,10 +17,10 @@
   },
   "hero": {
     "imageAlt": "Camera del Residence Le Farfalle — Isola di Capo Rizzuto, Calabria",
-    "locationPill": "Centro Isola di Capo Rizzuto · posizione strategica",
+    "locationPill": "Centro di Isola di Capo Rizzuto · mare a circa 6 km",
     "eyebrow": "Residence & Bed and Breakfast",
     "headline": "Residence Le Farfalle",
-    "headlineAccent": "B&B design nel cuore del paese — a due passi da tutto",
+    "headlineAccent": "Quattro camere matrimoniali con bagno privato e colazione inclusa. Le spiagge dell’Area Marina Protetta sono a circa 6 km: 10–15 minuti in auto.",
     "trustLine": "4 suite indipendenti · arredi curati · colazione sempre ricca · servizi su misura",
     "tagline": "Camere spaziose e luminose con bagno privato, comfort da boutique hotel e accoglienza familiare. Colazione con prodotti freschi ogni mattina, WiFi superfast e tutto ciò che serve per vivere il meglio della Calabria ionica senza rinunciare al centro paese.",
     "ctaRooms": "Scopri le Camere",
@@ -30,7 +30,12 @@
     "badgeBreakfast": "Colazione inclusa",
     "badgeAc": "Aria condizionata",
     "badgeWifi": "WiFi superfast",
-    "whatsappPrefill": "Ciao! Vorrei informazioni su Residence Le Farfalle"
+    "whatsappPrefill": "Ciao! Vorrei informazioni su Residence Le Farfalle",
+    "headlineSub": "Camere con colazione nel centro di Isola di Capo Rizzuto",
+    "ratingBadge": "{score}/10 su Booking.com · {count} recensioni",
+    "preferTalk": "Preferisci parlare con noi?",
+    "contactUs": "Contattaci",
+    "heroRegion": "Presentazione"
   },
   "homeRooms": {
     "kicker": "Dormire bene, svegliarsi meglio",
@@ -52,8 +57,8 @@
     "sub": "Non è solo un posto dove dormire: è una base elegante nel centro di Isola di Capo Rizzuto, con colazione che vale il viaggio e il mare a portata di auto.",
     "items": [
       {
-        "title": "A 5 minuti dalle spiagge dell'AMP",
-        "description": "Mare vicino e facile da raggiungere, perfetto per giornate in relax."
+        "title": "Spiagge a circa 6 km, 10–15 minuti in auto",
+        "description": "La struttura è in paese, non sul mare: con l'auto raggiungi in poco tempo Spiagge Rosse e le calette dell'Area Marina Protetta."
       },
       {
         "title": "Colazione inclusa — sempre abbondante e gustosa",
@@ -72,8 +77,8 @@
         "description": "Comodo e vicino, senza stress."
       },
       {
-        "title": "9.5/10 · Eccellente su Booking.com",
-        "description": "Un punteggio che parla da solo."
+        "title": "{score}/10 su Booking.com",
+        "description": "Punteggio ufficiale su {count} recensioni verificate."
       }
     ]
   },
@@ -117,11 +122,11 @@
   "mareVicino": {
     "kicker": "Isola di Capo Rizzuto",
     "title": "Mare e borghi, senza rinunciare al centro",
-    "intro": "Soggiornare in centro significa avere bar, market e ristoranti sotto casa — e comunque raggiungere in pochi minuti le spiagge iconiche dell’Area Marina Protetta e mete come Le Castella.",
+    "intro": "Soggiornare in centro significa avere bar, market e ristoranti sotto casa. Il mare non è sotto la struttura: le spiagge dell'Area Marina Protetta sono a circa 6 km (10–15 minuti in auto), Le Castella a circa 11 km.",
     "highlights": [
       {
         "title": "Spiagge in auto",
-        "desc": "Le spiagge dell'Area Marina Protetta sono raggiungibili in 5–15 minuti d'auto da noi."
+        "desc": "Le spiagge dell'Area Marina Protetta più vicine sono a circa 6 km: 10–15 minuti d'auto."
       },
       {
         "title": "Area Marina Protetta",
@@ -137,8 +142,8 @@
       }
     ],
     "stripTitle": "Area Marina Protetta Capo Rizzuto",
-    "stripSub": "Una delle più grandi riserve marine d'Italia. Acque limpide, snorkeling e immersioni.",
-    "stripTime": "5–15 min in auto"
+    "stripSub": "Una delle aree marine protette più estese d'Italia: acque limpide, snorkeling e immersioni.",
+    "stripTime": "10–15 min in auto · circa 6 km"
   },
   "territorio60": {
     "kicker": "Calabria ionica",
@@ -180,25 +185,25 @@
     "attractions": [
       {
         "name": "Area Marina Protetta Capo Rizzuto",
-        "distance": "2 km",
-        "time": "5 min",
-        "description": "Riserva marina con acque cristalline"
+        "distance": "circa 6 km",
+        "time": "10–15 min",
+        "description": "Spiagge Rosse e calette dell'Area Marina Protetta"
       },
       {
-        "name": "Spiagge Le Castella",
-        "distance": "8 km",
+        "name": "Le Castella",
+        "distance": "circa 11 km",
         "time": "15 min",
-        "description": "Spiagge dorate e mare turchese"
+        "description": "Borgo e castello aragonese sul mare"
       },
       {
         "name": "Crotone centro storico",
-        "distance": "12 km",
-        "time": "20 min",
-        "description": "Città antica con storia millenaria"
+        "distance": "circa 18 km",
+        "time": "20–25 min",
+        "description": "Città antica con museo archeologico"
       },
       {
         "name": "Parco archeologico Capo Colonna",
-        "distance": "15 km",
+        "distance": "circa 15 km",
         "time": "25 min",
         "description": "Tempio di Hera Lacinia"
       }
@@ -221,7 +226,7 @@
     "submit": "Iscriviti"
   },
   "homeFooter": {
-    "tagline": "B&B residence nel centro di Isola di Capo Rizzuto: camere curate, colazione generosa, servizi completi — e il mare dell’Area Marina Protetta a pochi minuti in auto.",
+    "tagline": "B&B nel centro di Isola di Capo Rizzuto: camere curate, colazione inclusa e le spiagge dell'Area Marina Protetta a circa 6 km in auto.",
     "faqTitle": "Domande frequenti",
     "bookNow": "Prenota ora",
     "contact": "Contattaci",
@@ -229,7 +234,7 @@
     "faq": [
       {
         "q": "Check-in / Check-out",
-        "a": "Check-in dalle 14:00, check-out entro le 10:00. Su richiesta possiamo essere flessibili."
+        "a": "Check-in dalle 14:00, check-out entro le 11:00. Su richiesta possiamo essere flessibili."
       },
       {
         "q": "Parcheggio",
