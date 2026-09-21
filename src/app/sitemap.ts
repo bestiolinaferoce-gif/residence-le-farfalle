@@ -21,39 +21,32 @@ const STATIC_SEGMENTS = [
   "/partner",
 ];
 
+/**
+ * Data dell'ultima revisione dei contenuti: aggiornarla quando cambiano i testi.
+ * Prima ogni build dichiarava "modificato adesso" per tutte le URL, segnale che
+ * Google impara a ignorare.
+ */
+const CONTENT_UPDATED = new Date("2026-09-21");
+
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = siteConfig.url.replace(/\/$/, "");
-  const sitemapEntries: MetadataRoute.Sitemap = [];
+  const segments = [
+    ...STATIC_SEGMENTS,
+    ...rooms.map((r) => `/camere/${r.slug}`),
+    ...guideSlugs.map((s) => `/guida/${s}`),
+  ];
 
-  for (const locale of locales) {
-    for (const seg of STATIC_SEGMENTS) {
-      const url = `${baseUrl}/${locale}${seg === "" ? "" : seg}`;
-      sitemapEntries.push({
-        url,
-        lastModified: new Date(),
-        changeFrequency: seg === "" ? "daily" : "weekly",
-        priority: seg === "" ? 1.0 : 0.8,
-      });
-    }
-
-    for (const room of rooms) {
-      sitemapEntries.push({
-        url: `${baseUrl}/${locale}/camere/${room.slug}`,
-        lastModified: new Date(),
-        changeFrequency: "weekly",
-        priority: 0.75,
-      });
-    }
-
-    for (const slug of guideSlugs) {
-      sitemapEntries.push({
-        url: `${baseUrl}/${locale}/guida/${slug}`,
-        lastModified: new Date(),
-        changeFrequency: "monthly",
-        priority: 0.7,
-      });
-    }
-  }
-
-  return sitemapEntries;
+  // Ogni URL dichiara le versioni nelle altre lingue (hreflang reciproci) e x-default.
+  return segments.flatMap((seg) =>
+    locales.map((locale) => ({
+      url: `${baseUrl}/${locale}${seg}`,
+      lastModified: CONTENT_UPDATED,
+      alternates: {
+        languages: {
+          ...Object.fromEntries(locales.map((l) => [l, `${baseUrl}/${l}${seg}`])),
+          "x-default": `${baseUrl}/it${seg}`,
+        },
+      },
+    }))
+  );
 }

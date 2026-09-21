@@ -1,6 +1,7 @@
 "use client";
 
 import { useSyncExternalStore } from "react";
+import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 /**
@@ -8,25 +9,28 @@ import { usePathname } from "next/navigation";
  * Dismissibile (localStorage). Click → landing dedicata.
  */
 
-const STORAGE_KEY = "lefarfalle.bandiera-blu-2026.dismissed";
+import { BANNER_STORAGE_KEY as STORAGE_KEY } from "@/src/config/banner";
 
 const COPY = {
   it: {
     label: "Bandiera Blu 2026 — Isola di Capo Rizzuto",
     sub: "Soggiorni in zona premiata · Calabria 2° in Italia",
-    dismiss: "Chiudi",
+    dismiss: "Chiudi annuncio",
+    region: "Annuncio Bandiera Blu 2026",
     landing: "/it/bandiera-blu-2026-capo-rizzuto",
   },
   en: {
     label: "Blue Flag 2026 — Isola di Capo Rizzuto",
     sub: "Stay in an awarded area · Calabria 2nd in Italy",
-    dismiss: "Close",
+    dismiss: "Close announcement",
+    region: "Blue Flag 2026 announcement",
     landing: "/en/bandiera-blu-2026-capo-rizzuto",
   },
   de: {
     label: "Blaue Flagge 2026 — Isola di Capo Rizzuto",
     sub: "Übernachten Sie in einer prämierten Zone · Kalabrien Platz 2 in Italien",
-    dismiss: "Schließen",
+    dismiss: "Hinweis schließen",
+    region: "Hinweis Blaue Flagge 2026",
     landing: "/de/bandiera-blu-2026-capo-rizzuto",
   },
 } as const;
@@ -62,14 +66,21 @@ function getDismissSnapshot(): boolean {
   }
 }
 
-// Sul server nascondiamo (true): niente flash del banner poi rimosso in idratazione.
+/**
+ * Sul server il banner è visibile (false = non chiuso): comparire solo dopo
+ * l'idratazione spingeva in basso tutta la pagina (CLS 0,08 su mobile).
+ * Per chi l'ha già chiuso, lo script BANNER_DISMISS_SCRIPT nel layout aggiunge
+ * una classe a <html> prima del primo paint e il CSS lo nasconde: nessun flash.
+ */
 function getDismissServerSnapshot(): boolean {
-  return true;
+  return false;
 }
+
 
 function dismiss(): void {
   try {
     window.localStorage.setItem(STORAGE_KEY, new Date().toISOString());
+    document.documentElement.classList.add("bb-dismissed");
   } catch {
     // ignore
   }
@@ -91,7 +102,8 @@ export function BandieraBluTopBanner() {
   return (
     <div
       role="region"
-      aria-label="Annuncio Bandiera Blu 2026"
+      aria-label={t.region}
+      data-bb-banner=""
       className="relative w-full"
       style={{
         background: "linear-gradient(90deg, #062a44 0%, #0a3d62 50%, #0e5a8a 100%)",
@@ -126,7 +138,7 @@ export function BandieraBluTopBanner() {
           </text>
         </svg>
 
-        <a
+        <Link
           href={t.landing}
           className="flex flex-1 flex-col items-start gap-0 text-left text-white sm:flex-row sm:items-center sm:gap-3"
         >
@@ -135,13 +147,13 @@ export function BandieraBluTopBanner() {
           </span>
           <span className="hidden text-xs text-white/75 sm:inline">·</span>
           <span className="text-xs leading-tight text-white/85">{t.sub}</span>
-        </a>
+        </Link>
 
         <button
           type="button"
           onClick={dismiss}
           aria-label={t.dismiss}
-          className="ml-2 shrink-0 rounded-full p-1 text-white/70 transition-colors hover:bg-white/10 hover:text-white"
+          className="ml-2 grid h-9 w-9 shrink-0 place-items-center rounded-full text-white/80 transition-colors hover:bg-white/10 hover:text-white"
         >
           <svg
             width="16"

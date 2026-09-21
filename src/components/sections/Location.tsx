@@ -51,7 +51,7 @@ const Location: React.FC<LocationProps> = ({ locale = "it" }) => {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <LocationMap showTitle={false} />
+            <LocationMap showTitle={false} locale={locale} />
           </motion.div>
 
           <div className="space-y-4">
@@ -99,7 +99,7 @@ const Location: React.FC<LocationProps> = ({ locale = "it" }) => {
           className="text-center"
         >
           <Link href={`/${locale}/territorio`}>
-            <Button variant="primary" size="lg">
+            <Button asSpan variant="primary" size="lg">
               {t("cta")}
               <ArrowRight className="ml-2 h-5 w-5" />
             </Button>

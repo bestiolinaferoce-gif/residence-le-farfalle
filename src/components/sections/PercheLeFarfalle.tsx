@@ -4,6 +4,8 @@ import React from "react";
 import { motion } from "framer-motion";
 import { Waves, Coffee, Heart, MapPin, ParkingCircle, Star } from "lucide-react";
 import { useLocaleStrings } from "@/src/components/i18n/LocaleProvider";
+import { siteConfig } from "@/src/config/site";
+import { intlLocale, toLocale } from "@/src/lib/i18n";
 import Container from "@/src/components/ui/Container";
 
 const icons = [Waves, Coffee, Heart, MapPin, ParkingCircle, Star] as const;
@@ -22,9 +24,16 @@ const itemVariants = {
   },
 };
 
-export default function PercheLeFarfalle() {
+export default function PercheLeFarfalle({ locale = "it" }: { locale?: string }) {
   const { t, raw } = useLocaleStrings("perche");
-  const items = raw<{ title: string; description: string }[]>("items");
+  const { score, reviewCount } = siteConfig.bookingScore;
+  const scoreLabel = score.toLocaleString(intlLocale[toLocale(locale)], { minimumFractionDigits: 1 });
+  // Il punteggio arriva da siteConfig.bookingScore (fonte unica), non dai testi tradotti.
+  const fill = (text: string) => text.replace("{score}", scoreLabel).replace("{count}", String(reviewCount));
+  const items = raw<{ title: string; description: string }[]>("items").map((i) => ({
+    title: fill(i.title),
+    description: fill(i.description),
+  }));
 
   return (
     <section className="mesh-section-light py-24">
@@ -66,7 +75,7 @@ export default function PercheLeFarfalle() {
                 <h3 className="mb-2 text-base font-semibold leading-snug text-stone-900">
                   {feature.title}
                 </h3>
-                <p className="text-sm leading-relaxed text-stone-500">{feature.description}</p>
+                <p className="text-sm leading-relaxed text-stone-700">{feature.description}</p>
               </motion.div>
             );
           })}

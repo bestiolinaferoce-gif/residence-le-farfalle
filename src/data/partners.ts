@@ -21,15 +21,18 @@ export type PartnerCategory =
 /** Badge editoriale (etichette UX, non claim legali) */
 export type PartnerBadge = "recommended" | "useful" | "experience";
 
+/** Testo localizzato (it = versione di riferimento) */
+export type LocalizedText = { it: string; en: string; de: string };
+
 export interface Partner {
   id: string;
-  name: string;
+  name: LocalizedText;
   category: PartnerCategory;
   /** Breve testo descrittivo — evita claim su servizi non verificati */
-  description: string;
+  description: LocalizedText;
   phone?: string;
   link?: string;
-  address?: string;
+  address?: LocalizedText;
   comingSoon?: boolean;
   /** Ordine crescente (0 = tra i primi nella lista globale) */
   sortOrder: number;
@@ -37,7 +40,7 @@ export interface Partner {
   badge?: PartnerBadge;
   /** Path pubblico logo, es. /images/partners/nome.webp */
   logoSrc?: string;
-  logoAlt?: string;
+  logoAlt?: LocalizedText;
 }
 
 export const PARTNER_BADGE_LABELS: Record<
@@ -118,6 +121,14 @@ export function getPartnerCategoryLabel(
   return partnerCategories[category][localeKey(locale)];
 }
 
+/** Restituisce il testo nella lingua richiesta (fallback: italiano) */
+export function localizePartnerText(
+  text: LocalizedText,
+  locale?: string
+): string {
+  return text[localeKey(locale)] || text.it;
+}
+
 export function getPartnerBadgeLabel(
   badge: PartnerBadge,
   locale?: string
@@ -149,7 +160,7 @@ export const partnerSectionCopy = {
     seeAll: "See all",
     pillars: [
       { title: "Near the property", body: "Groceries, health, essential numbers." },
-      { title: "Trusted partners", body: "Curated entries you can update over time." },
+      { title: "Trusted partners", body: "Curated entries, updated over time." },
       { title: "Experiences", body: "Transfers, rentals and ideas to explore the coast." },
     ],
   },
@@ -176,75 +187,140 @@ export function getPartnerSectionCopy(locale?: string) {
 export const partners: Partner[] = [
   {
     id: "farmacia-1",
-    name: "Farmacie di zona",
+    name: {
+      it: "Farmacie di zona",
+      en: "Local pharmacies",
+      de: "Apotheken vor Ort",
+    },
     category: "farmacie",
-    description:
-      "Elenco farmacie e turno: verificare in loco o sui canali del Comune / ASL. Non pubblichiamo numeri di terzi non verificati.",
-    address: "Isola di Capo Rizzuto — centro",
+    description: {
+      it: "Elenco farmacie e turno: verificare in loco o sui canali del Comune / ASL. Non pubblichiamo numeri di terzi non verificati.",
+      en: "Pharmacy list and on-duty rota: please check locally or via the Municipality / local health authority (ASL) channels. We do not publish unverified third-party numbers.",
+      de: "Apothekenliste und Notdienst: bitte vor Ort oder über die Kanäle der Gemeinde / der örtlichen Gesundheitsbehörde (ASL) prüfen. Wir veröffentlichen keine ungeprüften Nummern Dritter.",
+    },
+    address: {
+      it: "Isola di Capo Rizzuto — centro",
+      en: "Isola di Capo Rizzuto — town centre",
+      de: "Isola di Capo Rizzuto — Ortszentrum",
+    },
     sortOrder: 10,
     badge: "useful",
   },
   {
     id: "guardia-medica",
-    name: "Emergenza sanitaria",
+    name: {
+      it: "Emergenza sanitaria",
+      en: "Medical emergencies",
+      de: "Medizinischer Notfall",
+    },
     category: "guardie-mediche",
-    description: "In caso di emergenza utilizzare il 118.",
+    description: {
+      it: "In caso di emergenza utilizzare il 118.",
+      en: "In an emergency, call 118.",
+      de: "Im Notfall wählen Sie die 118.",
+    },
     phone: "118",
     sortOrder: 20,
     badge: "useful",
   },
   {
     id: "carabinieri",
-    name: "Carabinieri",
+    name: { it: "Carabinieri", en: "Carabinieri", de: "Carabinieri" },
     category: "guardie-mediche",
-    description: "Stazione Carabinieri — Isola di Capo Rizzuto",
+    description: {
+      it: "Stazione Carabinieri — Isola di Capo Rizzuto",
+      en: "Carabinieri (police) station — Isola di Capo Rizzuto",
+      de: "Carabinieri-Station (Polizei) — Isola di Capo Rizzuto",
+    },
     phone: "+39 0962 799010",
     sortOrder: 30,
     badge: "useful",
   },
   {
     id: "supermarket-1",
-    name: "Supermercato e alimentari",
+    name: {
+      it: "Supermercato e alimentari",
+      en: "Supermarket and groceries",
+      de: "Supermarkt und Lebensmittel",
+    },
     category: "supermarket",
-    description: "Punto acquisto quotidiano a breve distanza dalla struttura.",
-    address: "Isola di Capo Rizzuto — centro",
+    description: {
+      it: "Punto acquisto quotidiano a breve distanza dalla struttura.",
+      en: "Everyday shopping a short distance from the property.",
+      de: "Einkaufsmöglichkeit für den täglichen Bedarf nicht weit von der Unterkunft.",
+    },
+    address: {
+      it: "Isola di Capo Rizzuto — centro",
+      en: "Isola di Capo Rizzuto — town centre",
+      de: "Isola di Capo Rizzuto — Ortszentrum",
+    },
     sortOrder: 40,
     badge: "useful",
   },
   {
     id: "ristorante-1",
-    name: "Ristoranti in zona",
+    name: {
+      it: "Ristoranti in zona",
+      en: "Local restaurants",
+      de: "Restaurants in der Umgebung",
+    },
     category: "ristoranti",
-    description: "Segnalazioni e indirizzi su richiesta — aggiorniamo l’elenco con partner verificati.",
+    description: {
+      it: "Segnalazioni e indirizzi su richiesta — aggiorniamo l’elenco con partner verificati.",
+      en: "Tips and addresses on request — we update the list with verified partners.",
+      de: "Empfehlungen und Adressen auf Anfrage — wir ergänzen die Liste um geprüfte Partner.",
+    },
     comingSoon: true,
     sortOrder: 50,
     badge: "recommended",
   },
   {
     id: "transfer-1",
-    name: "Transfer e collegamenti",
+    name: {
+      it: "Transfer e collegamenti",
+      en: "Transfers and connections",
+      de: "Transfers und Verbindungen",
+    },
     category: "transfer",
-    description:
-      "NCC / taxi su prenotazione (es. Lamezia Terme, Crotone). Contattateci per referenze aggiornate.",
+    description: {
+      it: "NCC / taxi su prenotazione (es. Lamezia Terme, Crotone). Contattateci per referenze aggiornate.",
+      en: "Private driver (NCC) / taxi on request (e.g. Lamezia Terme, Crotone). Contact us for up-to-date recommendations.",
+      de: "Mietwagen mit Fahrer (NCC) / Taxi auf Vorbestellung (z. B. Lamezia Terme, Crotone). Kontaktieren Sie uns für aktuelle Empfehlungen.",
+    },
     comingSoon: true,
     sortOrder: 60,
     badge: "experience",
   },
   {
     id: "noleggio-1",
-    name: "Noleggio bici e scooter",
+    name: {
+      it: "Noleggio bici e scooter",
+      en: "Bike and scooter rental",
+      de: "Fahrrad- und Rollerverleih",
+    },
     category: "noleggio",
-    description: "Soluzioni su richiesta per muoversi lungo la costa.",
+    description: {
+      it: "Soluzioni su richiesta per muoversi lungo la costa.",
+      en: "Options on request for getting around the coast.",
+      de: "Lösungen auf Anfrage, um sich entlang der Küste fortzubewegen.",
+    },
     comingSoon: true,
     sortOrder: 70,
     badge: "experience",
   },
   {
     id: "escursioni-1",
-    name: "Mare e Area Marina Protetta",
+    name: {
+      it: "Mare e Area Marina Protetta",
+      en: "Sea and Marine Protected Area",
+      de: "Meer und Meeresschutzgebiet",
+    },
     category: "escursioni",
-    description:
-      "Gite in barca, snorkeling e itinerari nell’area marina: idee da integrare con fornitori locali di fiducia.",
+    description: {
+      it: "Gite in barca, snorkeling e itinerari nell’area marina: idee da integrare con fornitori locali di fiducia.",
+      en: "Boat trips, snorkelling and routes in the marine area: ideas to be arranged with trusted local providers.",
+      de: "Bootsausflüge, Schnorcheln und Routen im Meeresschutzgebiet: Ideen, die mit vertrauenswürdigen lokalen Anbietern ergänzt werden.",
+    },
     comingSoon: true,
     sortOrder: 80,
     badge: "experience",

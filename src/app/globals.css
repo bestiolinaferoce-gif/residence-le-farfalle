@@ -190,3 +190,31 @@ h6 {
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(8px); }
 }
+
+@keyframes slideIn {
+  from { transform: translateX(100%); }
+  to { transform: translateX(0); }
+}
+
+/* WCAG 2.3.3: chi chiede meno movimento non riceve animazioni decorative. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Focus sempre visibile da tastiera (WCAG 2.4.7 / 2.4.11). */
+:where(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
+  outline: 3px solid #b45309;
+  outline-offset: 2px;
+}
+
+/* Banner Bandiera Blu già chiuso: nascosto prima del primo paint (vedi BANNER_DISMISS_SCRIPT). */
+.bb-dismissed [data-bb-banner] {
+  display: none;
+}

@@ -1,43 +1,47 @@
 "use client";
 
 import React from "react";
+import { MotionConfig } from "framer-motion";
 import ErrorBoundary from "@/src/components/ui/ErrorBoundary";
 import Header from "@/src/components/layout/Header";
 import Footer from "@/src/components/layout/Footer";
 import CookieBanner from "@/src/components/gdpr/CookieBanner";
 import WhatsAppButton from "@/src/components/ui/WhatsAppButton";
 import BandieraBluTopBanner from "@/src/components/ui/BandieraBluTopBanner";
-import { usePathname } from "next/navigation";
+import { uiCopy } from "@/src/config/ui-copy";
+import type { Locale } from "@/src/lib/i18n";
 
 interface AppWrapperProps {
   children: React.ReactNode;
+  locale: Locale;
+  /** true solo se è attivo un tracker che richiede consenso (oggi: GA4 con ID reale). */
+  consentRequired: boolean;
 }
 
-/**
- * Wrapper client component per ErrorBoundary, Header e Footer
- * Necessario perché ErrorBoundary è client component
- * e non può essere usato direttamente in server components
- */
-export default function AppWrapper({ children }: AppWrapperProps) {
-  const pathname = usePathname();
-  const locale = pathname.split("/")[1] || "it"; // Estrai il locale dal pathname
-
+export default function AppWrapper({ children, locale, consentRequired }: AppWrapperProps) {
+  const t = uiCopy[locale];
   return (
     <ErrorBoundary>
-      {/*
-        Banner e header in un unico stack sticky. Erano separati con l'header
-        `fixed`, che copriva completamente il banner Bandiera Blu lasciando al
-        suo posto una fascia vuota. In flusso non serve più compensare con
-        padding su <main>, che restava comunque disallineato.
-      */}
+      {/* Framer Motion rispetta "riduci movimento" del sistema operativo. */}
+      <MotionConfig reducedMotion="user">
+      <a
+        href="#main"
+        className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-lg focus:bg-white focus:px-4 focus:py-2 focus:font-semibold focus:text-stone-900 focus:shadow-lg"
+      >
+        {t.skipToContent}
+      </a>
+      {/* Banner e header in un unico stack sticky. */}
       <div className="sticky top-0 z-50">
         <BandieraBluTopBanner />
-        <Header />
+        <Header locale={locale} />
       </div>
-      <main>{children}</main>
+      <main id="main" tabIndex={-1} className="outline-none">
+        {children}
+      </main>
       <Footer locale={locale} />
-      <WhatsAppButton />
-      <CookieBanner />
+      <WhatsAppButton locale={locale} />
+      {consentRequired ? <CookieBanner locale={locale} /> : null}
+      </MotionConfig>
     </ErrorBoundary>
   );
 }

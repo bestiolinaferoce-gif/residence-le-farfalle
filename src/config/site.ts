@@ -24,6 +24,29 @@ export const siteConfig = {
   },
   url: resolvedSiteUrl,
   address: "Via Capo delle Colonne, 88841 Isola di Capo Rizzuto (KR)",
+  /**
+   * NAP per dati strutturati e Google Business Profile.
+   * DA CONFERMARE: numero civico (assente ovunque, anche su Booking.com).
+   */
+  postalAddress: {
+    street: "Via Capo delle Colonne",
+    locality: "Isola di Capo Rizzuto",
+    region: "KR",
+    postalCode: "88841",
+  },
+  ogImageAlt: {
+    it: "Camera matrimoniale del Residence Le Farfalle, Isola di Capo Rizzuto",
+    en: "Double room at Residence Le Farfalle, Isola di Capo Rizzuto",
+    de: "Doppelzimmer im Residence Le Farfalle, Isola di Capo Rizzuto",
+  },
+  /** Orari unici per FAQ, contatti e JSON-LD (check-out da confermare: in passato compariva anche 10:00). */
+  stay: {
+    checkIn: "14:00",
+    checkOut: "11:00",
+    maxGuests: 8,
+    rooms: 4,
+    guestsPerRoom: 2,
+  },
   coordinates: {
     lat: 38.96171494411169,
     lng: 17.09162398176466,
@@ -47,7 +70,7 @@ export const siteConfig = {
   booking: {
     // TODO: inserire URL reale — es. "https://www.airbnb.it/rooms/..."
     airbnb: "",
-    // Listing ufficiale verificato (recensioni pubbliche 9,4/10).
+    // Listing ufficiale verificato (vedi `bookingScore`).
     booking_com:
       "https://www.booking.com/hotel/it/residence-le-farfalle-isola-di-capo-rizzuto.it.html",
   },
@@ -59,6 +82,45 @@ export const siteConfig = {
   pricing: {
     fromEur: 90,
     currency: "EUR",
+    /**
+     * Cosa comprende il "da €…": mostrato accanto al prezzo in ogni pagina.
+     * DA CONFERMARE con la proprietà: la pagina /camere mostrava "da €70",
+     * in contrasto con questo valore. Non è una tariffa garantita.
+     */
+    basis: {
+      it: "a notte per camera doppia, colazione inclusa. Tariffa minima indicativa: varia per date e durata, il prezzo esatto è nel preventivo.",
+      en: "per night for a double room, breakfast included. Indicative minimum rate: it varies with dates and length of stay; the exact price is in your quote.",
+      de: "pro Nacht im Doppelzimmer inkl. Frühstück. Unverbindlicher Mindestpreis: abhängig von Reisedaten und Aufenthaltsdauer, den genauen Preis nennen wir im Angebot.",
+    },
+  },
+  /**
+   * Punteggio ufficiale Booking.com, trascritto dalla pagina pubblica della struttura.
+   * Aggiornare a mano insieme a `checkedAt`: il sito non lo ricalcola dalle
+   * recensioni pubblicate qui, che sono solo una selezione.
+   */
+  bookingScore: {
+    score: 9.4,
+    scale: 10,
+    reviewCount: 44,
+    checkedAt: "2026-09-21",
+  },
+  /**
+   * Distanze in auto dalla struttura (OpenStreetMap + OSRM, senza traffico,
+   * verificate il 2026-09-21). La struttura è nel centro abitato, non sul mare.
+   */
+  distances: {
+    nearestBeachKm: 6,
+    nearestBeachMin: "10–15",
+    seaAsCrowFliesKm: 5,
+    leCastellaKm: 11,
+    leCastellaMin: 15,
+    capoColonnaKm: 15,
+    capoColonnaMin: 25,
+    crotoneKm: 18,
+    crotoneMin: "20–25",
+    crotoneAirportKm: 4.5,
+    crotoneAirportMin: "5–10",
+    lameziaAirportKm: 88,
   },
   /**
    * Transfer da/per aeroporto di Crotone (Sant'Anna).
@@ -70,8 +132,8 @@ export const siteConfig = {
     airportName: "Aeroporto di Crotone (Sant'Anna)",
     priceEur: null as number | null,
     priceIsRoundTrip: false,
-    /** Minuti indicativi tratta struttura ↔ aeroporto Crotone */
-    durationMin: 25,
+    /** Minuti indicativi tratta struttura ↔ aeroporto Crotone (4,5 km su strada, OSRM). */
+    durationMin: 10,
   },
   /** Vuoto finché non imposti NEXT_PUBLIC_VAT_OR_CF su Vercel / .env.local */
   vatOrCf,

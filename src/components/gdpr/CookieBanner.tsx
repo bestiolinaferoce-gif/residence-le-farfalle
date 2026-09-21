@@ -1,161 +1,125 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useSyncExternalStore } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 import Button from "@/src/components/ui/Button";
+import { uiCopy } from "@/src/config/ui-copy";
+import type { Locale } from "@/src/lib/i18n";
 
 const STORAGE_KEY = "le-farfalle-cookie-consent";
+const CONSENT_VERSION = "1.1";
 
 export interface CookieConsent {
   necessary: true;
   analytics: boolean;
-  marketing: boolean;
   timestamp: number;
-  version: "1.0";
+  version: string;
 }
 
-export default function CookieBanner() {
-  const [isVisible, setIsVisible] = useState(() => {
-    try {
-      if (typeof window === "undefined") return false;
-      const stored = localStorage.getItem(STORAGE_KEY);
-      if (!stored) return true;
-      const parsed = JSON.parse(stored) as CookieConsent;
-      return parsed.version !== "1.0";
-    } catch {
-      return true;
-    }
-  });
+/**
+ * Lo stato arriva da localStorage tramite useSyncExternalStore: sul server il
+ * banner non viene reso e il client decide dopo l'idratazione. La versione
+ * precedente leggeva localStorage nell'inizializzatore di useState e produceva
+ * l'errore React #418 (HTML diverso fra server e client) su ogni pagina.
+ */
+const listeners = new Set<() => void>();
+function subscribe(cb: () => void) {
+  listeners.add(cb);
+  window.addEventListener("storage", cb);
+  return () => {
+    listeners.delete(cb);
+    window.removeEventListener("storage", cb);
+  };
+}
+function needsChoice(): boolean {
+  try {
+    const stored = localStorage.getItem(STORAGE_KEY);
+    if (!stored) return true;
+    return (JSON.parse(stored) as CookieConsent).version !== CONSENT_VERSION;
+  } catch {
+    return true;
+  }
+}
+
+export default function CookieBanner({ locale }: { locale: Locale }) {
+  const visible = useSyncExternalStore(subscribe, needsChoice, () => false);
   const [showPreferences, setShowPreferences] = useState(false);
   const [analytics, setAnalytics] = useState(false);
-  const [marketing, setMarketing] = useState(false);
-  const pathname = usePathname();
-  const locale = pathname?.split("/")[1] || "it";
+  const t = uiCopy[locale];
 
-  const save = (consent: CookieConsent) => {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(consent));
-    setIsVisible(false);
-    setShowPreferences(false);
-
-    /*
-      Applica la scelta a Google Consent Mode. Prima il consenso veniva soltanto
-      memorizzato e questo ramo era vuoto: Analytics restava attivo anche dopo
-      "Solo necessari". Il default negato è impostato in app/layout.tsx.
-    */
-    const gtag = (window as unknown as { gtag?: (...args: unknown[]) => void }).gtag;
-    if (typeof gtag === "function") {
-      gtag("consent", "update", {
-        analytics_storage: consent.analytics ? "granted" : "denied",
-        ad_storage: consent.marketing ? "granted" : "denied",
-        ad_user_data: consent.marketing ? "granted" : "denied",
-        ad_personalization: consent.marketing ? "granted" : "denied",
-      });
+  const save = (analyticsGranted: boolean) => {
+    const consent: CookieConsent = {
+      necessary: true,
+      analytics: analyticsGranted,
+      timestamp: Date.now(),
+      version: CONSENT_VERSION,
+    };
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(consent));
+    } catch {
+      // storage non disponibile: la scelta vale solo per questa pagina
     }
-  };
-
-  const acceptAll = () => {
-    save({
-      necessary: true,
-      analytics: true,
-      marketing: true,
-      timestamp: Date.now(),
-      version: "1.0",
+    setShowPreferences(false);
+    listeners.forEach((l) => l());
+    window.gtag?.("consent", "update", {
+      analytics_storage: analyticsGranted ? "granted" : "denied",
     });
   };
 
-  const acceptNecessaryOnly = () => {
-    save({
-      necessary: true,
-      analytics: false,
-      marketing: false,
-      timestamp: Date.now(),
-      version: "1.0",
-    });
-  };
-
-  const savePreferences = () => {
-    save({
-      necessary: true,
-      analytics,
-      marketing,
-      timestamp: Date.now(),
-      version: "1.0",
-    });
-  };
-
-  if (!isVisible) return null;
+  if (!visible) return null;
 
   return (
-    <div
-      className="fixed bottom-0 left-0 right-0 z-50 p-4 md:p-6 glass-card border-t border-butterfly-200/50"
-      role="dialog"
+    <section
+      className="fixed inset-x-0 bottom-0 z-50 border-t border-stone-200 bg-white/95 p-4 shadow-[0_-8px_24px_rgba(0,0,0,0.08)] backdrop-blur md:p-5"
       aria-labelledby="cookie-banner-title"
     >
-      <div className="max-w-4xl mx-auto">
+      <div className="mx-auto max-w-4xl">
+        <h2 id="cookie-banner-title" className="font-display text-base font-bold text-stone-900">
+          {showPreferences ? t.cookiePrefsTitle : t.cookieTitle}
+        </h2>
         {!showPreferences ? (
           <>
-            <h2 id="cookie-banner-title" className="font-display text-lg font-bold text-neutral-900 mb-2">
-              Cookie e privacy
-            </h2>
-            <p className="text-sm text-neutral-600 mb-4">
-              Utilizziamo cookie necessari per il funzionamento del sito. Puoi accettare tutti i cookie,
-              solo quelli necessari o personalizzare le preferenze.{" "}
-              <Link href={`/${locale}/privacy`} className="text-butterfly-600 underline hover:text-butterfly-700">
-                Privacy Policy
-              </Link>
-              {" · "}
-              <Link href={`/${locale}/cookie`} className="text-butterfly-600 underline hover:text-butterfly-700">
-                Cookie Policy
+            <p className="mt-1 text-sm text-stone-700">
+              {t.cookieText}{" "}
+              <Link href={`/${locale}/cookie`} className="font-semibold text-stone-900 underline">
+                {t.cookie}
               </Link>
             </p>
-            <div className="flex flex-wrap gap-3">
-              <Button variant="primary" size="sm" onClick={acceptAll}>
-                Accetta tutti
+            <div className="mt-3 flex flex-wrap gap-2">
+              <Button variant="secondary" size="sm" onClick={() => save(false)}>
+                {t.cookieNecessary}
               </Button>
-              <Button variant="secondary" size="sm" onClick={acceptNecessaryOnly}>
-                Solo necessari
+              <Button variant="secondary" size="sm" onClick={() => save(true)}>
+                {t.cookieAcceptAll}
               </Button>
               <Button variant="ghost" size="sm" onClick={() => setShowPreferences(true)}>
-                Preferenze
+                {t.cookiePrefs}
               </Button>
             </div>
           </>
         ) : (
           <>
-            <h2 id="cookie-banner-title" className="font-display text-lg font-bold text-neutral-900 mb-4">
-              Preferenze cookie
-            </h2>
-            <div className="space-y-3 mb-4">
-              <label className="flex items-center gap-3 cursor-pointer">
-                <input type="checkbox" checked disabled className="rounded" />
-                <span className="text-sm text-neutral-700">Necessari (sempre attivi)</span>
+            <div className="mt-3 space-y-2">
+              <label className="flex items-center gap-3">
+                <input type="checkbox" checked disabled className="h-4 w-4 rounded" />
+                <span className="text-sm text-stone-800">{t.cookieNecessaryAlways}</span>
               </label>
-              <label className="flex items-center gap-3 cursor-pointer">
+              <label className="flex items-center gap-3">
                 <input
                   type="checkbox"
                   checked={analytics}
                   onChange={(e) => setAnalytics(e.target.checked)}
-                  className="rounded"
+                  className="h-4 w-4 rounded"
                 />
-                <span className="text-sm text-neutral-700">Analytics (Google Analytics)</span>
-              </label>
-              <label className="flex items-center gap-3 cursor-pointer">
-                <input
-                  type="checkbox"
-                  checked={marketing}
-                  onChange={(e) => setMarketing(e.target.checked)}
-                  className="rounded"
-                />
-                <span className="text-sm text-neutral-700">Marketing</span>
+                <span className="text-sm text-stone-800">{t.cookieAnalytics}</span>
               </label>
             </div>
-            <Button variant="primary" size="sm" onClick={savePreferences}>
-              Salva preferenze
+            <Button className="mt-3" variant="primary" size="sm" onClick={() => save(analytics)}>
+              {t.cookieSave}
             </Button>
           </>
         )}
       </div>
-    </div>
+    </section>
   );
 }

@@ -13,3 +13,15 @@ export const localeNames: Record<Locale, string> = {
   en: "English",
   de: "Deutsch",
 };
+
+/** Normalizza un segmento di path o parametro a una lingua supportata. */
+export function toLocale(value: string | undefined | null): Locale {
+  return (locales as readonly string[]).includes(value ?? "") ? (value as Locale) : defaultLocale;
+}
+
+/** Tag BCP 47 per Intl (date, numeri, valute). */
+export const intlLocale: Record<Locale, string> = {
+  it: "it-IT",
+  en: "en-GB",
+  de: "de-DE",
+};
