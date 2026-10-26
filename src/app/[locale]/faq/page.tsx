@@ -47,7 +47,7 @@ const faqs: Record<Loc, { q: string; a: string }[]> = {
     },
     {
       q: "Quali sono gli orari di check-in e check-out?",
-      a: "Check-in dalle 14:00, check-out entro le 11:00. Orari flessibili su richiesta.",
+      a: "Check-in dalle 15:00, check-out entro le 10:00. Orari flessibili su richiesta.",
     },
     {
       q: "Si accettano animali domestici?",
@@ -89,7 +89,7 @@ const faqs: Record<Loc, { q: string; a: string }[]> = {
     },
     {
       q: "What are check-in and check-out times?",
-      a: "Check-in from 14:00, check-out by 11:00. Flexible times on request.",
+      a: "Check-in from 15:00, check-out by 10:00. Flexible times on request.",
     },
     {
       q: "Are pets allowed?",
@@ -131,7 +131,7 @@ const faqs: Record<Loc, { q: string; a: string }[]> = {
     },
     {
       q: "Wann sind Check-in und Check-out?",
-      a: "Check-in ab 14:00, Check-out bis 11:00. Auf Anfrage sind flexible Zeiten möglich.",
+      a: "Check-in ab 15:00, Check-out bis 10:00. Auf Anfrage sind flexible Zeiten möglich.",
     },
     {
       q: "Sind Haustiere erlaubt?",

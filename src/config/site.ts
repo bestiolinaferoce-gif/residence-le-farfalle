@@ -39,10 +39,10 @@ export const siteConfig = {
     en: "Double room at Residence Le Farfalle, Isola di Capo Rizzuto",
     de: "Doppelzimmer im Residence Le Farfalle, Isola di Capo Rizzuto",
   },
-  /** Orari unici per FAQ, contatti e JSON-LD (check-out da confermare: in passato compariva anche 10:00). */
+  /** Orari unici per FAQ, contatti e JSON-LD — allineati alle regole della struttura su Booking.com (check-in dalle 15:00, check-out entro le 10:00). */
   stay: {
-    checkIn: "14:00",
-    checkOut: "11:00",
+    checkIn: "15:00",
+    checkOut: "10:00",
     maxGuests: 8,
     rooms: 4,
     guestsPerRoom: 2,
@@ -80,12 +80,13 @@ export const siteConfig = {
    * Aggiornare qui e resta coerente ovunque, Google incluso.
    */
   pricing: {
-    fromEur: 90,
+    fromEur: 85,
     currency: "EUR",
     /**
      * Cosa comprende il "da €…": mostrato accanto al prezzo in ogni pagina.
-     * DA CONFERMARE con la proprietà: la pagina /camere mostrava "da €70",
-     * in contrasto con questo valore. Non è una tariffa garantita.
+     * Allineato alla tariffa Booking.com decisa per la bassa stagione (€85 a camera
+     * con colazione fino al 31/03/2027; €93 nel periodo 20/12–06/01).
+     * Il sito non deve mai mostrare un prezzo più alto di Booking.
      */
     basis: {
       it: "a notte per camera doppia, colazione inclusa. Tariffa minima indicativa: varia per date e durata, il prezzo esatto è nel preventivo.",

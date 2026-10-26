@@ -29,6 +29,7 @@ const copy = {
     noneTail: "Prova a spostarti di qualche giorno oppure",
     write: "scrivici",
     whatsappText: (a: string, b: string) => `Ciao! Vorrei sapere se avete disponibilità dal ${a} al ${b}.`,
+    directPerk: "Prenotando qui tratti direttamente con il gestore: nessun intermediario, nessuna commissione di portale.",
   },
   en: {
     arrival: "Check-in",
@@ -49,6 +50,7 @@ const copy = {
     noneTail: "Try moving a few days, or",
     write: "message us",
     whatsappText: (a: string, b: string) => `Hello! Do you have availability from ${a} to ${b}?`,
+    directPerk: "Book here and you deal directly with the host: no middleman, no booking-site commission.",
   },
   de: {
     arrival: "Anreise",
@@ -69,6 +71,7 @@ const copy = {
     noneTail: "Verschieben Sie die Reise um einige Tage oder",
     write: "schreiben Sie uns",
     whatsappText: (a: string, b: string) => `Hallo! Haben Sie vom ${a} bis ${b} ein Zimmer frei?`,
+    directPerk: "Direkt hier buchen: Sie sprechen mit dem Gastgeber selbst – ohne Vermittler und ohne Portalprovision.",
   },
 } as const;
 
@@ -184,6 +187,7 @@ export default function AvailabilityWidget({ locale: rawLocale, className }: Ava
         {c.from} <strong className="text-stone-900">€{siteConfig.pricing.fromEur}</strong>{" "}
         {siteConfig.pricing.basis[locale]}
       </p>
+      <p className="mt-1.5 text-left text-sm font-medium text-emerald-800">{c.directPerk}</p>
 
       <div aria-live="polite" className="text-left">
         {result.kind === "error" && (
