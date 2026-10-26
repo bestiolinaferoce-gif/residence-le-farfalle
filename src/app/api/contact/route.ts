@@ -127,7 +127,7 @@ export async function POST(req: NextRequest) {
 
   const apiKey = process.env.RESEND_API_KEY;
   const webhookUrl = process.env.N8N_WEBHOOK_URL;
-  const instantChannels = Boolean(process.env.CALLMEBOT_WHATSAPP || process.env.TELEGRAM_BOT_TOKEN);
+  const instantChannels = Boolean(process.env.CALLMEBOT_APIKEY || process.env.CALLMEBOT_WHATSAPP || process.env.TELEGRAM_BOT_TOKEN);
   if (!apiKey && !webhookUrl && !instantChannels) {
     console.error("[contact] nessun canale di consegna configurato (RESEND_API_KEY / N8N_WEBHOOK_URL)");
     return json({ ok: false, error: "not_configured" }, 503);

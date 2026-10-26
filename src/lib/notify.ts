@@ -1,14 +1,16 @@
 /**
- * Notifiche istantanee al gestore per ogni richiesta dal sito.
+ * Notifiche istantanee al gestore per ogni richiesta dal sito (regola fissa).
  *
- * Canali (ognuno si attiva solo se le sue variabili d'ambiente sono presenti):
- * - WhatsApp automatico via CallMeBot: CALLMEBOT_WHATSAPP = "393245852358:APIKEY"
- *   (più destinatari separati da virgola). La chiave la ottiene il destinatario
- *   scrivendo al bot CallMeBot dal proprio WhatsApp.
- * - Telegram: TELEGRAM_BOT_TOKEN + TELEGRAM_CHAT_IDS (chat id separati da virgola).
+ * Destinatari: definiti nel codice in siteConfig.managerNotify (dati non segreti).
+ * Chiavi: solo nelle variabili Vercel, perché il repository è pubblico.
+ * - WhatsApp automatico via CallMeBot: CALLMEBOT_APIKEY (la ottiene il gestore
+ *   scrivendo al bot dal proprio WhatsApp). Si invia a managerNotify.whatsappPhone.
+ * - Telegram: TELEGRAM_BOT_TOKEN; destinatari managerNotify.telegramChatIds
+ *   più eventuali TELEGRAM_CHAT_IDS.
  *
  * Nei log mai dati personali: solo esito per canale.
  */
+import { siteConfig } from "@/src/config/site";
 import { rooms as roomData } from "@/src/data/rooms/rooms";
 import { nightsBetween, type StayRequest } from "@/src/lib/stay-request";
 
@@ -42,7 +44,11 @@ export function notificationText(r: StayRequest): string {
 }
 
 async function sendCallMeBot(text: string): Promise<boolean[]> {
-  const targets = list(process.env.CALLMEBOT_WHATSAPP);
+  const apikey = process.env.CALLMEBOT_APIKEY?.trim();
+  const targets = [
+    ...(apikey ? [`${siteConfig.managerNotify.whatsappPhone}:${apikey}`] : []),
+    ...list(process.env.CALLMEBOT_WHATSAPP),
+  ];
   return Promise.all(
     targets.map(async (t) => {
       const [phone, apikey] = t.split(":").map((s) => s.trim());
@@ -64,7 +70,7 @@ async function sendCallMeBot(text: string): Promise<boolean[]> {
 
 async function sendTelegram(text: string): Promise<boolean[]> {
   const token = process.env.TELEGRAM_BOT_TOKEN?.trim();
-  const chats = list(process.env.TELEGRAM_CHAT_IDS);
+  const chats = [...new Set([...siteConfig.managerNotify.telegramChatIds, ...list(process.env.TELEGRAM_CHAT_IDS)])];
   if (!token) return [];
   return Promise.all(
     chats.map(async (chatId) => {
@@ -100,6 +106,6 @@ export async function notifyManager(r: StayRequest): Promise<{ whatsapp: number;
  */
 export function emailRecipients(fallback: string): string[] {
   const base = list(process.env.HOST_EMAIL);
-  const all = [...(base.length ? base : [fallback]), ...list(process.env.NOTIFY_EMAILS)];
+  const all = [...(base.length ? base : [fallback]), ...siteConfig.managerNotify.extraEmails, ...list(process.env.NOTIFY_EMAILS)];
   return [...new Set(all.map((e) => e.toLowerCase()))];
 }

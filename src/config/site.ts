@@ -69,6 +69,20 @@ export const siteConfig = {
     email: CONTACT_EMAIL,
     whatsapp: "+39 3245852358",
   },
+  /**
+   * Regola fissa: ogni richiesta dal sito avvisa SUBITO il gestore (Santino)
+   * su tutti i canali attivi, in parallelo con l'email alla casella ufficiale.
+   * Qui solo dati NON segreti: il repository è pubblico, quindi le chiavi
+   * (CALLMEBOT_APIKEY, TELEGRAM_BOT_TOKEN) stanno solo nelle variabili Vercel.
+   */
+  managerNotify: {
+    /** WhatsApp automatico: numero del gestore (stesso numero pubblico del sito). */
+    whatsappPhone: "393245852358",
+    /** Chat id Telegram del gestore (non segreti): aggiungere qui quando disponibili. */
+    telegramChatIds: [] as string[],
+    /** Email aggiuntive del gestore, oltre alla casella ufficiale. */
+    extraEmails: [] as string[],
+  },
   /** Social / OTA: valorizzare su Vercel o qui quando disponibili */
   social: {
     // TODO: inserire URL reale — es. "https://www.facebook.com/residencelefarfalle"
