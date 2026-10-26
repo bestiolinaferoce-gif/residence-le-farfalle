@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { siteConfig, resolveEmailFrom } from "@/src/config/site";
 import { rooms as roomData } from "@/src/data/rooms/rooms";
 import { coerceStayRequest, nightsBetween, validateStayRequest, type StayRequest } from "@/src/lib/stay-request";
+import { emailRecipients, notifyManager } from "@/src/lib/notify";
 
 export const dynamic = "force-dynamic";
 
@@ -126,12 +127,16 @@ export async function POST(req: NextRequest) {
 
   const apiKey = process.env.RESEND_API_KEY;
   const webhookUrl = process.env.N8N_WEBHOOK_URL;
-  if (!apiKey && !webhookUrl) {
+  const instantChannels = Boolean(process.env.CALLMEBOT_WHATSAPP || process.env.TELEGRAM_BOT_TOKEN);
+  if (!apiKey && !webhookUrl && !instantChannels) {
     console.error("[contact] nessun canale di consegna configurato (RESEND_API_KEY / N8N_WEBHOOK_URL)");
     return json({ ok: false, error: "not_configured" }, 503);
   }
 
   let delivered = false;
+
+  // WhatsApp e Telegram al gestore partono subito, in parallelo con l'email.
+  const instant = notifyManager(request).catch(() => ({ whatsapp: 0, telegram: 0 }));
 
   if (apiKey) {
     try {
@@ -143,7 +148,7 @@ export async function POST(req: NextRequest) {
           : "Nuovo messaggio dal sito";
       const { error } = await resend.emails.send({
         from: resolveEmailFrom(process.env.RESEND_FROM),
-        to: process.env.HOST_EMAIL || siteConfig.contacts.email,
+        to: emailRecipients(siteConfig.contacts.email),
         replyTo: request.email.trim(),
         subject,
         html: emailHtml(request),
@@ -185,6 +190,9 @@ export async function POST(req: NextRequest) {
       console.error("[contact][n8n] eccezione", err instanceof Error ? err.name : "unknown");
     }
   }
+
+  const sent = await instant;
+  if (sent.whatsapp > 0 || sent.telegram > 0) delivered = true;
 
   return delivered ? json({ ok: true }) : json({ ok: false, error: "delivery_failed" }, 502);
 }
