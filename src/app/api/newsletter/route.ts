@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { siteConfig } from "@/src/config/site";
+import { siteConfig, resolveEmailFrom } from "@/src/config/site";
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -25,7 +25,7 @@ export async function POST(req: NextRequest) {
     const audienceId = process.env.RESEND_AUDIENCE_ID;
     const hostEmail = process.env.HOST_EMAIL || siteConfig.contacts.email;
     const fromAddress =
-      process.env.RESEND_FROM || "Residence Le Farfalle <onboarding@resend.dev>";
+      resolveEmailFrom(process.env.RESEND_FROM);
 
     if (!apiKey) {
       // Nessun canale configurato: non confermiamo un'iscrizione che non avviene

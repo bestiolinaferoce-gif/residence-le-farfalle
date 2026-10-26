@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { siteConfig } from "@/src/config/site";
+import { siteConfig, resolveEmailFrom } from "@/src/config/site";
 import { rooms as roomData } from "@/src/data/rooms/rooms";
 import { coerceStayRequest, nightsBetween, validateStayRequest, type StayRequest } from "@/src/lib/stay-request";
 
@@ -142,7 +142,7 @@ export async function POST(req: NextRequest) {
           ? `Richiesta disponibilità ${request.checkIn} → ${request.checkOut} · ${request.guests} ospiti`
           : "Nuovo messaggio dal sito";
       const { error } = await resend.emails.send({
-        from: process.env.RESEND_FROM || "Residence Le Farfalle <onboarding@resend.dev>",
+        from: resolveEmailFrom(process.env.RESEND_FROM),
         to: process.env.HOST_EMAIL || siteConfig.contacts.email,
         replyTo: request.email.trim(),
         subject,

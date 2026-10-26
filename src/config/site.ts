@@ -5,6 +5,19 @@
 /** Email di contatto ufficiale (form, footer, privacy, structured data) */
 export const CONTACT_EMAIL = "lefarfallecaporizzuto@gmail.com" as const;
 
+/**
+ * Mittente delle email inviate dal sito (Resend). Deve stare sul dominio
+ * residencelefarfalle.com verificato su Resend: il mittente di prova
+ * onboarding@resend.dev consegna solo al titolare dell'account Resend.
+ */
+export const DEFAULT_EMAIL_FROM = "Residence Le Farfalle <prenotazioni@residencelefarfalle.com>" as const;
+
+/** Usa RESEND_FROM solo se è sul dominio del sito, altrimenti il mittente di default. */
+export function resolveEmailFrom(envFrom: string | undefined): string {
+  const v = (envFrom ?? "").trim();
+  return v.toLowerCase().includes("@residencelefarfalle.com") ? v : DEFAULT_EMAIL_FROM;
+}
+
 const resolvedSiteUrl =
   (process.env.NEXT_PUBLIC_SITE_URL ?? "").trim().replace(/\/$/, "") ||
   "https://www.residencelefarfalle.com";

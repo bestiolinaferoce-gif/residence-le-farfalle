@@ -70,6 +70,18 @@ const labels = {
     send: "Invia la richiesta",
     sending: "Invio in corso…",
     successTitle: "Richiesta ricevuta",
+    waSuccessTitle: "Ultimo passo: invia la richiesta anche su WhatsApp",
+    waSuccessText: "Ti abbiamo aperto WhatsApp con il riepilogo già scritto: premi Invia e arriva subito al gestore della struttura. Se non si è aperto, usa il pulsante qui sotto.",
+    waSuccessButton: "Invia su WhatsApp",
+    waIntro: "Buongiorno, ho appena inviato dal sito una richiesta di soggiorno al Residence Le Farfalle:",
+    waName: "Nome",
+    waDates: "Date",
+    waGuests: "Ospiti",
+    waRooms: "Camere",
+    waRoom: "Camera preferita",
+    waPhone: "Telefono",
+    waEmail: "Email",
+    waMessage: "Messaggio",
     successText:
       "Grazie! Il messaggio è arrivato alla struttura. Non è ancora una prenotazione: ti rispondiamo con disponibilità e prezzo usando il canale che hai indicato.",
     errorSummary: "Controlla i campi evidenziati:",
@@ -134,6 +146,18 @@ const labels = {
     send: "Send request",
     sending: "Sending…",
     successTitle: "Request received",
+    waSuccessTitle: "Last step: send your request on WhatsApp too",
+    waSuccessText: "We opened WhatsApp with your summary already written: just tap Send and it reaches the property manager straight away. If it didn't open, use the button below.",
+    waSuccessButton: "Send on WhatsApp",
+    waIntro: "Hello, I have just sent a stay request to Residence Le Farfalle from your website:",
+    waName: "Name",
+    waDates: "Dates",
+    waGuests: "Guests",
+    waRooms: "Rooms",
+    waRoom: "Preferred room",
+    waPhone: "Phone",
+    waEmail: "Email",
+    waMessage: "Message",
     successText:
       "Thank you! Your message has reached the property. This is not a booking yet: we'll reply with availability and price through the channel you chose.",
     errorSummary: "Please check the highlighted fields:",
@@ -198,6 +222,18 @@ const labels = {
     send: "Anfrage senden",
     sending: "Wird gesendet…",
     successTitle: "Anfrage erhalten",
+    waSuccessTitle: "Letzter Schritt: Anfrage auch per WhatsApp senden",
+    waSuccessText: "Wir haben WhatsApp mit Ihrer Zusammenfassung geöffnet: Tippen Sie auf Senden, und sie erreicht sofort den Gastgeber. Falls es sich nicht geöffnet hat, nutzen Sie die Schaltfläche unten.",
+    waSuccessButton: "Per WhatsApp senden",
+    waIntro: "Guten Tag, ich habe soeben über Ihre Website eine Aufenthaltsanfrage an das Residence Le Farfalle gesendet:",
+    waName: "Name",
+    waDates: "Daten",
+    waGuests: "Gäste",
+    waRooms: "Zimmer",
+    waRoom: "Wunschzimmer",
+    waPhone: "Telefon",
+    waEmail: "E-Mail",
+    waMessage: "Nachricht",
     successText:
       "Vielen Dank! Ihre Nachricht ist bei uns eingegangen. Das ist noch keine Buchung: Wir antworten mit Verfügbarkeit und Preis über den gewählten Kanal.",
     errorSummary: "Bitte prüfen Sie die markierten Felder:",
@@ -341,6 +377,26 @@ function ContactFormInner({ type = "contact", locale: rawLocale, prefill }: Cont
 
   const focusSummary = () => requestAnimationFrame(() => summaryRef.current?.focus());
 
+  const waDigits = siteConfig.contacts.whatsapp.replace(/\D/g, "");
+  /** Riepilogo completo della richiesta da recapitare via WhatsApp al gestore. */
+  const buildWhatsappSummaryHref = (f: FormState) => {
+    const roomName = f.room ? rooms.find((r) => r.slug === f.room)?.name[locale] ?? f.room : "";
+    const lines = [
+      t.waIntro,
+      "",
+      `${t.waName}: ${f.name.trim()}`,
+      isPreventivo && f.checkIn && f.checkOut ? `${t.waDates}: ${f.checkIn} → ${f.checkOut}` : "",
+      isPreventivo ? `${t.waGuests}: ${f.guests}` : "",
+      isPreventivo ? `${t.waRooms}: ${f.rooms}` : "",
+      roomName ? `${t.waRoom}: ${roomName}` : "",
+      f.phone.trim() ? `${t.waPhone}: ${f.phone.trim()}` : "",
+      `${t.waEmail}: ${f.email.trim()}`,
+      f.message.trim() ? `${t.waMessage}: ${f.message.trim()}` : "",
+    ].filter((l, i) => l !== "" || i === 1);
+    return `https://wa.me/${waDigits}?text=${encodeURIComponent(lines.join("\n"))}`;
+  };
+  const [waSummaryHref, setWaSummaryHref] = useState("");
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setSubmitted(true);
@@ -351,6 +407,10 @@ function ContactFormInner({ type = "contact", locale: rawLocale, prefill }: Cont
       return;
     }
     setStatus("loading");
+    // La scheda va aperta subito, dentro il clic: aperta dopo la risposta del server
+    // verrebbe bloccata dal browser come popup. Se l'invio fallisce la chiudiamo.
+    const summaryHref = buildWhatsappSummaryHref(form);
+    const waWindow = waDigits.length >= 10 ? window.open("", "_blank") : null;
     try {
       const res = await fetch("/api/contact", {
         method: "POST",
@@ -361,9 +421,15 @@ function ContactFormInner({ type = "contact", locale: rawLocale, prefill }: Cont
       if (res.ok && data.ok) {
         if (isPreventivo) GA_EVENTS.formSubmitPreventivo();
         else GA_EVENTS.formSubmitContact();
+        setWaSummaryHref(summaryHref);
+        if (waWindow) {
+          waWindow.location.href = summaryHref;
+          GA_EVENTS.clickWhatsapp("form-success");
+        }
         setStatus("success");
         return;
       }
+      waWindow?.close();
       GA_EVENTS.formSubmitError(type, data.error ?? String(res.status));
       if (res.status === 422 && data.fields) {
         setErrors(data.fields);
@@ -373,12 +439,12 @@ function ContactFormInner({ type = "contact", locale: rawLocale, prefill }: Cont
       }
       setStatus(res.status === 429 ? "rate" : "error");
     } catch {
+      waWindow?.close();
       GA_EVENTS.formSubmitError(type, "network");
       setStatus("error");
     }
   };
 
-  const waDigits = siteConfig.contacts.whatsapp.replace(/\D/g, "");
   const waText =
     isPreventivo && form.checkIn && form.checkOut
       ? `${form.checkIn} → ${form.checkOut}, ${form.guests} ${t.guests.toLowerCase()}`
@@ -393,6 +459,22 @@ function ContactFormInner({ type = "contact", locale: rawLocale, prefill }: Cont
         </div>
         <h2 className="mt-5 font-display text-2xl font-bold text-emerald-950">{t.successTitle}</h2>
         <p className="mx-auto mt-3 max-w-md text-emerald-950">{t.successText}</p>
+        {waSummaryHref ? (
+          <div className="mx-auto mt-6 max-w-md rounded-2xl border border-emerald-300 bg-white p-5">
+            <p className="font-semibold text-emerald-950">{t.waSuccessTitle}</p>
+            <p className="mt-2 text-sm text-emerald-900">{t.waSuccessText}</p>
+            <a
+              href={waSummaryHref}
+              target="_blank"
+              rel="noreferrer"
+              onClick={() => GA_EVENTS.clickWhatsapp("form-success-button")}
+              className="mt-4 inline-flex min-h-11 items-center justify-center gap-2 rounded-xl bg-emerald-700 px-5 py-3 font-semibold text-white transition hover:bg-emerald-800"
+            >
+              <MessageCircle className="h-5 w-5" aria-hidden />
+              {t.waSuccessButton}
+            </a>
+          </div>
+        ) : null}
       </div>
     );
   }
