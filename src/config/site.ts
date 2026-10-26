@@ -52,9 +52,9 @@ export const siteConfig = {
     lng: 17.09162398176466,
   },
   contacts: {
-    phone: "+39 3500979130",
+    phone: "+39 3245852358",
     email: CONTACT_EMAIL,
-    whatsapp: "+39 3500979130",
+    whatsapp: "+39 3245852358",
   },
   /** Social / OTA: valorizzare su Vercel o qui quando disponibili */
   social: {
